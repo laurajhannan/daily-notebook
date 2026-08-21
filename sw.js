@@ -8,7 +8,7 @@
  * up on activate.
  */
 
-const CACHE_NAME = 'daily-notebook-v3';
+const CACHE_NAME = 'daily-notebook-v4';
 
 // Paths are relative to this file, which sits at the app root. That keeps
 // everything working when the app is served from a subfolder.
@@ -46,7 +46,15 @@ self.addEventListener('install', (event) => {
     // Added one at a time so a single failure can't abort the whole install.
     await Promise.all(SHELL.concat(DATA).map(async (path) => {
       try {
-        await cache.add(new Request(path, { cache: 'reload' }));
+        // `cache: 'reload'` only bypasses the browser's own cache — the host's
+        // CDN can still hand back a stale copy, which would bake the previous
+        // release into a brand-new cache and quietly break updates. Adding the
+        // cache name as a query string forces a genuinely fresh copy, then we
+        // store it under the clean URL so lookups still match.
+        const fresh = await fetch(`${path}${path.includes('?') ? '&' : '?'}v=${CACHE_NAME}`,
+          { cache: 'reload' });
+        if (!fresh.ok) throw new Error(`HTTP ${fresh.status}`);
+        await cache.put(new Request(path), fresh);
       } catch (err) {
         console.error('Pre-cache failed for', path, err);
       }
