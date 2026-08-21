@@ -395,6 +395,15 @@ export async function renderFood(root, ctx) {
   };
   input.addEventListener('input', draw);
 
+  // Anti-inflammatory plans are handed around freely and three items in them
+  // are wrong for her specifically. Surface that where she'll meet it.
+  if (food.borrowedPlanNote) {
+    const bp = el('div', { class: 'card' });
+    bp.appendChild(el('h3', { text: 'If someone gives you an anti-inflammatory plan' }));
+    bp.appendChild(el('p', { text: food.borrowedPlanNote }));
+    root.appendChild(bp);
+  }
+
   // The honest caveat sits under the search, so it lands after a result rather
   // than lecturing before anything has been asked.
   if (food.honesty) {

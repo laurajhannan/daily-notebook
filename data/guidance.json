@@ -1693,7 +1693,7 @@
           "fresh ginger",
           "ginger tea"
         ],
-        "why": "Anti-inflammatory, and useful for nausea. Grate into food or steep in hot water."
+        "why": "Anti-inflammatory, and a strong anti-sickness agent — which matters for you, because several prescription anti-sickness drugs interact with tamoxifen. Grate into food, or steep fresh slices in hot water."
       },
       {
         "id": "cruciferous",
@@ -1791,8 +1791,229 @@
           "empty stomach"
         ],
         "why": "Some cancer nutrition plans suggest fasting before radiotherapy. That advice is not for you: going without food is one of your most reliable migraine triggers, and a full day without it is what set off the run of headaches you're in. Eat before appointments, and take something with you."
+      },
+      {
+        "id": "liquoricetea",
+        "name": "Liquorice tea",
+        "verdict": "check",
+        "aliases": [
+          "liquorice tea",
+          "licorice tea",
+          "dandelion liquorice"
+        ],
+        "why": "Often suggested in general anti-inflammatory plans as a coffee substitute. Liquorice raises blood pressure, which matters more for you than for most people."
+      },
+      {
+        "id": "wine",
+        "name": "Wine",
+        "verdict": "avoid",
+        "aliases": [
+          "red wine",
+          "white wine",
+          "wine",
+          "prosecco",
+          "champagne"
+        ],
+        "why": "You'll see red wine recommended in Mediterranean-diet and polyphenol guides. Those are written for the general population — alcohol is linked to breast-cancer recurrence and sets off both migraine and flushes. The polyphenols are in the grapes, and in berries, without the alcohol."
+      },
+      {
+        "id": "buttonmushroom",
+        "name": "Button and white mushrooms",
+        "verdict": "helps",
+        "aliases": [
+          "button mushroom",
+          "white mushroom",
+          "closed cup",
+          "white cup mushroom"
+        ],
+        "why": "Worth knowing: ordinary button mushrooms have been shown to reduce aromatase, the enzyme that makes oestrogen. For an oestrogen-driven cancer that's a useful thing from the cheapest item on the shelf."
+      },
+      {
+        "id": "cinnamon",
+        "name": "Cinnamon",
+        "verdict": "helps",
+        "aliases": [
+          "cinnamon",
+          "cassia"
+        ],
+        "why": "Helps steady blood sugar, which is the lever that matters most for your headaches. Good on porridge or in a bedtime snack."
+      },
+      {
+        "id": "rosemaryherb",
+        "name": "Rosemary",
+        "verdict": "helps",
+        "aliases": [
+          "rosemary",
+          "rosmarinic"
+        ],
+        "why": "Anti-inflammatory, and there's a practical trick: rosemary counters some of the harmful compounds formed when meat is cooked at high heat. Worth adding to a marinade."
+      },
+      {
+        "id": "fermentedveg",
+        "name": "Fermented vegetables",
+        "verdict": "helps",
+        "aliases": [
+          "sauerkraut",
+          "kimchi",
+          "fermented vegetables",
+          "pickles",
+          "kombucha"
+        ],
+        "why": "Good for gut bacteria. Choose vegetable ferments rather than soy-based ones like miso or tempeh, which are a separate question for you."
+      },
+      {
+        "id": "wholegrains2",
+        "name": "Buckwheat, barley, rye and wild rice",
+        "verdict": "helps",
+        "aliases": [
+          "buckwheat",
+          "barley",
+          "rye",
+          "wild rice",
+          "farro",
+          "steel cut oats",
+          "freekeh",
+          "bulgur"
+        ],
+        "why": "Whole grains with everything still in them. Better than white bread, white rice or anything labelled 'enriched'."
+      },
+      {
+        "id": "refined",
+        "name": "White bread, white rice and sugary things",
+        "verdict": "watch",
+        "aliases": [
+          "white bread",
+          "white rice",
+          "white pasta",
+          "bagel",
+          "sugary drink",
+          "pastry",
+          "sweets"
+        ],
+        "why": "Refined carbohydrates spike blood sugar and raise inflammation. Not forbidden — but on an empty stomach the crash afterwards is a headache waiting to happen."
+      },
+      {
+        "id": "omega6oils",
+        "name": "Sunflower, corn and vegetable oils",
+        "verdict": "watch",
+        "aliases": [
+          "sunflower oil",
+          "corn oil",
+          "vegetable oil",
+          "safflower",
+          "soybean oil",
+          "rapeseed"
+        ],
+        "why": "Anti-inflammatory plans suggest using these less and olive or avocado oil more. A small swap, easily done."
+      },
+      {
+        "id": "polyphenolfruit",
+        "name": "Cherries, plums, blackcurrants and other dark fruit",
+        "verdict": "helps",
+        "aliases": [
+          "cherry",
+          "cherries",
+          "plum",
+          "prune",
+          "blackcurrant",
+          "elderberry",
+          "chokeberry",
+          "apricot",
+          "nectarine",
+          "peach",
+          "pear",
+          "grapes"
+        ],
+        "why": "Among the highest-polyphenol foods there are. Darker usually means more."
+      },
+      {
+        "id": "onions",
+        "name": "Onions, shallots and red onion",
+        "verdict": "helps",
+        "aliases": [
+          "onion",
+          "red onion",
+          "shallot",
+          "spring onion",
+          "leek"
+        ],
+        "why": "Quercetin, and one of the easiest things to build a meal on."
+      },
+      {
+        "id": "artichoke",
+        "name": "Globe artichoke, asparagus and celery",
+        "verdict": "helps",
+        "aliases": [
+          "artichoke",
+          "asparagus",
+          "celery",
+          "capers"
+        ],
+        "why": "All high in polyphenols, and all easy additions rather than projects."
+      },
+      {
+        "id": "avocado",
+        "name": "Avocado",
+        "verdict": "helps",
+        "aliases": [
+          "avocado",
+          "avocados"
+        ],
+        "why": "Monounsaturated fat, and filling. Good alongside eggs at breakfast."
+      },
+      {
+        "id": "herbsgeneral",
+        "name": "Herbs — thyme, oregano, parsley, basil, mint",
+        "verdict": "helps",
+        "aliases": [
+          "thyme",
+          "oregano",
+          "parsley",
+          "basil",
+          "mint",
+          "coriander",
+          "cilantro",
+          "dill",
+          "bay leaf",
+          "tarragon"
+        ],
+        "why": "Among the most polyphenol-dense things in the kitchen, gram for gram. Use them generously rather than as a garnish."
+      },
+      {
+        "id": "wildfish",
+        "name": "Wild-caught fish",
+        "verdict": "helps",
+        "aliases": [
+          "wild salmon",
+          "wild caught",
+          "sardines",
+          "mackerel",
+          "anchovies",
+          "herring",
+          "trout"
+        ],
+        "why": "Wild-caught carries more omega-3 than farmed. Tinned sardines and mackerel count and cost little."
+      },
+      {
+        "id": "crucifermore",
+        "name": "Bok choi, chard, radishes, turnips and horseradish",
+        "verdict": "helps",
+        "aliases": [
+          "bok choi",
+          "pak choi",
+          "chard",
+          "swiss chard",
+          "collard greens",
+          "horseradish",
+          "mustard greens",
+          "radish",
+          "turnip",
+          "wasabi"
+        ],
+        "why": "All cruciferous, same family as broccoli. One at every meal is the usual suggestion — a handful on the side counts."
       }
-    ]
+    ],
+    "borrowedPlanNote": "A note on general anti-inflammatory plans: they're written for everyone, and three things in them don't apply to you. Soy — tofu, tempeh, miso, edamame — appears in almost all of them, but it has oestrogen-like activity and it's one of your migraine triggers. Red wine is recommended as part of the Mediterranean pattern, but alcohol is linked to recurrence and sets off both migraine and flushes. And liquorice tea is suggested as a coffee substitute, which raises blood pressure. Everything else in those plans — the vegetables, olive oil, herbs, berries, fish, whole grains — applies to you as much as anyone."
   },
   "radiotherapy": {
     "intro": "Most breast radiotherapy in the UK is now five sessions over one week. Here's what tends to happen, so less of it comes as a surprise.",
