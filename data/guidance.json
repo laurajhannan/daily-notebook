@@ -4,7 +4,7 @@
   "tamoxifenActive": false,
   "pharmacistLine": {
     "active": "Whatever it is, tell the pharmacist about your breast-cancer medicine every time — even for things off the supermarket shelf.",
-    "pending": "Whatever it is, tell the pharmacist you've been treated for breast cancer and are expecting to start tamoxifen — every time, even for things off the supermarket shelf."
+    "pending": "Whatever it is, tell the pharmacist you've been treated for breast cancer and may be starting endocrine treatment — every time, even for things off the supermarket shelf."
   },
   "verdicts": {
     "avoid": {
@@ -278,7 +278,7 @@
         "coenzyme q10"
       ],
       "verdict": "current",
-      "why": "Part of your migraine routine. Ask the oncologist whether to pause it during radiotherapy week."
+      "why": "Part of your migraine routine. Worth asking the oncologist whether to pause it while radiotherapy is running — a short pause is a smaller ask than a long one, and they'll know the schedule."
     },
     {
       "name": "Codeine and co-codamol",
@@ -1038,7 +1038,7 @@
         "topical turmeric"
       ],
       "verdict": "check",
-      "why": "Rubbed on rather than swallowed, so far less reaches the bloodstream than a capsule — but it's still turmeric and you'll be on tamoxifen. Ask the radiotherapy team, who will have their own view on what goes on treated skin."
+      "why": "Rubbed on rather than swallowed, so far less reaches the bloodstream than a capsule — but it's still turmeric, and turmeric is one to raise if tamoxifen is prescribed. Ask the radiotherapy team too: they'll have their own view on what goes on treated skin."
     },
     {
       "name": "Moogoo and similar unperfumed skin creams",
@@ -2016,7 +2016,7 @@
     "borrowedPlanNote": "A note on general anti-inflammatory plans: they're written for everyone, and three things in them don't apply to you. Soy — tofu, tempeh, miso, edamame — appears in almost all of them, but it has oestrogen-like activity and it's one of your migraine triggers. Red wine is recommended as part of the Mediterranean pattern, but alcohol is linked to recurrence and sets off both migraine and flushes. And liquorice tea is suggested as a coffee substitute, which raises blood pressure. Everything else in those plans — the vegetables, olive oil, herbs, berries, fish, whole grains — applies to you as much as anyone."
   },
   "radiotherapy": {
-    "intro": "Most breast radiotherapy in the UK is now five sessions over one week. Here's what tends to happen, so less of it comes as a surprise.",
+    "intro": "Nothing here is your schedule — your team will give you that at your appointment. Most UK units now use five sessions over one week, though some use fifteen over three weeks, and the plan is theirs to set. What follows is what tends to happen either way, so less of it comes as a surprise.",
     "sections": [
       {
         "title": "Your skin, and the bit nobody warns you about",
@@ -2046,9 +2046,9 @@
         ]
       },
       {
-        "title": "Protecting the week from a migraine",
+        "title": "Protecting those days from a migraine",
         "lines": [
-          "Five days of appointments means disrupted routine, disrupted meals and less sleep — three of your reliable triggers at once.",
+          "Whatever the schedule, a run of daily appointments means disrupted routine, disrupted meals and less sleep — three of your reliable triggers at once.",
           "Plan food for those days in advance rather than deciding when you get there.",
           "Take water and something to eat to every appointment; waiting times are unpredictable.",
           "Keep your caffeine at its usual level. A skipped morning coffee on a hospital day is a classic way to bring an attack on.",
@@ -2070,7 +2070,7 @@
         "title": "Supplements around treatment",
         "lines": [
           "Ask your team before treatment starts, and be led by them rather than by anything written for someone else.",
-          "Concentrated antioxidant supplements are the ones most often paused for the treatment week — CoQ10 is the relevant one for you.",
+          "Concentrated antioxidant supplements are the ones most often paused while treatment is running — CoQ10 is the relevant one for you.",
           "Turmeric and curcumin capsules are a separate issue: they interfere with tamoxifen whatever the timing.",
           "Plain food versions of all of these — turmeric in cooking, berries, mushrooms on toast — are a different question and generally fine."
         ]
@@ -2078,7 +2078,8 @@
       {
         "title": "Worth asking before you start",
         "lines": [
-          "Whether to pause the CoQ10 for the treatment week.",
+          "How many sessions, over how long? That decides most of the practical planning.",
+          "Whether to pause the CoQ10 while treatment is running.",
           "Which moisturiser they'd like you to use.",
           "What to do if the skin breaks or gets very sore.",
           "Whether your appointment times can be grouped to suit your day."
@@ -2170,8 +2171,8 @@
         "title": "Worth asking your hospital team",
         "items": [
           {
-            "text": "Should I pause the CoQ10 during radiotherapy week?",
-            "why": "It's an antioxidant, and there's a theoretical question about antioxidants during radiotherapy. Radiotherapy is usually only one week, so pausing may cost you very little."
+            "text": "Should I pause the CoQ10 while I'm having radiotherapy?",
+            "why": "It's an antioxidant, and there's a theoretical question about antioxidants during radiotherapy. How much of an ask that is depends on how long your course runs, which they'll tell you."
           },
           {
             "text": "Which moisturiser would you like me to use on the treated skin?",
@@ -2213,8 +2214,8 @@
   },
   "noclashNote": "This means it isn't known to interfere with your treatment — not that it's proven to work. Most natural products have never had a large trial, because nobody funds one for something that grows on a log. Absence of evidence isn't evidence of absence, but it isn't proof either. Still worth telling your team you take it.",
   "timingNote": {
-    "title": "You haven't started tamoxifen yet",
-    "text": "Worth knowing which flags apply when. Some things here clash with tamoxifen specifically — those matter from the day you start, and they're flagged now so nothing catches you out in the meantime. Others apply already, because your cancer is oestrogen-driven: soy, sage, red clover, HRT and anything sold as a natural hormone. If you're unsure which is which, the pharmacist can tell you in a sentence.",
-    "startedPrompt": "Started tamoxifen? Tell Laura and she'll have this updated."
+    "title": "Tamoxifen hasn't been started — or confirmed",
+    "text": "Endocrine treatment is expected but not settled, and tamoxifen is the likeliest option rather than a decision already taken. Worth knowing which flags apply when. Things that clash with tamoxifen are marked now so nothing catches you out if it's prescribed. Others apply already, whatever you end up on, because your cancer is oestrogen-driven: soy, sage, red clover, HRT and anything sold as a natural hormone. If you're unsure which is which, the pharmacist can tell you in a sentence.",
+    "startedPrompt": "Once you know what you're being prescribed, tell Laura and she'll have this updated."
   }
 }
