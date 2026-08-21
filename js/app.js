@@ -317,10 +317,71 @@ async function renderSettings(root, c) {
     ['Last backup', lastBackup ? S.formatShort(lastBackup) : 'never'],
     ['Days recorded', String(entryCount)]
   ];
+  const updated = (c.guidance && c.guidance.updated) || null;
+  if (updated) rows.splice(2, 0, ['Guidance updated', S.formatShort(updated)]);
   for (const [k, v] of rows) {
     ul.appendChild(el('li', {}, [el('span', { text: k }), el('span', { class: 'stat-val', text: v })]));
   }
   statusCard.appendChild(ul);
+
+  // A safe way to force a refresh. Everything here leaves her entries alone —
+  // the destructive fix (clearing site data) must never be the advice.
+  const refresh = el('button', { type: 'button', class: 'btn btn-block mt', text: 'Check for updates' });
+  refresh.addEventListener('click', async () => {
+    refresh.disabled = true;
+    refresh.textContent = 'Checking…';
+    try {
+      // Ask the service worker to look for a new version.
+      if ('serviceWorker' in navigator) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map((r) => r.update().catch(() => {})));
+      }
+      // And pull the guidance files past any cache, so wording changes land
+      // even when the app shell itself hasn't changed.
+      const stamp = Date.now();
+      const fresh = await Promise.all([
+        fetch(`./data/guidance.json?v=${stamp}`, { cache: 'reload' }).then((r) => r.json()),
+        fetch(`./data/safety.json?v=${stamp}`, { cache: 'reload' }).then((r) => r.json())
+      ]);
+      const newDate = fresh[0] && fresh[0].updated;
+      if (newDate && newDate !== updated) {
+        c.toast('Update found — reopening');
+        setTimeout(() => window.location.reload(), 900);
+      } else {
+        c.toast('You already have the latest version');
+        refresh.disabled = false;
+        refresh.textContent = 'Check for updates';
+      }
+    } catch {
+      c.toast('Could not check — are you online?');
+      refresh.disabled = false;
+      refresh.textContent = 'Check for updates';
+    }
+  });
+  statusCard.appendChild(refresh);
+  statusCard.appendChild(el('p', { class: 'muted small mt',
+    text: 'Safe to tap at any time. It never touches anything you have written.' }));
+
+  // Troubleshooting, folded away.
+  const trouble = el('details', { class: 'acc' });
+  trouble.appendChild(el('summary', { text: 'If the app seems out of date' }));
+  const tb = el('div', { class: 'acc-body' });
+  tb.appendChild(el('p', { text: 'Try these in order. None of them lose your notes.' }));
+  const ol = el('ol');
+  for (const step of [
+    'Tap Check for updates above.',
+    'Close the app completely — swipe it away in your recent apps — then open it again. Do that twice: updates usually land on the second opening.',
+    'Check you have signal or wi-fi, then try again.',
+    'Restart the phone.'
+  ]) ol.appendChild(el('li', { text: step }));
+  tb.appendChild(ol);
+  const warn = el('p', { class: 'trouble-warn' });
+  warn.appendChild(el('strong', { text: 'Do not clear your browsing data, and do not delete the icon. ' }));
+  warn.appendChild(el('span', { text: 'Either would erase everything you have recorded. If none of the steps above work, save a backup first and then ask Laura.' }));
+  tb.appendChild(warn);
+  trouble.appendChild(tb);
+  statusCard.appendChild(trouble);
+
   root.appendChild(statusCard);
 
   /* --- About --- */

@@ -443,3 +443,8 @@ details.acc > .acc-body { padding: 0 16px 16px; }
 }
 .appt-link-title { display: block; font-weight: 650; color: var(--accent); }
 .appt-link-sub { display: block; font-size: .92rem; color: var(--ink-muted); margin-top: 2px; }
+
+.trouble-warn {
+  border-left: 3px solid var(--alert); padding-left: 10px; margin-top: 12px;
+  font-size: .93rem;
+}
