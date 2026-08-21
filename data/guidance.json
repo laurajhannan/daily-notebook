@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "updated": "2026-08-21",
+  "tamoxifenActive": false,
+  "pharmacistLine": {
+    "active": "Whatever it is, tell the pharmacist about your breast-cancer medicine every time — even for things off the supermarket shelf.",
+    "pending": "Whatever it is, tell the pharmacist about your breast-cancer medicine (tamoxifen, expected soon) every time — even for things off the supermarket shelf."
+  },
+  "verdicts": {
+    "avoid": {
+      "label": "Avoid",
+      "lead": "Best avoided."
+    },
+    "check": {
+      "label": "Check first",
+      "lead": "Check with the pharmacist first."
+    },
+    "current": {
+      "label": "Part of your routine",
+      "lead": "Already part of your routine."
+    },
+    "unknown": {
+      "label": "Not on the list",
+      "lead": "Not on my list — ask the pharmacist before taking it."
+    }
+  },
+  "unknownWhy": "This notebook only knows the things already written into it. Anything else is a question for the pharmacist, not for an app.",
+  "medicines": [
+    {
+      "name": "Paroxetine",
+      "aliases": [
+        "seroxat"
+      ],
+      "verdict": "avoid",
+      "why": "Blocks the enzyme tamoxifen needs in order to work."
+    },
+    {
+      "name": "Fluoxetine",
+      "aliases": [
+        "prozac"
+      ],
+      "verdict": "avoid",
+      "why": "Blocks the enzyme tamoxifen needs in order to work."
+    },
+    {
+      "name": "Bupropion",
+      "aliases": [
+        "zyban"
+      ],
+      "verdict": "avoid",
+      "why": "Blocks the enzyme tamoxifen needs in order to work."
+    },
+    {
+      "name": "Diphenhydramine",
+      "aliases": [
+        "nytol original",
+        "nytol",
+        "sleepeaze",
+        "night-time remedy",
+        "night time remedy",
+        "nytol one-a-night",
+        "one-a-night",
+        "benadryl",
+        "sominex"
+      ],
+      "verdict": "avoid",
+      "why": "Interferes with the enzyme tamoxifen depends on. It hides in several night-time remedies."
+    },
+    {
+      "name": "St John's Wort",
+      "aliases": [
+        "st johns wort",
+        "hypericum"
+      ],
+      "verdict": "avoid",
+      "why": "Interferes with tamoxifen."
+    },
+    {
+      "name": "Black cohosh",
+      "aliases": [
+        "cohosh"
+      ],
+      "verdict": "avoid",
+      "why": "Interferes with tamoxifen."
+    },
+    {
+      "name": "Soy isoflavone supplements",
+      "aliases": [
+        "soy",
+        "soya",
+        "isoflavone",
+        "isoflavones",
+        "red clover",
+        "soy sauce",
+        "miso",
+        "tofu",
+        "edamame",
+        "soya milk"
+      ],
+      "verdict": "avoid",
+      "why": "Oestrogen-like activity — and fermented soy is one of your migraine triggers."
+    },
+    {
+      "name": "“Bioidentical” compounded hormones",
+      "aliases": [
+        "bioidentical",
+        "bio-identical",
+        "compounded hormones"
+      ],
+      "verdict": "avoid",
+      "why": "Not regulated, and they contain hormones."
+    },
+    {
+      "name": "HRT of any kind",
+      "aliases": [
+        "hrt",
+        "oestrogen",
+        "estrogen",
+        "oestrogel",
+        "patches",
+        "hormone replacement"
+      ],
+      "verdict": "avoid",
+      "why": "Only ever a decision for your breast team."
+    },
+    {
+      "name": "Duloxetine",
+      "aliases": [
+        "cymbalta"
+      ],
+      "verdict": "check",
+      "why": "Strong effect on the tamoxifen enzyme."
+    },
+    {
+      "name": "Sertraline",
+      "aliases": [
+        "lustral"
+      ],
+      "verdict": "check",
+      "why": "Moderate effect on that enzyme."
+    },
+    {
+      "name": "Chlorphenamine",
+      "aliases": [
+        "piriton"
+      ],
+      "verdict": "check",
+      "why": "May affect that enzyme."
+    },
+    {
+      "name": "Hydroxyzine",
+      "aliases": [
+        "atarax"
+      ],
+      "verdict": "check",
+      "why": "May affect that enzyme."
+    },
+    {
+      "name": "Cimetidine",
+      "aliases": [
+        "tagamet"
+      ],
+      "verdict": "check",
+      "why": "Affects that enzyme."
+    },
+    {
+      "name": "Escitalopram / citalopram",
+      "aliases": [
+        "escitalopram",
+        "citalopram",
+        "cipralex",
+        "cipramil"
+      ],
+      "verdict": "check",
+      "why": "Often considered suitable alongside tamoxifen — but confirm with the pharmacist."
+    },
+    {
+      "name": "Ibuprofen and other anti-inflammatories",
+      "aliases": [
+        "ibuprofen",
+        "nurofen",
+        "naproxen",
+        "aspirin",
+        "anti-inflammatory",
+        "nsaid"
+      ],
+      "verdict": "check",
+      "why": "Can push blood pressure up and clash with candesartan. Counts towards your painkiller days."
+    },
+    {
+      "name": "Pseudoephedrine decongestants",
+      "aliases": [
+        "pseudoephedrine",
+        "sudafed",
+        "max strength cold",
+        "decongestant",
+        "cold remedy"
+      ],
+      "verdict": "check",
+      "why": "Raise blood pressure."
+    },
+    {
+      "name": "Vitamin E and high-dose antioxidant supplements",
+      "aliases": [
+        "vitamin e",
+        "antioxidant",
+        "antioxidants"
+      ],
+      "verdict": "check",
+      "why": "Ask the oncologist, especially around radiotherapy."
+    },
+    {
+      "name": "Melatonin",
+      "aliases": [
+        "circadin"
+      ],
+      "verdict": "check",
+      "why": "Check with the pharmacist alongside your other medicines."
+    },
+    {
+      "name": "Candesartan",
+      "aliases": [
+        "amias"
+      ],
+      "verdict": "current",
+      "why": "Your daily preventer — doing double duty for migraine and blood pressure."
+    },
+    {
+      "name": "Sumatriptan",
+      "aliases": [
+        "imigran",
+        "triptan"
+      ],
+      "verdict": "current",
+      "why": "Your migraine rescue. The Today screen counts the days it's used."
+    },
+    {
+      "name": "Paracetamol",
+      "aliases": [
+        "panadol",
+        "calpol",
+        "acetaminophen"
+      ],
+      "verdict": "current",
+      "why": "No known clash. Counts towards your painkiller days."
+    },
+    {
+      "name": "Magnesium",
+      "aliases": [
+        "magnesium citrate",
+        "magnesium glycinate",
+        "magnesium bisglycinate",
+        "bisglycinate"
+      ],
+      "verdict": "current",
+      "why": "Part of your migraine routine, no known clash."
+    },
+    {
+      "name": "Riboflavin (vitamin B2)",
+      "aliases": [
+        "riboflavin",
+        "b2",
+        "vitamin b2"
+      ],
+      "verdict": "current",
+      "why": "Part of your migraine routine, no known clash."
+    },
+    {
+      "name": "Coenzyme Q10",
+      "aliases": [
+        "coq10",
+        "co q10",
+        "ubiquinone",
+        "coenzyme q10"
+      ],
+      "verdict": "current",
+      "why": "Part of your migraine routine. Ask the oncologist whether to pause it during radiotherapy week."
+    }
+  ],
+  "food": {
+    "intro": "Nothing complicated. Steady fuel keeps the threshold higher, and that is most of the job.",
+    "sections": [
+      {
+        "title": "Steady fuel",
+        "lines": [
+          "Eat within an hour of waking.",
+          "Try not to go more than 4 hours without food.",
+          "A small bedtime snack helps if mornings are bad.",
+          "Protein with every meal.",
+          "Slow-release carbs — wholegrains, beans, nuts — over sugary spikes."
+        ]
+      },
+      {
+        "title": "Worth avoiding",
+        "lines": [
+          "Soy sauce, miso and fermented soy — a migraine trigger, and soy is best kept low anyway.",
+          "Keep caffeine steady rather than up-and-down.",
+          "Alcohol is a common trigger for both migraine and flushes."
+        ]
+      },
+      {
+        "title": "Flush-friendly",
+        "lines": [
+          "Notice whether hot drinks or spicy food set flushes off.",
+          "Cold water and layers help."
+        ]
+      },
+      {
+        "title": "Drink through the day",
+        "lines": [
+          "Dehydration is a quiet headache trigger — especially around hospital visits."
+        ]
+      }
+    ]
+  },
+  "moh": {
+    "title": "Why the number matters",
+    "text": "Taking painkillers on too many days in a month can, over time, start causing headaches of its own — the headache comes back as each dose wears off, so it looks like the pain is worsening when the pattern is really the treatment. The usual thresholds are 10 days a month or more for triptans like sumatriptan, and 15 days a month or more for ordinary painkillers such as paracetamol or ibuprofen. Counting the days is the whole point of this card: it turns a vague impression into a number your GP can act on."
+  },
+  "nudgeThresholds": {
+    "fastingFlags7d": 3,
+    "backupStaleDays": 28,
+    "minEntriesForBackupNudge": 7
+  },
+  "nudges": {
+    "fasting": "Long gaps without food have shown up a few times this week. A small bedtime snack, and eating within an hour of waking, often helps.",
+    "backup": "Worth saving a backup — Settings → Save a backup."
+  },
+  "painkillerCard": {
+    "green": "Below the level linked to medication-overuse headache.",
+    "amber": "Getting close to the level that can cause extra headaches.",
+    "red": "This level can itself cause headaches — worth telling your GP this number."
+  },
+  "bp": {
+    "targetLabel": "below 135/85",
+    "targetSys": 135,
+    "targetDia": 85,
+    "overTarget": "Above the home target — worth mentioning to your GP.",
+    "severe": "A reading this high needs prompt advice — see Urgent symptoms.",
+    "severeSys": 180,
+    "severeDia": 120
+  }
+}

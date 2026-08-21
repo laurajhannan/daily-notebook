@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "updated": "2026-08-21",
+  "redFlags": {
+    "intro": "Most days none of this will apply. It is here so you don't have to remember it when you feel rotten.",
+    "groups": [
+      {
+        "id": "999",
+        "level": "emergency",
+        "title": "Call 999 or go to A&E now",
+        "items": [
+          "A sudden severe headache that reaches its worst within a minute.",
+          "Weakness, numbness, or trouble speaking.",
+          "Confusion, or unusual drowsiness.",
+          "A seizure.",
+          "Chest pain, or sudden breathlessness."
+        ]
+      },
+      {
+        "id": "111",
+        "level": "urgent",
+        "title": "Same day — call 111 or ask for an urgent GP appointment",
+        "items": [
+          "A headache that is clearly worse lying flat, or on coughing, straining or bending.",
+          "A fever with a stiff neck.",
+          "New loss of vision, or double vision.",
+          "A calf that is swollen, red or painful — with your medicines, clot symptoms need same-day advice.",
+          "A blood-pressure reading of 180/120 or higher.",
+          "A headache that feels genuinely different in character from your usual ones."
+        ]
+      },
+      {
+        "id": "gp",
+        "level": "soon",
+        "title": "GP soon — days, not weeks",
+        "items": [
+          "Headaches on most days for weeks.",
+          "Any new breast change, either side.",
+          "Unusual vaginal bleeding.",
+          "New pelvic pain that doesn't settle.",
+          "Low mood that isn't shifting.",
+          "Any thought of stopping a prescribed medicine — talk it through first, side effects can usually be managed."
+        ]
+      }
+    ]
+  },
+  "checkBefore": {
+    "title": "The standing rule",
+    "paragraphs": [
+      "Before any new tablet, remedy or supplement — even something picked up in a supermarket — tell the pharmacist about your breast-cancer medicine.",
+      "Pharmacy computer checks often miss things bought off the shelf, so saying it out loud is what makes the check work.",
+      "It takes one sentence at the counter, and it covers painkillers, cold remedies, sleep aids, herbal products and vitamins alike."
+    ]
+  }
+}

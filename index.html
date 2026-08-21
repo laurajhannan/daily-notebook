@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Daily Notebook</title>
+  <meta name="description" content="A private daily notebook. Everything stays on this device.">
+  <meta name="theme-color" content="#1F5F5B" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="app-header">
+    <!-- Back link appears only on the screens reached from More. -->
+    <a class="back-link" id="back-link" href="#more" hidden>‹ Back</a>
+    <h1 class="app-title" id="app-title">Daily Notebook</h1>
+  </header>
+
+  <main id="main" class="app-main" tabindex="-1">
+    <!-- One container per screen; the router shows exactly one at a time. -->
+    <section id="view-today"     class="view" hidden aria-label="Today"></section>
+    <section id="view-more"      class="view" hidden aria-label="More"></section>
+    <section id="view-questions" class="view" hidden aria-label="Ask something"></section>
+    <section id="view-guide"     class="view" hidden aria-label="Guide"></section>
+    <section id="view-history"   class="view" hidden aria-label="History"></section>
+    <section id="view-bp"        class="view" hidden aria-label="Blood pressure"></section>
+    <section id="view-settings"  class="view" hidden aria-label="Settings"></section>
+    <section id="view-onboard"   class="view" hidden aria-label="Welcome"></section>
+  </main>
+
+  <nav class="app-nav" id="app-nav" aria-label="Main">
+    <a href="#today" data-nav="today" class="nav-btn"><span class="nav-glyph" aria-hidden="true">✓</span><span>Today</span></a>
+    <a href="#more"  data-nav="more"  class="nav-btn"><span class="nav-glyph" aria-hidden="true">☰</span><span>More</span></a>
+  </nav>
+
+  <!-- Transient confirmation messages ("Saved") land here. -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
