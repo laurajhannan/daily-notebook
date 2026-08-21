@@ -426,3 +426,7 @@ details.acc > .acc-body { padding: 0 16px 16px; }
 .sug-text { font-weight: 650; margin: 0 0 4px; }
 .sug-why { font-size: .92rem; margin: 0; }
 .sug-saved { font-size: .9rem; color: var(--ok); font-weight: 650; margin: 8px 0 0; }
+
+.verdict-card.v-noclash { border-color: var(--line); background: var(--surface-2); }
+.v-noclash .verdict-tag { color: var(--ink-muted); }
+.noclash-note { margin-top: 8px; font-size: .88rem; font-style: italic; }

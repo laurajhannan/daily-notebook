@@ -144,7 +144,7 @@ function questionList(items, ctx) {
 
 /* ---------- Check a medicine ---------- */
 
-const VERDICT_ORDER = { avoid: 0, check: 1, current: 2, unknown: 3 };
+const VERDICT_ORDER = { avoid: 0, check: 1, noclash: 2, current: 3, unknown: 4 };
 
 /**
  * How directly an entry answers what was typed. Without this, "vitamin D"
@@ -203,13 +203,18 @@ export function findMedicines(medicines, query) {
 
 function verdictCard(med, guidance) {
   const verdicts = (guidance && guidance.verdicts) || {};
-  const key = ['avoid', 'check', 'current'].includes(med.verdict) ? med.verdict : 'unknown';
+  const key = ['avoid', 'check', 'noclash', 'current'].includes(med.verdict) ? med.verdict : 'unknown';
   const meta = verdicts[key] || {};
   const card = el('div', { class: `verdict-card v-${key}` });
   if (meta.label) card.appendChild(el('span', { class: 'verdict-tag', text: meta.label }));
   card.appendChild(el('p', { class: 'verdict-name', text: med.name || '' }));
   if (meta.lead) card.appendChild(el('p', { class: 'verdict-why', text: meta.lead }));
   if (med.why) card.appendChild(el('p', { class: 'verdict-why muted', text: med.why }));
+  // "No known clash" is easily misread as "this works". Say plainly what it does
+  // and doesn't mean, every time it appears.
+  if (key === 'noclash' && guidance && guidance.noclashNote) {
+    card.appendChild(el('p', { class: 'verdict-why muted noclash-note', text: guidance.noclashNote }));
+  }
   return card;
 }
 
