@@ -11,6 +11,8 @@
 
 import * as db from './db.js';
 import { el } from './dom.js';
+import { buildStats, summaryText } from './summary.js';
+import * as S from './stats.js';
 
 /* ---------- Ask something (Questions pocket) ---------- */
 
@@ -106,17 +108,20 @@ export async function renderQuestions(root, ctx) {
     section.appendChild(el('h3', { text: heading }));
     section.appendChild(questionList(items, ctx));
     if (key !== '__none__') {
-      const who = key === 'laura' ? 'Laura' : tagLabel(key);
+      const clinical = key === 'gp' || key === 'hospital';
+      const who = tagHeading(key);
       const send = el('button', {
         type: 'button', class: 'btn btn-block mt',
-        text: key === 'laura' ? 'Send these to Laura' : 'Send these to yourself'
+        text: key === 'laura' ? 'Send these to Laura' : 'Send, print or save this list'
       });
-      send.addEventListener('click', () => shareQuestions(items, who, ctx));
+      send.addEventListener('click', () => shareQuestions(items, who, ctx, clinical));
       section.appendChild(send);
       section.appendChild(el('p', { class: 'muted small mt',
         text: key === 'laura'
           ? 'Opens your usual apps so you can send them however you like. Nothing is sent automatically.'
-          : 'Useful for sending to yourself before an appointment. Nothing is sent automatically.' }));
+          : clinical
+            ? 'Sends your questions together with your last 28 days of numbers. Or just open this page in the appointment and tick them off as you go.'
+            : 'Or just open this page at the counter. Nothing is sent automatically.' }));
     }
     root.appendChild(section);
   }
@@ -141,22 +146,36 @@ export async function renderQuestions(root, ctx) {
  * sheet opens and she chooses. Falls back to the clipboard where the Share API
  * isn't available.
  */
-async function shareQuestions(items, groupLabel, ctx) {
+async function shareQuestions(items, groupLabel, ctx, includeNumbers) {
   const lines = items.map((q) => `\u2022 ${q.text}`).join('\n');
   const stamp = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  const text = `Questions for ${groupLabel} \u2014 ${stamp}\n\n${lines}`;
-  try {
-    if (navigator.share) {
-      await navigator.share({ text });
-      return;
+  let text = `For my ${groupLabel} \u2014 ${stamp}\n\nMY QUESTIONS\n${lines}`;
+
+  // A clinician wants the numbers as well as the questions. Building both into
+  // one block is the whole point of keeping the record in the first place.
+  if (includeNumbers) {
+    try {
+      const todayISO = S.toISODate();
+      const [entries, bp, milestones] = await Promise.all([
+        db.getAll('entries'), db.getAll('bp'), db.getAll('milestones')
+      ]);
+      if (entries.length) {
+        const stats = buildStats(entries, bp, milestones, todayISO, 28);
+        text += `\n\nMY RECORD\n${summaryText(stats, ctx.guidance)}`;
+      }
+    } catch {
+      // Numbers are a bonus; never let them stop the questions going.
     }
+  }
+
+  try {
+    if (navigator.share) { await navigator.share({ text }); return; }
   } catch (err) {
-    // A cancelled share is not a failure — say nothing and stop.
-    if (err && err.name === 'AbortError') return;
+    if (err && err.name === 'AbortError') return;   // cancelled, not failed
   }
   try {
     await navigator.clipboard.writeText(text);
-    ctx.toast('Copied — paste it into a message');
+    ctx.toast('Copied \u2014 paste it into a message, email or note');
   } catch {
     ctx.toast('Could not share on this device');
   }
@@ -508,6 +527,77 @@ function drawMine(wrap, items, mine) {
   }
   card.appendChild(ul);
   wrap.appendChild(card);
+}
+
+/* ---------- At an appointment ---------- */
+
+/**
+ * One screen for the ten minutes that matter: the numbers a clinician will ask
+ * for, and the questions she came in with, tickable as she goes. Everything
+ * else in the app exists to fill this page.
+ */
+export async function renderAppointment(root, ctx) {
+  const todayISO = S.toISODate();
+  const [entries, bp, milestones, questions] = await Promise.all([
+    db.getAll('entries'), db.getAll('bp'), db.getAll('milestones'), db.getAll('questions')
+  ]);
+  root.textContent = '';
+  root.appendChild(el('h2', { text: 'At an appointment' }));
+  root.appendChild(el('p', { class: 'q-blurb',
+    text: 'Everything in one place. Work down the list and tick as you go.' }));
+
+  // --- the numbers, in the order they're most likely to be asked for ---
+  const stats = entries.length ? buildStats(entries, bp, milestones, todayISO, 28) : null;
+  const nums = el('div', { class: 'card' });
+  nums.appendChild(el('h3', { text: 'Your last 28 days' }));
+  if (!stats) {
+    nums.appendChild(el('p', { class: 'muted', text: 'Nothing recorded yet.' }));
+  } else {
+    const rows = [
+      ['Painkillers taken on', `${stats.painkillerDays} days`],
+      ['Headache on', `${stats.headache.total} days`],
+      ['Days recorded', `${stats.entriesInWindow}`]
+    ];
+    if (stats.bp && stats.bp.sys !== null) {
+      rows.push(['Blood pressure average', `${stats.bp.sys}/${stats.bp.dia} over ${stats.bp.readings} readings`]);
+    }
+    const dl = el('dl', { class: 'appt-figures' });
+    for (const [k, v] of rows) {
+      dl.appendChild(el('dt', { text: k }));
+      dl.appendChild(el('dd', { text: v }));
+    }
+    nums.appendChild(dl);
+  }
+  root.appendChild(nums);
+
+  // --- the questions, tickable in the room ---
+  const open = questions.filter((q) => q && !q.done);
+  if (!open.length) {
+    const empty = el('div', { class: 'card' });
+    empty.appendChild(el('h3', { text: 'No questions saved' }));
+    empty.appendChild(el('p', { class: 'muted',
+      text: 'Anything you want to ask goes in under Ask something, or Things that might help.' }));
+    root.appendChild(empty);
+  } else {
+    const groups = new Map();
+    for (const q of open) {
+      const key = q.tag || '__none__';
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(q);
+    }
+    for (const key of TAGS.map((x) => x.value).concat(['__none__'])) {
+      const items = groups.get(key);
+      if (!items || !items.length) continue;
+      const card = el('div', { class: 'card' });
+      card.appendChild(el('h3', { text: key === '__none__' ? 'Anything else' : `For your ${tagHeading(key)}` }));
+      card.appendChild(questionList(items, ctx));
+      const clinical = key === 'gp' || key === 'hospital';
+      const send = el('button', { type: 'button', class: 'btn btn-block mt', text: 'Send, print or save this list' });
+      send.addEventListener('click', () => shareQuestions(items, tagHeading(key), ctx, clinical));
+      card.appendChild(send);
+      root.appendChild(card);
+    }
+  }
 }
 
 /* ---------- Worth asking about ---------- */

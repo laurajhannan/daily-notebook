@@ -10,7 +10,7 @@ import * as S from './stats.js';
 import { el } from './dom.js';
 import { renderToday, renderBP } from './entry.js';
 import { renderHistory } from './summary.js';
-import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy, renderSuggestions } from './guide.js';
+import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy, renderSuggestions, renderAppointment } from './guide.js';
 import { renderOnboard, seedMilestones, isStandalone } from './onboard.js';
 import { downloadBackup, readBackupFile, restoreBackup } from './backup.js';
 
@@ -30,6 +30,7 @@ const ctx = {
 const ROUTES = {
   today:     { view: 'view-today',     title: 'Daily Notebook',      render: renderToday,     back: null },
   more:      { view: 'view-more',      title: 'More',                render: renderMore,      back: null },
+  appointment: { view: 'view-guide', title: 'At an appointment', render: renderAppointment, back: '#more' },
   questions: { view: 'view-questions', title: 'Ask something',       render: renderQuestions, back: '#more' },
   medicine:  { view: 'view-guide',     title: 'Check a medicine',    render: renderMedicine,  back: '#more' },
   food:      { view: 'view-guide',     title: 'Eating',              render: renderFood,      back: '#more' },
@@ -114,7 +115,8 @@ function toast(message) {
 /* ---------- More ---------- */
 
 const MORE_ITEMS = [
-  { href: '#questions', label: 'Ask something', sub: 'Park a question for later', featured: true },
+  { href: '#appointment', label: 'At an appointment', sub: 'Your numbers and questions in one place', featured: true },
+  { href: '#questions', label: 'Ask something', sub: 'Park a question for later' },
   { href: '#suggestions', label: 'Things that might help', sub: 'Ideas, and questions worth asking' },
   { href: '#medicine', label: 'Check a medicine' },
   { href: '#food', label: 'Eating' },

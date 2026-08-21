@@ -294,6 +294,15 @@ export async function renderToday(root, ctx) {
     root.appendChild(el('p', { class: 'milestone-line', text: parts.join(' \u00b7 ') }));
   }
 
+  // With an appointment close, put the one screen she'll want in front of her
+  // rather than relying on her remembering it exists.
+  if (next && next.daysAway !== null && next.daysAway <= 7) {
+    const link = el('a', { class: 'appt-link', href: '#appointment' });
+    link.appendChild(el('span', { class: 'appt-link-title', text: 'Getting ready for your appointment' }));
+    link.appendChild(el('span', { class: 'appt-link-sub', text: 'Your numbers and questions in one place' }));
+    root.appendChild(link);
+  }
+
   // At most one banner...
   const nudge = pickNudge({ entries, todayISO, guidance: ctx.guidance, entryCount: entries.length, lastBackup });
   if (nudge && !(dismissed && dismissed.date === todayISO && dismissed.id === nudge.id)) {
