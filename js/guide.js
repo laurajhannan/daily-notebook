@@ -14,11 +14,13 @@ import { el } from './dom.js';
 
 /* ---------- Ask something (Questions pocket) ---------- */
 
+// `heading` is the form used in "For your ___". Spelled out rather than derived,
+// because case rules break on both acronyms ("gp") and names ("laura").
 const TAGS = [
-  { value: 'gp', label: 'GP' },
-  { value: 'pharmacist', label: 'Pharmacist' },
-  { value: 'hospital', label: 'Hospital team' },
-  { value: 'laura', label: 'Laura' }
+  { value: 'gp', label: 'GP', heading: 'GP' },
+  { value: 'pharmacist', label: 'Pharmacist', heading: 'pharmacist' },
+  { value: 'hospital', label: 'Hospital team', heading: 'hospital team' },
+  { value: 'laura', label: 'Laura', heading: 'Laura' }
 ];
 
 function tagLabel(value) {
@@ -26,10 +28,10 @@ function tagLabel(value) {
   return t ? t.label : 'Anything else';
 }
 
-/** Heading form of a tag. "GP" must not be lower-cased into "gp". */
+/** Heading form of a tag, taken from the table above. */
 function tagHeading(value) {
-  const label = tagLabel(value);
-  return label === label.toUpperCase() ? label : label.toLowerCase();
+  const t = TAGS.find((x) => x.value === value);
+  return t ? (t.heading || t.label) : 'anything else';
 }
 
 export async function renderQuestions(root, ctx) {
