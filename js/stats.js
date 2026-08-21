@@ -232,6 +232,21 @@ export function currentMilestone(milestones, todayISO) {
   return { milestone: m, elapsed, dayNumber: elapsed === null ? null : elapsed + 1 };
 }
 
+/**
+ * The next dated milestone still ahead of us. Counting down to a known
+ * appointment is more use than counting up from something already over —
+ * it's what gives the questions somewhere to land.
+ */
+export function nextMilestone(milestones, todayISO) {
+  const ahead = (milestones || []).filter(
+    (m) => m && typeof m.date === 'string' && fromISODate(m.date) && m.date > todayISO
+  );
+  if (!ahead.length) return null;
+  ahead.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  const m = ahead[0];
+  return { milestone: m, daysAway: daysBetween(todayISO, m.date) };
+}
+
 /** All milestones with a date, oldest first. */
 export function datedMilestones(milestones) {
   return (milestones || [])

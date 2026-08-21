@@ -8,7 +8,8 @@ import { el } from './dom.js';
 
 /** Milestones seeded the first time the app opens. Undated ones stay hidden on Today. */
 export const SEED_MILESTONES = [
-  { name: 'Surgery', date: '2026-07-31' },
+  { name: 'Surgery', date: '2026-07-27' },
+  { name: 'Oncology appointment', date: '2026-09-09' },
   { name: 'Radiotherapy starts', date: null },
   { name: 'Radiotherapy ends', date: null },
   { name: 'Tamoxifen starts', date: null }

@@ -278,12 +278,20 @@ export async function renderToday(root, ctx) {
   // Date and, if there is one, the day count since the most recent milestone.
   root.appendChild(el('p', { class: 'date-line', text: S.formatLong(todayISO) }));
   const cur = S.currentMilestone(milestones, todayISO);
+  const next = S.nextMilestone(milestones, todayISO);
+  const parts = [];
   if (cur && cur.dayNumber !== null) {
     const name = String(cur.milestone.name || 'then').toLowerCase();
-    root.appendChild(el('p', {
-      class: 'milestone-line',
-      text: cur.elapsed === 0 ? `${cur.milestone.name} today` : `Day ${cur.dayNumber} since ${name}`
-    }));
+    parts.push(cur.elapsed === 0 ? `${cur.milestone.name} today` : `Day ${cur.dayNumber} since ${name}`);
+  }
+  // A date still ahead is the more useful half — it's what the questions and
+  // the record-keeping are building towards.
+  if (next && next.daysAway !== null) {
+    const name = String(next.milestone.name || 'then').toLowerCase();
+    parts.push(next.daysAway === 1 ? `${name} tomorrow` : `${next.daysAway} days until ${name}`);
+  }
+  if (parts.length) {
+    root.appendChild(el('p', { class: 'milestone-line', text: parts.join(' \u00b7 ') }));
   }
 
   // At most one banner...
