@@ -10,7 +10,7 @@ import * as S from './stats.js';
 import { el } from './dom.js';
 import { renderToday, renderBP } from './entry.js';
 import { renderHistory } from './summary.js';
-import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy } from './guide.js';
+import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy, renderSuggestions } from './guide.js';
 import { renderOnboard, seedMilestones, isStandalone } from './onboard.js';
 import { downloadBackup, readBackupFile, restoreBackup } from './backup.js';
 
@@ -35,6 +35,7 @@ const ROUTES = {
   food:      { view: 'view-guide',     title: 'Eating',              render: renderFood,      back: '#more' },
   flags:     { view: 'view-guide',     title: 'Urgent symptoms',     render: renderFlags,     back: '#more' },
   radiotherapy: { view: 'view-guide', title: 'Radiotherapy',     render: renderRadiotherapy, back: '#more' },
+  suggestions: { view: 'view-guide', title: 'Things that might help', render: renderSuggestions, back: '#more' },
   history:   { view: 'view-history',   title: 'History',             render: renderHistory,   back: '#more' },
   bp:        { view: 'view-bp',        title: 'Blood pressure',      render: renderBP,        back: '#more' },
   settings:  { view: 'view-settings',  title: 'Settings',            render: renderSettings,  back: '#more' },
@@ -114,6 +115,7 @@ function toast(message) {
 
 const MORE_ITEMS = [
   { href: '#questions', label: 'Ask something', sub: 'Park a question for later', featured: true },
+  { href: '#suggestions', label: 'Things that might help', sub: 'Ideas, and questions worth asking' },
   { href: '#medicine', label: 'Check a medicine' },
   { href: '#food', label: 'Eating' },
   { href: '#flags', label: 'Urgent symptoms' },

@@ -1478,5 +1478,130 @@
         ]
       }
     ]
+  },
+  "suggestions": {
+    "intro": "Things that might help. The first list you can simply try. The rest are questions worth putting to the right person — tap to save any of them into Ask something.",
+    "groups": [
+      {
+        "key": "try",
+        "title": "You can just try these",
+        "blurb": "Nothing here needs anyone's permission.",
+        "items": [
+          {
+            "text": "Eat something within an hour of waking",
+            "why": "The overnight gap is the longest you go without food, which is why headaches so often arrive first thing."
+          },
+          {
+            "text": "A small snack before bed",
+            "why": "The other end of the same gap. Worth trying if mornings are the worst part."
+          },
+          {
+            "text": "Protein with every meal",
+            "why": "Steadies blood sugar. A day without food is what started this run, so this one matters more than it sounds."
+          },
+          {
+            "text": "Keep your wake-up time the same, even on bad days",
+            "why": "Migraine responds to routine. A lie-in can set off an attack as reliably as a short night."
+          },
+          {
+            "text": "Keep caffeine at the same level each day",
+            "why": "It's the change that triggers, not the coffee. A skipped morning cup on a hospital day is a classic way to bring one on."
+          },
+          {
+            "text": "Carry water and a snack to every appointment",
+            "why": "Waiting times are unpredictable, and both dehydration and a missed meal are triggers."
+          },
+          {
+            "text": "Layers, a fan, and cold water for flushes",
+            "why": "Unglamorous, and the first thing every guideline recommends."
+          },
+          {
+            "text": "Non-hormonal vaginal moisturiser or lubricant if you need it",
+            "why": "The recommended first step for dryness. You don't need anyone's permission, and it's sold in any pharmacy."
+          }
+        ]
+      },
+      {
+        "key": "gp",
+        "tag": "gp",
+        "title": "Worth asking your GP",
+        "blurb": "Each of these came out of the research. Save them and they'll be waiting when you get an appointment.",
+        "items": [
+          {
+            "text": "How many days a month am I taking painkillers, and is it too many?",
+            "why": "Above 10 days a month for sumatriptan, or 15 for paracetamol and ibuprofen, painkillers can start causing headaches themselves. The app counts the days for you."
+          },
+          {
+            "text": "Is my blood pressure actually at target?",
+            "why": "It decides whether sumatriptan is safe for you — triptans aren't used when blood pressure is uncontrolled. The home target is below 135/85."
+          },
+          {
+            "text": "Is there room to increase my candesartan?",
+            "why": "You're on the standard target dose for migraine prevention. If you're still getting frequent headaches, there may be headroom — simpler than adding another medicine."
+          },
+          {
+            "text": "Would escitalopram or venlafaxine suit me? I've read they can help migraine and hot flushes at the same time.",
+            "why": "From the Women's Health Concern factsheet on migraine and HRT, for women who can't take oestrogen. Both are compatible with tamoxifen. Escitalopram may suit you better because venlafaxine can raise blood pressure."
+          },
+          {
+            "text": "Should I be taking vitamin D, and do I need calcium?",
+            "why": "The two supplements with clear guidance behind them. Bone strength matters more than usual on tamoxifen before the menopause."
+          },
+          {
+            "text": "Would a greater occipital nerve block be worth trying?",
+            "why": "An injection at the back of the head, available on the NHS, that helps around two-thirds of people with frequent headaches. Guidance says to consider it earlier when medication options are limited — which describes you."
+          },
+          {
+            "text": "Should I have a bone density (DEXA) scan?",
+            "why": "Routinely offered for a different breast-cancer medicine, not usually for tamoxifen — but tamoxifen can thin the bones in women who haven't been through the menopause, and you came off HRT suddenly as well."
+          }
+        ]
+      },
+      {
+        "key": "onc",
+        "tag": "hospital",
+        "title": "Worth asking your hospital team",
+        "items": [
+          {
+            "text": "Should I pause the CoQ10 during radiotherapy week?",
+            "why": "It's an antioxidant, and there's a theoretical question about antioxidants during radiotherapy. Radiotherapy is usually only one week, so pausing may cost you very little."
+          },
+          {
+            "text": "Which moisturiser would you like me to use on the treated skin?",
+            "why": "Most teams have their own preference. Generally an unperfumed one that's free from SLS."
+          },
+          {
+            "text": "Has my contraception been discussed since the diagnosis?",
+            "why": "Tamoxifen must not be taken during pregnancy, and hormonal contraception isn't the right choice alongside it. Easy to overlook among everything else."
+          },
+          {
+            "text": "Does the breast unit run a group for hot flushes?",
+            "why": "A UK trial of nurse-led group CBT cut how much hot flushes bothered women by nearly half, with sleep and mood improving too. Worth asking whether yours offers it."
+          }
+        ]
+      },
+      {
+        "key": "pharm",
+        "tag": "pharmacist",
+        "title": "Worth asking your pharmacist",
+        "items": [
+          {
+            "text": "Can you check everything I take against tamoxifen?",
+            "why": "Worth doing once, properly, with every box in front of them — including anything bought off a supermarket shelf."
+          },
+          {
+            "text": "Which hayfever or allergy tablet suits me best?",
+            "why": "Cetirizine and fexofenadine are barely processed by the liver, so they're usually the ones suggested alongside tamoxifen."
+          },
+          {
+            "text": "Is there a gel rather than tablets for aches?",
+            "why": "Rubbed-on anti-inflammatories have far less effect on blood pressure than swallowed ones."
+          }
+        ]
+      }
+    ],
+    "addButton": "Save this question",
+    "addedToast": "Saved to Ask something",
+    "tryNote": "Nothing in this list is a substitute for your own team's advice — it's the ordinary, low-risk stuff that tends to get forgotten."
   }
 }

@@ -418,3 +418,11 @@ details.acc > .acc-body { padding: 0 16px 16px; }
 
 .verdict-card.v-food-check  { border-color: var(--warn); background: var(--warn-soft); }
 .v-food-check .verdict-tag  { color: var(--warn); }
+
+/* ---------- Suggestions ---------- */
+.sug-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.sug-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.sug-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.sug-text { font-weight: 650; margin: 0 0 4px; }
+.sug-why { font-size: .92rem; margin: 0; }
+.sug-saved { font-size: .9rem; color: var(--ok); font-weight: 650; margin: 8px 0 0; }

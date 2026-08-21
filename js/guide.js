@@ -435,6 +435,57 @@ function drawMine(wrap, items, mine) {
   wrap.appendChild(card);
 }
 
+/* ---------- Worth asking about ---------- */
+
+export async function renderSuggestions(root, ctx) {
+  const s = (ctx.guidance && ctx.guidance.suggestions) || {};
+  const existing = await db.getAll('questions');
+  root.textContent = '';
+  root.appendChild(el('h2', { text: 'Things that might help' }));
+  if (s.intro) root.appendChild(el('p', { class: 'q-blurb', text: s.intro }));
+
+  for (const group of s.groups || []) {
+    if (!group) continue;
+    const card = el('div', { class: 'card' });
+    if (group.title) card.appendChild(el('h3', { text: group.title }));
+    if (group.blurb) card.appendChild(el('p', { class: 'muted small', text: group.blurb }));
+
+    const ul = el('ul', { class: 'sug-list' });
+    for (const item of group.items || []) {
+      if (!item || !item.text) continue;
+      const li = el('li', { class: 'sug-item' });
+      li.appendChild(el('p', { class: 'sug-text', text: item.text }));
+      if (item.why) li.appendChild(el('p', { class: 'sug-why muted', text: item.why }));
+
+      // Only the question groups get a save button — the "just try these" list
+      // isn't something to ask anyone about.
+      if (group.tag) {
+        const already = existing.some((q) => q && q.text === item.text);
+        if (already) {
+          li.appendChild(el('p', { class: 'sug-saved', text: 'Saved to your questions' }));
+        } else {
+          const btn = el('button', { type: 'button', class: 'link-btn', text: s.addButton || 'Save this question' });
+          btn.addEventListener('click', async () => {
+            await db.put('questions', {
+              text: item.text, tag: group.tag, done: false,
+              createdAt: new Date().toISOString()
+            });
+            ctx.toast(s.addedToast || 'Saved to Ask something');
+            ctx.refresh();
+          });
+          li.appendChild(btn);
+        }
+      }
+      ul.appendChild(li);
+    }
+    card.appendChild(ul);
+    if (group.key === 'try' && s.tryNote) {
+      card.appendChild(el('p', { class: 'muted small', text: s.tryNote }));
+    }
+    root.appendChild(card);
+  }
+}
+
 /* ---------- Radiotherapy ---------- */
 
 export async function renderRadiotherapy(root, ctx) {
