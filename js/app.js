@@ -10,7 +10,7 @@ import * as S from './stats.js';
 import { el } from './dom.js';
 import { renderToday, renderBP } from './entry.js';
 import { renderHistory } from './summary.js';
-import { renderQuestions, renderMedicine, renderFood, renderFlags } from './guide.js';
+import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy } from './guide.js';
 import { renderOnboard, seedMilestones, isStandalone } from './onboard.js';
 import { downloadBackup, readBackupFile, restoreBackup } from './backup.js';
 
@@ -34,6 +34,7 @@ const ROUTES = {
   medicine:  { view: 'view-guide',     title: 'Check a medicine',    render: renderMedicine,  back: '#more' },
   food:      { view: 'view-guide',     title: 'Eating',              render: renderFood,      back: '#more' },
   flags:     { view: 'view-guide',     title: 'Urgent symptoms',     render: renderFlags,     back: '#more' },
+  radiotherapy: { view: 'view-guide', title: 'Radiotherapy',     render: renderRadiotherapy, back: '#more' },
   history:   { view: 'view-history',   title: 'History',             render: renderHistory,   back: '#more' },
   bp:        { view: 'view-bp',        title: 'Blood pressure',      render: renderBP,        back: '#more' },
   settings:  { view: 'view-settings',  title: 'Settings',            render: renderSettings,  back: '#more' },
@@ -116,6 +117,7 @@ const MORE_ITEMS = [
   { href: '#medicine', label: 'Check a medicine' },
   { href: '#food', label: 'Eating' },
   { href: '#flags', label: 'Urgent symptoms' },
+  { href: '#radiotherapy', label: 'Radiotherapy' },
   { href: '#history', label: 'History & GP summary' },
   { href: '#bp', label: 'Blood pressure' },
   { href: '#settings', label: 'Settings' }

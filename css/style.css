@@ -415,3 +415,6 @@ details.acc > .acc-body { padding: 0 16px 16px; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+.verdict-card.v-food-check  { border-color: var(--warn); background: var(--warn-soft); }
+.v-food-check .verdict-tag  { color: var(--warn); }

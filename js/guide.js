@@ -147,6 +147,22 @@ function questionList(items, ctx) {
 const VERDICT_ORDER = { avoid: 0, check: 1, current: 2, unknown: 3 };
 
 /**
+ * How directly an entry answers what was typed. Without this, "vitamin D"
+ * ranks Vitamin E first (both merely contain the word "vitamin") and "Nurofen
+ * gel" ranks the oral tablet above the gel. Closeness of match wins; the
+ * verdict ordering only breaks ties.
+ */
+function matchRelevance(item, q) {
+  const names = [item.name].concat(Array.isArray(item.aliases) ? item.aliases : [])
+    .filter((n) => typeof n === 'string').map((n) => n.toLowerCase());
+  if (names.includes(q)) return 0;                    // exact name or alias
+  if (names.some((n) => n.startsWith(q))) return 1;   // "choc" -> "chocolate"
+  if (names.some((n) => q.startsWith(n))) return 2;   // "nurofen gel" -> "nurofen"
+  if (names.some((n) => n.includes(q))) return 3;     // inside a longer name
+  return 4;                                           // matched on a word only
+}
+
+/**
  * Case-insensitive match against name and aliases.
  *
  * Deliberately generous, because she will type what is printed on the box —
@@ -181,7 +197,8 @@ export function findMedicines(medicines, query) {
     });
   });
   return hits.sort((a, b) =>
-    (VERDICT_ORDER[a.verdict] ?? 9) - (VERDICT_ORDER[b.verdict] ?? 9));
+    (matchRelevance(a, q) - matchRelevance(b, q))
+    || ((VERDICT_ORDER[a.verdict] ?? 9) - (VERDICT_ORDER[b.verdict] ?? 9)));
 }
 
 function verdictCard(med, guidance) {
@@ -293,22 +310,7 @@ async function toggleMyTrigger(id) {
 
 /* Food verdicts have their own ordering: the two that genuinely matter first,
    then the weakly-evidenced ones, then the reassuring ones. */
-const FOOD_ORDER = { avoid: 0, steady: 1, flush: 2, watch: 3, helps: 4, unknown: 5 };
-
-/**
- * How directly this entry answers what she typed. Without this, searching
- * "chocolate" ranks Caffeine first (because "hot chocolate" is one of its
- * aliases) and buries the actual chocolate entry. Closeness of match wins;
- * verdict severity only breaks ties.
- */
-function foodRelevance(item, q) {
-  const names = [item.name].concat(Array.isArray(item.aliases) ? item.aliases : [])
-    .filter((n) => typeof n === 'string').map((n) => n.toLowerCase());
-  if (names.includes(q)) return 0;                       // exact name or alias
-  if (names.some((n) => n.startsWith(q))) return 1;      // "choc" → "chocolate"
-  if (names.some((n) => n.includes(q))) return 2;        // inside a longer name
-  return 3;                                              // matched only on a word
-}
+const FOOD_ORDER = { avoid: 0, check: 1, steady: 2, flush: 3, watch: 4, helps: 5, unknown: 6 };
 
 function foodCard(item, food, mine, onToggle) {
   const verdicts = food.verdicts || {};
@@ -372,7 +374,7 @@ export async function renderFood(root, ctx) {
     // Same matcher as the medicine lookup, so she can type what's on the packet.
     const ql = q.toLowerCase();
     const hits = findMedicines(items, q)
-      .sort((a, b) => (foodRelevance(a, ql) - foodRelevance(b, ql))
+      .sort((a, b) => (matchRelevance(a, ql) - matchRelevance(b, ql))
         || ((FOOD_ORDER[a.verdict] ?? 9) - (FOOD_ORDER[b.verdict] ?? 9)))
       .slice(0, 4);   // a wall of cards helps nobody
     const onToggle = async (id) => {
@@ -431,6 +433,24 @@ function drawMine(wrap, items, mine) {
   }
   card.appendChild(ul);
   wrap.appendChild(card);
+}
+
+/* ---------- Radiotherapy ---------- */
+
+export async function renderRadiotherapy(root, ctx) {
+  const rt = (ctx.guidance && ctx.guidance.radiotherapy) || {};
+  root.textContent = '';
+  root.appendChild(el('h2', { text: 'Radiotherapy' }));
+  if (rt.intro) root.appendChild(el('p', { class: 'q-blurb', text: rt.intro }));
+  for (const section of rt.sections || []) {
+    if (!section) continue;
+    const card = el('div', { class: 'card' });
+    if (section.title) card.appendChild(el('h3', { text: section.title }));
+    const ul = el('ul');
+    for (const line of section.lines || []) ul.appendChild(el('li', { text: line }));
+    card.appendChild(ul);
+    root.appendChild(card);
+  }
 }
 
 /* ---------- Urgent symptoms ---------- */

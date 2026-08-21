@@ -275,6 +275,594 @@
       ],
       "verdict": "current",
       "why": "Part of your migraine routine. Ask the oncologist whether to pause it during radiotherapy week."
+    },
+    {
+      "name": "Codeine and co-codamol",
+      "aliases": [
+        "codeine",
+        "co-codamol",
+        "cocodamol",
+        "solpadeine",
+        "solpadol",
+        "panadol ultra",
+        "zapain",
+        "kapake",
+        "codeine phosphate",
+        "paracetamol and codeine"
+      ],
+      "verdict": "check",
+      "why": "Two problems: codeine relies on the same enzyme as tamoxifen, and opioids cause medication-overuse headache faster than anything — from 10 days a month. Counts towards your painkiller days."
+    },
+    {
+      "name": "Migraleve",
+      "aliases": [
+        "migraleve",
+        "migraleve pink",
+        "migraleve yellow"
+      ],
+      "verdict": "check",
+      "why": "Contains codeine and buclizine, an antihistamine. Both are worth checking against tamoxifen, and the codeine puts it in the 10-days-a-month bracket for overuse headache."
+    },
+    {
+      "name": "Syndol",
+      "aliases": [
+        "syndol"
+      ],
+      "verdict": "check",
+      "why": "Contains codeine and an antihistamine — same cautions as Migraleve."
+    },
+    {
+      "name": "Aspirin",
+      "aliases": [
+        "aspirin",
+        "anadin",
+        "disprin"
+      ],
+      "verdict": "check",
+      "why": "Can push blood pressure up and irritate the stomach. Counts towards your painkiller days."
+    },
+    {
+      "name": "Naproxen",
+      "aliases": [
+        "naproxen",
+        "naprosyn"
+      ],
+      "verdict": "check",
+      "why": "An anti-inflammatory like ibuprofen — can raise blood pressure and clashes with candesartan. Counts towards your painkiller days."
+    },
+    {
+      "name": "Ibuprofen gel and other rub-on anti-inflammatories",
+      "aliases": [
+        "ibuprofen gel",
+        "voltarol",
+        "diclofenac gel",
+        "deep heat",
+        "ibuleve",
+        "rub on",
+        "topical",
+        "nurofen gel",
+        "voltarol gel",
+        "gel"
+      ],
+      "verdict": "check",
+      "why": "Rubbed on rather than swallowed, so far less effect on blood pressure than tablets. Often the better option for a sore joint — worth asking the pharmacist."
+    },
+    {
+      "name": "Other triptans",
+      "aliases": [
+        "rizatriptan",
+        "maxalt",
+        "zolmitriptan",
+        "zomig",
+        "naratriptan",
+        "almotriptan",
+        "eletriptan",
+        "frovatriptan"
+      ],
+      "verdict": "check",
+      "why": "Same family as your sumatriptan. Rizatriptan in particular needs care alongside some blood-pressure medicines. Any triptan counts at 10 days a month for overuse headache."
+    },
+    {
+      "name": "Caffeine tablets",
+      "aliases": [
+        "pro plus",
+        "caffeine tablet",
+        "proplus"
+      ],
+      "verdict": "check",
+      "why": "Raises blood pressure, and a caffeine spike-then-crash is its own migraine trigger."
+    },
+    {
+      "name": "Domperidone",
+      "aliases": [
+        "domperidone",
+        "motilium"
+      ],
+      "verdict": "check",
+      "why": "Broken down by a different liver route from tamoxifen, so it's often the anti-sickness option raised first for people on tamoxifen. Still a prescription decision — ask."
+    },
+    {
+      "name": "Metoclopramide",
+      "aliases": [
+        "metoclopramide",
+        "maxolon"
+      ],
+      "verdict": "check",
+      "why": "A common anti-sickness drug for migraine, but it blocks the enzyme tamoxifen needs. Worth flagging before anyone prescribes it."
+    },
+    {
+      "name": "Cyclizine",
+      "aliases": [
+        "cyclizine",
+        "valoid"
+      ],
+      "verdict": "check",
+      "why": "Also affects the tamoxifen enzyme. Mention the tamoxifen before accepting it."
+    },
+    {
+      "name": "Prochlorperazine",
+      "aliases": [
+        "prochlorperazine",
+        "buccastem",
+        "stemetil"
+      ],
+      "verdict": "check",
+      "why": "Often given for migraine sickness. Its effect on the tamoxifen enzyme isn't clear-cut, so have the pharmacist check."
+    },
+    {
+      "name": "Ondansetron",
+      "aliases": [
+        "ondansetron",
+        "zofran"
+      ],
+      "verdict": "check",
+      "why": "Usually prescribed by the hospital. Fine to ask how it sits with tamoxifen."
+    },
+    {
+      "name": "Night Nurse",
+      "aliases": [
+        "night nurse",
+        "nightnurse",
+        "night nurse capsules",
+        "night nurse liquid"
+      ],
+      "verdict": "avoid",
+      "why": "Contains promethazine — a sedating antihistamine that interferes with the tamoxifen enzyme. The night-time cold remedies are the ones to watch."
+    },
+    {
+      "name": "Day Nurse and Lemsip Max",
+      "aliases": [
+        "day nurse",
+        "daynurse",
+        "lemsip",
+        "lemsip max",
+        "beechams",
+        "cold and flu",
+        "all in one"
+      ],
+      "verdict": "check",
+      "why": "Most contain a decongestant (phenylephrine or pseudoephedrine) which raises blood pressure, plus paracetamol that counts towards your painkiller days. Plain paracetamol is usually the simpler choice."
+    },
+    {
+      "name": "Promethazine",
+      "aliases": [
+        "promethazine",
+        "phenergan",
+        "sominex"
+      ],
+      "verdict": "avoid",
+      "why": "A sedating antihistamine that affects the tamoxifen enzyme. Sold for both allergy and sleep."
+    },
+    {
+      "name": "Cough medicines",
+      "aliases": [
+        "cough",
+        "benylin",
+        "covonia",
+        "robitussin",
+        "cough syrup",
+        "linctus",
+        "dextromethorphan"
+      ],
+      "verdict": "check",
+      "why": "Some contain sedating antihistamines or decongestants. Read the ingredients out to the pharmacist."
+    },
+    {
+      "name": "Throat lozenges and sprays",
+      "aliases": [
+        "lozenge",
+        "strepsils",
+        "difflam",
+        "throat spray",
+        "tyrozets"
+      ],
+      "verdict": "check",
+      "why": "Usually straightforward, but a few contain anaesthetics or antibiotics — worth a quick check."
+    },
+    {
+      "name": "Cetirizine",
+      "aliases": [
+        "cetirizine",
+        "zirtek",
+        "piriteze",
+        "benadryl allergy"
+      ],
+      "verdict": "check",
+      "why": "Barely processed by the liver, so it's one of the antihistamines usually considered suitable alongside tamoxifen. Still confirm with the pharmacist."
+    },
+    {
+      "name": "Fexofenadine",
+      "aliases": [
+        "fexofenadine",
+        "telfast",
+        "allevia"
+      ],
+      "verdict": "check",
+      "why": "Like cetirizine, hardly touched by the liver — usually among the suitable options. Confirm before starting."
+    },
+    {
+      "name": "Loratadine",
+      "aliases": [
+        "loratadine",
+        "clarityn"
+      ],
+      "verdict": "check",
+      "why": "Partly broken down by the same enzyme as tamoxifen, so cetirizine or fexofenadine may be suggested instead. Ask."
+    },
+    {
+      "name": "Nytol Herbal and valerian",
+      "aliases": [
+        "nytol herbal",
+        "valerian",
+        "kalms",
+        "kalms night",
+        "herbal sleep",
+        "sleep aid"
+      ],
+      "verdict": "check",
+      "why": "Different from ordinary Nytol — usually valerian rather than an antihistamine — but herbal sleep remedies still interact unpredictably. Check before starting."
+    },
+    {
+      "name": "Omeprazole and lansoprazole",
+      "aliases": [
+        "omeprazole",
+        "lansoprazole",
+        "losec",
+        "zoton",
+        "pantoprazole",
+        "esomeprazole",
+        "ppi"
+      ],
+      "verdict": "check",
+      "why": "Common indigestion tablets. Ask the pharmacist to check them against tamoxifen when you start."
+    },
+    {
+      "name": "Gaviscon, Rennie and simple antacids",
+      "aliases": [
+        "gaviscon",
+        "rennie",
+        "antacid",
+        "peptac",
+        "indigestion"
+      ],
+      "verdict": "check",
+      "why": "Generally uncomplicated, but they can affect how other tablets are absorbed — leave a gap and check."
+    },
+    {
+      "name": "Peppermint oil capsules",
+      "aliases": [
+        "peppermint oil",
+        "colpermin",
+        "buscopan"
+      ],
+      "verdict": "check",
+      "why": "Usually straightforward. Worth a mention when you get them."
+    },
+    {
+      "name": "Laxatives",
+      "aliases": [
+        "laxative",
+        "senna",
+        "senokot",
+        "lactulose",
+        "fybogel",
+        "movicol",
+        "dulcolax",
+        "constipation"
+      ],
+      "verdict": "check",
+      "why": "Mostly uncomplicated, but some slow or speed how your other tablets are absorbed. Say what else you take."
+    },
+    {
+      "name": "Anti-diarrhoea tablets",
+      "aliases": [
+        "imodium",
+        "loperamide",
+        "diarrhoea"
+      ],
+      "verdict": "check",
+      "why": "Ask the pharmacist, especially alongside your other medicines."
+    },
+    {
+      "name": "Sage supplements",
+      "aliases": [
+        "sage",
+        "sage tablets",
+        "sage extract",
+        "salvia",
+        "a.vogel menoforce",
+        "menoforce",
+        "sage tablet",
+        "sage supplement"
+      ],
+      "verdict": "avoid",
+      "why": "Sold everywhere for hot flushes, but sage acts like a plant oestrogen — best avoided with breast cancer. Cooking with sage is a different matter and isn't the issue."
+    },
+    {
+      "name": "Turmeric and curcumin supplements",
+      "aliases": [
+        "turmeric",
+        "curcumin",
+        "golden milk"
+      ],
+      "verdict": "avoid",
+      "why": "Supplement doses interfere with how tamoxifen is broken down, so the capsules are out. The pinch you cook with is a different matter entirely."
+    },
+    {
+      "name": "Dong quai",
+      "aliases": [
+        "dong quai",
+        "angelica sinensis"
+      ],
+      "verdict": "avoid",
+      "why": "Acts like an oestrogen and has been shown to encourage growth in hormone-receptor-positive breast cancer cells in the laboratory."
+    },
+    {
+      "name": "Ginseng",
+      "aliases": [
+        "ginseng",
+        "panax",
+        "korean ginseng"
+      ],
+      "verdict": "avoid",
+      "why": "Has plant-oestrogen effects — best avoided with a hormone-sensitive cancer."
+    },
+    {
+      "name": "Wild yam",
+      "aliases": [
+        "wild yam",
+        "dioscorea",
+        "yam cream"
+      ],
+      "verdict": "avoid",
+      "why": "Marketed as a natural hormone alternative, which is precisely the reason to avoid it."
+    },
+    {
+      "name": "Flaxseed and linseed supplements",
+      "aliases": [
+        "flaxseed",
+        "linseed",
+        "flax",
+        "lignan"
+      ],
+      "verdict": "check",
+      "why": "Has weak oestrogen-like activity and the studies conflict. Sprinkling some on porridge is different from a concentrated supplement — ask your team which you mean."
+    },
+    {
+      "name": "Evening primrose oil",
+      "aliases": [
+        "evening primrose",
+        "starflower",
+        "borage"
+      ],
+      "verdict": "check",
+      "why": "Commonly sold for menopause with little evidence behind it. Check before starting."
+    },
+    {
+      "name": "Menopause multivitamins",
+      "aliases": [
+        "menopace",
+        "promensil",
+        "menopause supplement",
+        "femarelle",
+        "meno",
+        "menopace plus",
+        "menopause vitamin",
+        "meno support"
+      ],
+      "verdict": "check",
+      "why": "These blends often contain soy, red clover or other plant oestrogens. Take the box to the pharmacist and have the ingredients read properly — the label rarely makes it obvious."
+    },
+    {
+      "name": "Ashwagandha and maca",
+      "aliases": [
+        "ashwagandha",
+        "maca",
+        "adaptogen"
+      ],
+      "verdict": "check",
+      "why": "Popular and not clearly a problem, but the evidence alongside tamoxifen is thin. Ask before starting."
+    },
+    {
+      "name": "Ginkgo biloba",
+      "aliases": [
+        "ginkgo",
+        "ginko",
+        "gingko"
+      ],
+      "verdict": "check",
+      "why": "Studied in women on hormone treatment for breast cancer, but it also thins the blood. Check first."
+    },
+    {
+      "name": "Echinacea, milk thistle and other herbal remedies",
+      "aliases": [
+        "echinacea",
+        "milk thistle",
+        "herbal remedy",
+        "tincture",
+        "herbal tea supplement"
+      ],
+      "verdict": "check",
+      "why": "Herbal products interact in ways that pharmacy computer systems often miss. Look for the THR mark and always ask."
+    },
+    {
+      "name": "CBD oil",
+      "aliases": [
+        "cbd",
+        "cannabidiol",
+        "hemp oil"
+      ],
+      "verdict": "check",
+      "why": "Affects several liver enzymes, including ones involved in breaking down tamoxifen. Ask before using it."
+    },
+    {
+      "name": "Vitamin D",
+      "aliases": [
+        "vitamin d",
+        "vit d",
+        "cholecalciferol",
+        "d3",
+        "vitamin d3",
+        "vitamin d 1000",
+        "d 1000"
+      ],
+      "verdict": "check",
+      "why": "One of the few supplements with clear guidance behind it, and bone health matters more than usual on tamoxifen before the menopause. Worth asking your GP whether you should be taking it."
+    },
+    {
+      "name": "Calcium",
+      "aliases": [
+        "calcium",
+        "calcichew",
+        "adcal"
+      ],
+      "verdict": "check",
+      "why": "Same reasoning as vitamin D — relevant to bone strength. A question for your GP rather than something to start alone."
+    },
+    {
+      "name": "Omega-3 and fish oil",
+      "aliases": [
+        "omega 3",
+        "omega-3",
+        "fish oil",
+        "cod liver oil",
+        "krill"
+      ],
+      "verdict": "check",
+      "why": "Generally regarded as low-risk, but it thins the blood a little. Mention it before any procedure."
+    },
+    {
+      "name": "Iron tablets",
+      "aliases": [
+        "iron",
+        "ferrous",
+        "ferrous sulphate",
+        "spatone",
+        "floradix"
+      ],
+      "verdict": "check",
+      "why": "Only worth taking if a blood test says you need it. Iron also stops other tablets absorbing properly if taken together."
+    },
+    {
+      "name": "Multivitamins",
+      "aliases": [
+        "multivitamin",
+        "centrum",
+        "berocca",
+        "a-z"
+      ],
+      "verdict": "check",
+      "why": "Usually fine, but check the label for soy, red clover or high-dose antioxidants — they hide in blends."
+    },
+    {
+      "name": "Probiotics",
+      "aliases": [
+        "probiotic",
+        "acidophilus",
+        "yakult",
+        "kefir supplement"
+      ],
+      "verdict": "check",
+      "why": "Generally low-risk. Worth mentioning to your team anyway."
+    },
+    {
+      "name": "Thrush treatments",
+      "aliases": [
+        "thrush",
+        "canesten",
+        "clotrimazole",
+        "fluconazole",
+        "diflucan"
+      ],
+      "verdict": "check",
+      "why": "Fluconazole taken by mouth affects liver enzymes, so it's worth checking against tamoxifen. Creams and pessaries are a smaller question than tablets."
+    },
+    {
+      "name": "Vaginal moisturisers and lubricants",
+      "aliases": [
+        "replens",
+        "yes vm",
+        "sylk",
+        "lubricant",
+        "vaginal moisturiser",
+        "ky",
+        "astroglide",
+        "hyalofemme"
+      ],
+      "verdict": "current",
+      "why": "Non-hormonal moisturisers and lubricants are the recommended first step for dryness, and you don't need anyone's permission to use them."
+    },
+    {
+      "name": "Vaginal oestrogen",
+      "aliases": [
+        "vagifem",
+        "ovestin",
+        "estring",
+        "gynest",
+        "vaginal oestrogen",
+        "vaginal estrogen",
+        "imvaggis"
+      ],
+      "verdict": "check",
+      "why": "A prescription decision that has to involve your breast team — but unlike people on other hormone treatments, it isn't automatically ruled out for you. Worth raising if dryness becomes a problem."
+    },
+    {
+      "name": "Unperfumed moisturiser for radiotherapy skin",
+      "aliases": [
+        "aqueous",
+        "e45",
+        "diprobase",
+        "cetraben",
+        "doublebase",
+        "aveeno",
+        "moisturiser",
+        "sls free"
+      ],
+      "verdict": "current",
+      "why": "During radiotherapy, use an unperfumed moisturiser that's free from SLS (sodium lauryl sulphate) — many say so on the label. Not immediately before a session, and never on broken skin."
+    },
+    {
+      "name": "Aloe vera and after-sun on treated skin",
+      "aliases": [
+        "aloe",
+        "after sun",
+        "sudocrem",
+        "savlon"
+      ],
+      "verdict": "check",
+      "why": "Ask the radiotherapy team before putting anything new on treated skin — they have their own list."
+    },
+    {
+      "name": "Sun cream",
+      "aliases": [
+        "sun cream",
+        "suncream",
+        "spf",
+        "sunscreen",
+        "sunblock"
+      ],
+      "verdict": "current",
+      "why": "Sensible generally, and treated skin stays sun-sensitive for a long time afterwards. Keep the treated area covered or well protected."
     }
   ],
   "food": {
@@ -357,6 +945,10 @@
       "steady": {
         "label": "Keep it steady",
         "lead": "It's the change that causes trouble, not the thing itself."
+      },
+      "check": {
+        "label": "Worth a word",
+        "lead": "Worth mentioning, or going easy on."
       },
       "helps": {
         "label": "Worth having",
@@ -651,6 +1243,239 @@
           "jalapeno"
         ],
         "why": "Another common flush trigger. Notice, don't assume."
+      },
+      {
+        "id": "dairy",
+        "name": "Milk and yoghurt",
+        "verdict": "helps",
+        "aliases": [
+          "milk",
+          "yoghurt",
+          "yogurt",
+          "dairy",
+          "cheese on toast",
+          "latte"
+        ],
+        "why": "Useful for bone strength, which matters more than usual on tamoxifen before the menopause. Plain dairy isn't the same question as strongly aged cheese."
+      },
+      {
+        "id": "calciumfood",
+        "name": "Calcium-rich foods",
+        "verdict": "helps",
+        "aliases": [
+          "calcium",
+          "sardines",
+          "tinned fish",
+          "kale",
+          "broccoli",
+          "almonds",
+          "fortified"
+        ],
+        "why": "Tamoxifen can thin the bones in women who haven't been through the menopause, so calcium in food is quietly important."
+      },
+      {
+        "id": "oilyfish",
+        "name": "Oily fish",
+        "verdict": "helps",
+        "aliases": [
+          "oily fish",
+          "salmon",
+          "mackerel",
+          "sardine",
+          "trout",
+          "omega"
+        ],
+        "why": "Good general choice, and useful for bone and heart health."
+      },
+      {
+        "id": "veg",
+        "name": "Vegetables and fruit",
+        "verdict": "helps",
+        "aliases": [
+          "vegetable",
+          "veg",
+          "fruit",
+          "salad",
+          "greens",
+          "five a day"
+        ],
+        "why": "No catch here. Plenty of it, in whatever form you'll actually eat."
+      },
+      {
+        "id": "fibre",
+        "name": "High-fibre foods",
+        "verdict": "helps",
+        "aliases": [
+          "fibre",
+          "fiber",
+          "wholemeal",
+          "beans",
+          "lentils",
+          "prunes",
+          "bran"
+        ],
+        "why": "Worth knowing: painkillers — especially codeine — bung you up. Fibre and fluids help more than another tablet."
+      },
+      {
+        "id": "eggs",
+        "name": "Eggs",
+        "verdict": "helps",
+        "aliases": [
+          "egg",
+          "eggs",
+          "omelette",
+          "boiled egg",
+          "scrambled"
+        ],
+        "why": "Quick protein, which is exactly what a long gap without food needs."
+      },
+      {
+        "id": "toast",
+        "name": "Toast, cereal and simple breakfasts",
+        "verdict": "helps",
+        "aliases": [
+          "toast",
+          "cereal",
+          "porridge",
+          "breakfast",
+          "crumpet",
+          "weetabix",
+          "bagel"
+        ],
+        "why": "The point is eating something within an hour of waking, not eating something impressive. Toast counts."
+      },
+      {
+        "id": "readymeal",
+        "name": "Ready meals and convenience food",
+        "verdict": "helps",
+        "aliases": [
+          "ready meal",
+          "microwave",
+          "frozen",
+          "takeaway",
+          "convenience",
+          "soup",
+          "beans on toast"
+        ],
+        "why": "On a bad day, eating something easy beats cooking something ideal and beats eating nothing by a mile. This is not the week for standards."
+      },
+      {
+        "id": "water2",
+        "name": "Herbal and decaf drinks",
+        "verdict": "helps",
+        "aliases": [
+          "herbal tea",
+          "decaf",
+          "peppermint tea",
+          "chamomile",
+          "rooibos"
+        ],
+        "why": "Fine, and a useful way to keep fluids up without moving your caffeine total around. Avoid sage tea specifically."
+      },
+      {
+        "id": "sagetea",
+        "name": "Sage tea",
+        "verdict": "avoid",
+        "aliases": [
+          "sage tea",
+          "sage"
+        ],
+        "why": "Sold for hot flushes, but sage acts like a plant oestrogen — one to leave. Sage in cooking is a different thing and isn't the issue."
+      },
+      {
+        "id": "liquorice",
+        "name": "Liquorice",
+        "verdict": "check",
+        "aliases": [
+          "liquorice",
+          "licorice"
+        ],
+        "why": "Real liquorice in any quantity can push blood pressure up, which matters for you more than most."
+      },
+      {
+        "id": "salt",
+        "name": "Salt",
+        "verdict": "check",
+        "aliases": [
+          "salt",
+          "salty",
+          "crisps",
+          "processed"
+        ],
+        "why": "Worth going easy on, purely because of the blood pressure."
+      },
+      {
+        "id": "grapefruit",
+        "name": "Grapefruit",
+        "verdict": "check",
+        "aliases": [
+          "grapefruit",
+          "grapefruit juice"
+        ],
+        "why": "Interferes with how the liver handles a lot of medicines. Worth mentioning to the pharmacist given everything you take."
+      },
+      {
+        "id": "energydrink",
+        "name": "Energy drinks",
+        "verdict": "check",
+        "aliases": [
+          "energy drink",
+          "red bull",
+          "monster",
+          "lucozade"
+        ],
+        "why": "A big caffeine and sugar spike, then a crash — both ends of that are migraine triggers, and the caffeine lifts blood pressure."
+      }
+    ]
+  },
+  "radiotherapy": {
+    "intro": "Most breast radiotherapy in the UK is now five sessions over one week. Here's what tends to happen, so less of it comes as a surprise.",
+    "sections": [
+      {
+        "title": "Your skin, and the bit nobody warns you about",
+        "lines": [
+          "A skin reaction usually starts around 10 days after treatment begins — so often after you've finished.",
+          "It typically gets worse for about two weeks after the last session, then settles. That is expected, not a sign something has gone wrong.",
+          "The skin goes pink or darker, feels warm, and gets dry or tight — like a sun reaction."
+        ]
+      },
+      {
+        "title": "Looking after the skin",
+        "lines": [
+          "Wash normally with a mild soap or shower gel, and pat dry rather than rub.",
+          "Use an unperfumed moisturiser that's free from SLS (sodium lauryl sulphate) — most say so on the label.",
+          "Moisturise often, but not right before a session, and never on broken skin.",
+          "Carry on with your usual deodorant unless the armpit gets sore — then leave that side alone until treatment finishes.",
+          "Loose cotton next to the skin. Skip underwired and tight bras for the week.",
+          "Ask the team before putting anything new on the treated area — they have their own list."
+        ]
+      },
+      {
+        "title": "Tiredness",
+        "lines": [
+          "Radiotherapy tiredness builds through the week and can carry on for weeks afterwards.",
+          "It stacks on top of the tiredness you already have, so expect the total to be worse rather than the same.",
+          "Short walks help more than they sound like they will. Complete rest tends to make it worse."
+        ]
+      },
+      {
+        "title": "Protecting the week from a migraine",
+        "lines": [
+          "Five days of appointments means disrupted routine, disrupted meals and less sleep — three of your reliable triggers at once.",
+          "Plan food for those days in advance rather than deciding when you get there.",
+          "Take water and something to eat to every appointment; waiting times are unpredictable.",
+          "Keep your caffeine at its usual level. A skipped morning coffee on a hospital day is a classic way to bring an attack on.",
+          "Keep your wake-up time the same, even on the days you feel wrecked."
+        ]
+      },
+      {
+        "title": "Worth asking before you start",
+        "lines": [
+          "Whether to pause the CoQ10 for the treatment week.",
+          "Which moisturiser they'd like you to use.",
+          "What to do if the skin breaks or gets very sore.",
+          "Whether your appointment times can be grouped to suit your day."
+        ]
       }
     ]
   }
