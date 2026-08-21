@@ -2217,5 +2217,15 @@
     "title": "Tamoxifen hasn't been started — or confirmed",
     "text": "Endocrine treatment is expected but not settled, and tamoxifen is the likeliest option rather than a decision already taken. Worth knowing which flags apply when. Things that clash with tamoxifen are marked now so nothing catches you out if it's prescribed. Others apply already, whatever you end up on, because your cancer is oestrogen-driven: soy, sage, red clover, HRT and anything sold as a natural hormone. If you're unsure which is which, the pharmacist can tell you in a sentence.",
     "startedPrompt": "Once you know what you're being prescribed, tell Laura and she'll have this updated."
+  },
+  "whyLaura": {
+    "title": "Why some questions go to Laura",
+    "paras": [
+      "This notebook only knows what has been written into it. Plenty of questions won't be in here — and the only AI you have access to is your employer's, which is not somewhere your health details should go.",
+      "Laura keeps the research behind this app on her own computer: the clinical guidance, the source documents, the notes on how everything interacts with your treatment. She also pays for an AI assistant she can put questions to, which looks things up in published clinical guidance and shows where each answer came from.",
+      "So anything you park here, she can have properly looked into — with sources, not guesswork — and tell you what it found. If it's something worth having in the app permanently, it gets added and appears on your phone next time you open it.",
+      "Nothing sends on its own. You tap the button, your own apps open, and you choose what to send and how."
+    ],
+    "footnote": "None of it replaces your GP or your hospital team. It's for the questions in between appointments, and for working out which ones are worth their time."
   }
 }

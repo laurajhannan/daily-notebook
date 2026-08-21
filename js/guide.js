@@ -18,11 +18,13 @@ import * as S from './stats.js';
 
 // `heading` is the form used in "For your ___". Spelled out rather than derived,
 // because case rules break on both acronyms ("gp") and names ("laura").
+// `groupHeading` is the whole phrase, not a fragment — "For your GP" works,
+// "For your Laura" plainly doesn't.
 const TAGS = [
-  { value: 'gp', label: 'GP', heading: 'GP' },
-  { value: 'pharmacist', label: 'Pharmacist', heading: 'pharmacist' },
-  { value: 'hospital', label: 'Hospital team', heading: 'hospital team' },
-  { value: 'laura', label: 'Laura', heading: 'Laura' }
+  { value: 'gp', label: 'GP', heading: 'GP', groupHeading: 'For your GP' },
+  { value: 'pharmacist', label: 'Pharmacist', heading: 'pharmacist', groupHeading: 'For your pharmacist' },
+  { value: 'hospital', label: 'Hospital team', heading: 'hospital team', groupHeading: 'For your hospital team' },
+  { value: 'laura', label: 'Laura', heading: 'Laura', groupHeading: 'For Laura' }
 ];
 
 function tagLabel(value) {
@@ -30,10 +32,16 @@ function tagLabel(value) {
   return t ? t.label : 'Anything else';
 }
 
-/** Heading form of a tag, taken from the table above. */
+/** The word used mid-sentence ("send these to your GP"). */
 function tagHeading(value) {
   const t = TAGS.find((x) => x.value === value);
   return t ? (t.heading || t.label) : 'anything else';
+}
+
+/** The whole card heading. */
+function tagGroupHeading(value) {
+  const t = TAGS.find((x) => x.value === value);
+  return t ? (t.groupHeading || `For your ${tagHeading(value)}`) : 'Anything else';
 }
 
 export async function renderQuestions(root, ctx) {
@@ -104,7 +112,7 @@ export async function renderQuestions(root, ctx) {
     const items = groups.get(key);
     if (!items || !items.length) continue;
     const section = el('div', { class: 'card' });
-    const heading = key === '__none__' ? 'Not yet decided' : `For your ${tagHeading(key)}`;
+    const heading = key === '__none__' ? 'Not yet decided' : tagGroupHeading(key);
     section.appendChild(el('h3', { text: heading }));
     section.appendChild(questionList(items, ctx));
     if (key !== '__none__') {
@@ -137,6 +145,18 @@ export async function renderQuestions(root, ctx) {
 
   if (!questions.length) {
     root.appendChild(el('p', { class: 'muted small', text: 'Nothing saved yet.' }));
+  }
+
+  // Tucked at the bottom as an expander: useful the once, not every visit.
+  const wl = (ctx.guidance && ctx.guidance.whyLaura) || {};
+  if (wl.title) {
+    const det = el('details', { class: 'acc' });
+    det.appendChild(el('summary', { text: wl.title }));
+    const body = el('div', { class: 'acc-body' });
+    for (const para of wl.paras || []) body.appendChild(el('p', { text: para }));
+    if (wl.footnote) body.appendChild(el('p', { class: 'muted small', text: wl.footnote }));
+    det.appendChild(body);
+    root.appendChild(det);
   }
 }
 
@@ -589,7 +609,7 @@ export async function renderAppointment(root, ctx) {
       const items = groups.get(key);
       if (!items || !items.length) continue;
       const card = el('div', { class: 'card' });
-      card.appendChild(el('h3', { text: key === '__none__' ? 'Anything else' : `For your ${tagHeading(key)}` }));
+      card.appendChild(el('h3', { text: key === '__none__' ? 'Anything else' : tagGroupHeading(key) }));
       card.appendChild(questionList(items, ctx));
       const clinical = key === 'gp' || key === 'hospital';
       const send = el('button', { type: 'button', class: 'btn btn-block mt', text: 'Send, print or save this list' });

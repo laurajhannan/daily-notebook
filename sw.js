@@ -8,7 +8,7 @@
  * up on activate.
  */
 
-const CACHE_NAME = 'daily-notebook-v16';
+const CACHE_NAME = 'daily-notebook-v17';
 
 // Paths are relative to this file, which sits at the app root. That keeps
 // everything working when the app is served from a subfolder.
