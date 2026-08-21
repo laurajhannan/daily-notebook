@@ -937,6 +937,119 @@
       ],
       "verdict": "check",
       "why": "Blends often include reishi, which is the one with an oestrogen-like signal in ER-positive cells. Take the tub to your team and let them read the ingredients."
+    },
+    {
+      "name": "Curcumin and boswellia supplements",
+      "aliases": [
+        "bio-curcumin",
+        "biocurcumin",
+        "curcumin advanced",
+        "boswellia",
+        "bcm-95",
+        "akbamax",
+        "curcumin supplement"
+      ],
+      "verdict": "avoid",
+      "why": "Concentrated curcumin interferes with how tamoxifen is broken down. Commonly recommended for inflammation, and genuinely reasonable for people not taking tamoxifen — which is why a protocol written for someone else may include it."
+    },
+    {
+      "name": "Resveratrol supplements",
+      "aliases": [
+        "resveratrol",
+        "pterostilbene",
+        "grape seed extract"
+      ],
+      "verdict": "check",
+      "why": "Worth flagging specifically for you: at low concentrations resveratrol has encouraged growth of oestrogen-receptor-positive breast cancer cells in the laboratory, though it suppressed growth at high doses. It's also listed as interacting with tamoxifen. Resveratrol in berries as food is a different matter from a capsule."
+    },
+    {
+      "name": "Prebiotic fibre (PHGG)",
+      "aliases": [
+        "phgg",
+        "partially hydrolysed guar gum",
+        "bio.me",
+        "prebiotic fibre",
+        "biome"
+      ],
+      "verdict": "noclash",
+      "why": "A gut-support fibre with no known interference. Take it an hour or two away from your tablets so it doesn't affect absorption."
+    },
+    {
+      "name": "Vitamin D3 with K2",
+      "aliases": [
+        "d3 k2",
+        "vitamin d3 and k2",
+        "d3k2",
+        "vitamin k2",
+        "menaquinone",
+        "vitamin d3 k2",
+        "vitamin d and k2",
+        "d3 with k2",
+        "seeking health d3"
+      ],
+      "verdict": "check",
+      "why": "Vitamin D is one of the few with clear guidance behind it, and bone health matters on tamoxifen before the menopause. The K2 part needs a specific check if you're ever put on a blood thinner, since vitamin K affects clotting."
+    },
+    {
+      "name": "Zinc carnosine",
+      "aliases": [
+        "zinc carnosine",
+        "zinc l-carnosine",
+        "zinc"
+      ],
+      "verdict": "noclash",
+      "why": "Used for gut and mucosal support after surgery. No known clash — though some plans pause antioxidant-type supplements during radiotherapy, so ask about timing."
+    },
+    {
+      "name": "Montmorency cherry",
+      "aliases": [
+        "montmorency",
+        "cherryactive",
+        "tart cherry",
+        "cherry capsules"
+      ],
+      "verdict": "noclash",
+      "why": "Taken for sleep and inflammation. Nothing known against it alongside your treatment."
+    },
+    {
+      "name": "Amalaki (Indian gooseberry)",
+      "aliases": [
+        "amalaki",
+        "amla",
+        "indian gooseberry",
+        "emblica"
+      ],
+      "verdict": "check",
+      "why": "A concentrated antioxidant, which raises the same question as CoQ10 about timing around radiotherapy. Worth asking rather than assuming."
+    },
+    {
+      "name": "Astaxanthin",
+      "aliases": [
+        "astaxanthin"
+      ],
+      "verdict": "noclash",
+      "why": "Often paired with omega-3. No known interference, but it thins the blood slightly — mention it before any procedure."
+    },
+    {
+      "name": "Turmeric skin cream",
+      "aliases": [
+        "vicco",
+        "turmeric cream",
+        "topical turmeric"
+      ],
+      "verdict": "check",
+      "why": "Rubbed on rather than swallowed, so far less reaches the bloodstream than a capsule — but it's still turmeric and you'll be on tamoxifen. Ask the radiotherapy team, who will have their own view on what goes on treated skin."
+    },
+    {
+      "name": "Moogoo and similar unperfumed skin creams",
+      "aliases": [
+        "moogoo",
+        "skin milk",
+        "udder cream",
+        "full cream moisturiser"
+      ],
+      "verdict": "current",
+      "why": "The kind of plain, unperfumed moisturiser radiotherapy teams tend to recommend. Nothing to check — though do ask them which they prefer, and leave a gap around treatment times."
     }
   ],
   "food": {
@@ -1499,6 +1612,185 @@
           "lucozade"
         ],
         "why": "A big caffeine and sugar spike, then a crash — both ends of that are migraine triggers, and the caffeine lifts blood pressure."
+      },
+      {
+        "id": "greentea",
+        "name": "Green tea",
+        "verdict": "helps",
+        "aliases": [
+          "green tea",
+          "matcha",
+          "sencha",
+          "egcg"
+        ],
+        "why": "One of the few with genuinely good news: a clinical study found no interference with tamoxifen, and laboratory work suggests the two may work better together. Brew at around 80°C rather than boiling."
+      },
+      {
+        "id": "garlic",
+        "name": "Garlic",
+        "verdict": "helps",
+        "aliases": [
+          "garlic",
+          "allicin"
+        ],
+        "why": "Crush it and leave it ten minutes before cooking — that's what releases the allicin. A small habit that costs nothing."
+      },
+      {
+        "id": "oliveoil",
+        "name": "Olive oil",
+        "verdict": "helps",
+        "aliases": [
+          "olive oil",
+          "extra virgin",
+          "oleuropein",
+          "olives"
+        ],
+        "why": "Unfiltered extra virgin. One of the anchors of the Mediterranean pattern, which has the best evidence of any diet in breast cancer."
+      },
+      {
+        "id": "berries",
+        "name": "Berries",
+        "verdict": "helps",
+        "aliases": [
+          "berries",
+          "blueberry",
+          "blueberries",
+          "raspberry",
+          "strawberry",
+          "blackberry"
+        ],
+        "why": "Ellagic acid and polyphenols, and an easy thing to add to almost anything."
+      },
+      {
+        "id": "pomegranate",
+        "name": "Pomegranate",
+        "verdict": "helps",
+        "aliases": [
+          "pomegranate",
+          "pomegranate seeds"
+        ],
+        "why": "Rich in ellagic acid. Seeds scattered over a salad or yoghurt is the least effortful way in."
+      },
+      {
+        "id": "citruszest",
+        "name": "Citrus zest",
+        "verdict": "helps",
+        "aliases": [
+          "zest",
+          "lemon zest",
+          "orange zest",
+          "citrus rind",
+          "lemon water"
+        ],
+        "why": "The rind carries compounds the juice doesn't. Zest into dishes, or a slice with the peel on in water."
+      },
+      {
+        "id": "ginger",
+        "name": "Ginger",
+        "verdict": "helps",
+        "aliases": [
+          "ginger",
+          "fresh ginger",
+          "ginger tea"
+        ],
+        "why": "Anti-inflammatory, and useful for nausea. Grate into food or steep in hot water."
+      },
+      {
+        "id": "cruciferous",
+        "name": "Broccoli, broccoli sprouts and cruciferous veg",
+        "verdict": "helps",
+        "aliases": [
+          "broccoli",
+          "broccoli sprouts",
+          "kale",
+          "cabbage",
+          "cauliflower",
+          "brussels",
+          "rocket",
+          "watercress",
+          "sulforaphane",
+          "cruciferous"
+        ],
+        "why": "Sulforaphane has some of the better evidence in breast cancer, and related compounds reduce the body's own oestrogen production. Sprouts are the most concentrated source."
+      },
+      {
+        "id": "turmericfood",
+        "name": "Turmeric as a spice",
+        "verdict": "helps",
+        "aliases": [
+          "turmeric spice",
+          "turmeric powder",
+          "curry powder",
+          "golden"
+        ],
+        "why": "Cooking with it is a different question from the capsules. A pinch with black pepper in food is fine — concentrated curcumin supplements are the ones that clash with tamoxifen."
+      },
+      {
+        "id": "mushroomsfood",
+        "name": "Mushrooms as food",
+        "verdict": "helps",
+        "aliases": [
+          "mushroom",
+          "mushrooms",
+          "shiitake",
+          "chestnut mushroom",
+          "portobello"
+        ],
+        "why": "Eating mushrooms is associated with lower breast cancer risk. This is entirely separate from concentrated mushroom extracts, which need your team's view."
+      },
+      {
+        "id": "darkchoc",
+        "name": "Dark chocolate, 80% or more",
+        "verdict": "helps",
+        "aliases": [
+          "dark chocolate",
+          "85%",
+          "70%",
+          "cacao",
+          "cocoa nibs"
+        ],
+        "why": "A reasonable treat with far less sugar than milk chocolate. Nice with a handful of berries."
+      },
+      {
+        "id": "nuts",
+        "name": "Nuts and seeds",
+        "verdict": "helps",
+        "aliases": [
+          "nuts",
+          "almond",
+          "walnut",
+          "pumpkin seeds",
+          "tahini",
+          "almond butter",
+          "seeds"
+        ],
+        "why": "Protein, healthy fat and slow energy — exactly what steadies things between meals."
+      },
+      {
+        "id": "kefir",
+        "name": "Kefir and live yoghurt",
+        "verdict": "helps",
+        "aliases": [
+          "kefir",
+          "live yoghurt",
+          "probiotic yoghurt",
+          "greek yoghurt"
+        ],
+        "why": "Good for the gut and an easy vehicle for berries, seeds or pomegranate."
+      },
+      {
+        "id": "fastingfood",
+        "name": "Fasting or skipping meals before appointments",
+        "verdict": "avoid",
+        "aliases": [
+          "fasting",
+          "fast",
+          "skip breakfast",
+          "skipping meals",
+          "intermittent fasting",
+          "empty stomach"
+        ],
+        "why": "Some cancer nutrition plans suggest fasting before radiotherapy. That advice is not for you: going without food is one of your most reliable migraine triggers, and a full day without it is what set off the run of headaches you're in. Eat before appointments, and take something with you."
       }
     ]
   },
@@ -1540,6 +1832,26 @@
           "Take water and something to eat to every appointment; waiting times are unpredictable.",
           "Keep your caffeine at its usual level. A skipped morning coffee on a hospital day is a classic way to bring an attack on.",
           "Keep your wake-up time the same, even on the days you feel wrecked."
+        ]
+      },
+      {
+        "title": "Eating around treatment",
+        "lines": [
+          "Eat before every session. Some cancer nutrition plans suggest fasting beforehand — that advice is not for you, because going without food is one of your most reliable migraine triggers.",
+          "Take water and something to eat to every appointment; waiting times are unpredictable.",
+          "Colour on the plate does most of the work: berries, pomegranate, citrus, olive oil, garlic, ginger, green tea, and plenty of broccoli and other cruciferous veg.",
+          "Crush garlic and leave it ten minutes before cooking — that's what releases the allicin.",
+          "Green tea is worth having: a clinical study found no interference with tamoxifen. Brew at about 80°C rather than boiling.",
+          "Protein at every meal, and go easy on sugary things that spike then crash."
+        ]
+      },
+      {
+        "title": "Supplements around treatment",
+        "lines": [
+          "Ask your team before treatment starts, and be led by them rather than by anything written for someone else.",
+          "Concentrated antioxidant supplements are the ones most often paused for the treatment week — CoQ10 is the relevant one for you.",
+          "Turmeric and curcumin capsules are a separate issue: they interfere with tamoxifen whatever the timing.",
+          "Plain food versions of all of these — turmeric in cooking, berries, mushrooms on toast — are a different question and generally fine."
         ]
       },
       {
