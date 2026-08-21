@@ -4,7 +4,7 @@
   "tamoxifenActive": false,
   "pharmacistLine": {
     "active": "Whatever it is, tell the pharmacist about your breast-cancer medicine every time — even for things off the supermarket shelf.",
-    "pending": "Whatever it is, tell the pharmacist about your breast-cancer medicine (tamoxifen, expected soon) every time — even for things off the supermarket shelf."
+    "pending": "Whatever it is, tell the pharmacist you've been treated for breast cancer and are expecting to start tamoxifen — every time, even for things off the supermarket shelf."
   },
   "verdicts": {
     "avoid": {
@@ -2211,5 +2211,10 @@
     "addedToast": "Saved to Ask something",
     "tryNote": "Nothing in this list is a substitute for your own team's advice — it's the ordinary, low-risk stuff that tends to get forgotten."
   },
-  "noclashNote": "This means it isn't known to interfere with your treatment — not that it's proven to work. Most natural products have never had a large trial, because nobody funds one for something that grows on a log. Absence of evidence isn't evidence of absence, but it isn't proof either. Still worth telling your team you take it."
+  "noclashNote": "This means it isn't known to interfere with your treatment — not that it's proven to work. Most natural products have never had a large trial, because nobody funds one for something that grows on a log. Absence of evidence isn't evidence of absence, but it isn't proof either. Still worth telling your team you take it.",
+  "timingNote": {
+    "title": "You haven't started tamoxifen yet",
+    "text": "Worth knowing which flags apply when. Some things here clash with tamoxifen specifically — those matter from the day you start, and they're flagged now so nothing catches you out in the meantime. Others apply already, because your cancer is oestrogen-driven: soy, sage, red clover, HRT and anything sold as a natural hormone. If you're unsure which is which, the pharmacist can tell you in a sentence.",
+    "startedPrompt": "Started tamoxifen? Tell Laura and she'll have this updated."
+  }
 }

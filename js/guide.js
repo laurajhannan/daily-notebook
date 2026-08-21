@@ -299,6 +299,18 @@ export async function renderMedicine(root, ctx) {
   const line = g.tamoxifenActive ? pharm.active : pharm.pending;
   if (line) root.appendChild(el('p', { id: 'med-pharmacist', class: 'field-hint', text: line }));
 
+  // Until tamoxifen actually starts, be straight about which flags are live
+  // now and which are anticipating it. Overstating would be its own error.
+  if (!g.tamoxifenActive && g.timingNote) {
+    const card = el('div', { class: 'card mt' });
+    if (g.timingNote.title) card.appendChild(el('h3', { text: g.timingNote.title }));
+    if (g.timingNote.text) card.appendChild(el('p', { text: g.timingNote.text }));
+    if (g.timingNote.startedPrompt) {
+      card.appendChild(el('p', { class: 'muted small', text: g.timingNote.startedPrompt }));
+    }
+    root.appendChild(card);
+  }
+
   const results = el('div', { class: 'mt', 'aria-live': 'polite' });
   root.appendChild(results);
 
