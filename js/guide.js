@@ -26,6 +26,12 @@ function tagLabel(value) {
   return t ? t.label : 'Anything else';
 }
 
+/** Heading form of a tag. "GP" must not be lower-cased into "gp". */
+function tagHeading(value) {
+  const label = tagLabel(value);
+  return label === label.toUpperCase() ? label : label.toLowerCase();
+}
+
 export async function renderQuestions(root, ctx) {
   const questions = await db.getAll('questions');
   root.textContent = '';
@@ -94,8 +100,22 @@ export async function renderQuestions(root, ctx) {
     const items = groups.get(key);
     if (!items || !items.length) continue;
     const section = el('div', { class: 'card' });
-    section.appendChild(el('h3', { text: key === '__none__' ? 'Not yet decided' : `For your ${tagLabel(key).toLowerCase()}` }));
+    const heading = key === '__none__' ? 'Not yet decided' : `For your ${tagHeading(key)}`;
+    section.appendChild(el('h3', { text: heading }));
     section.appendChild(questionList(items, ctx));
+    if (key !== '__none__') {
+      const who = key === 'laura' ? 'Laura' : tagLabel(key);
+      const send = el('button', {
+        type: 'button', class: 'btn btn-block mt',
+        text: key === 'laura' ? 'Send these to Laura' : 'Send these to yourself'
+      });
+      send.addEventListener('click', () => shareQuestions(items, who, ctx));
+      section.appendChild(send);
+      section.appendChild(el('p', { class: 'muted small mt',
+        text: key === 'laura'
+          ? 'Opens your usual apps so you can send them however you like. Nothing is sent automatically.'
+          : 'Useful for sending to yourself before an appointment. Nothing is sent automatically.' }));
+    }
     root.appendChild(section);
   }
 
@@ -110,6 +130,33 @@ export async function renderQuestions(root, ctx) {
 
   if (!questions.length) {
     root.appendChild(el('p', { class: 'muted small', text: 'Nothing saved yet.' }));
+  }
+}
+
+/**
+ * Hand a group of questions to whatever the phone can share with — WhatsApp,
+ * messages, email. Nothing is sent by the app itself: Android's own share
+ * sheet opens and she chooses. Falls back to the clipboard where the Share API
+ * isn't available.
+ */
+async function shareQuestions(items, groupLabel, ctx) {
+  const lines = items.map((q) => `\u2022 ${q.text}`).join('\n');
+  const stamp = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const text = `Questions for ${groupLabel} \u2014 ${stamp}\n\n${lines}`;
+  try {
+    if (navigator.share) {
+      await navigator.share({ text });
+      return;
+    }
+  } catch (err) {
+    // A cancelled share is not a failure — say nothing and stop.
+    if (err && err.name === 'AbortError') return;
+  }
+  try {
+    await navigator.clipboard.writeText(text);
+    ctx.toast('Copied — paste it into a message');
+  } catch {
+    ctx.toast('Could not share on this device');
   }
 }
 
