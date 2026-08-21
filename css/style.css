@@ -329,6 +329,24 @@ details.acc > .acc-body { padding: 0 16px 16px; }
 .verdict-name { font-weight: 650; margin: 0 0 4px; }
 .verdict-why { margin: 0; font-size: .95rem; }
 
+/* Food verdicts. Only "avoid" borrows the alert colour — the rest are
+   deliberately calm, because the evidence for food triggers is weak and the
+   app should not frighten anyone out of eating. */
+.verdict-card.v-food-avoid   { border-color: var(--alert); background: var(--alert-soft); }
+.verdict-card.v-food-steady  { border-color: var(--warn);  background: var(--warn-soft); }
+.verdict-card.v-food-flush   { border-color: var(--warn);  background: var(--warn-soft); }
+.verdict-card.v-food-watch   { border-color: var(--line);  background: var(--surface-2); }
+.verdict-card.v-food-helps   { border-color: var(--ok);    background: var(--ok-soft); }
+.verdict-card.v-food-unknown { border-color: var(--ok);    background: var(--ok-soft); }
+.v-food-avoid   .verdict-tag { color: var(--alert); }
+.v-food-steady  .verdict-tag,
+.v-food-flush   .verdict-tag { color: var(--warn); }
+.v-food-watch   .verdict-tag { color: var(--ink-muted); }
+.v-food-helps   .verdict-tag,
+.v-food-unknown .verdict-tag { color: var(--ok); }
+.mine-note { font-weight: 650; margin-top: 6px; }
+.v-food .link-btn { margin-top: 8px; }
+
 .flag-group { margin-bottom: 16px; }
 .flag-group h3 { margin-bottom: 6px; }
 .flag-group.level-emergency h3 { color: var(--alert); }

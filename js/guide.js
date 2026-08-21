@@ -270,13 +270,136 @@ export async function renderMedicine(root, ctx) {
 
 /* ---------- Eating ---------- */
 
-export async function renderFood(root, ctx) {
-  const food = (ctx.guidance && ctx.guidance.food) || {};
-  root.textContent = '';
-  root.appendChild(el('h2', { text: 'Eating with all this' }));
-  if (food.intro) root.appendChild(el('p', { class: 'q-blurb', text: food.intro }));
+/**
+ * Foods she has told us affect her, kept in settings so they survive a restart.
+ * The published evidence on food triggers is genuinely weak, so her own
+ * observations outrank any list we could ship.
+ */
+const MY_TRIGGERS_KEY = 'myFoodTriggers';
 
-  for (const section of food.sections || []) {
+async function getMyTriggers() {
+  try {
+    const v = await db.getSetting(MY_TRIGGERS_KEY);
+    return Array.isArray(v) ? v : [];
+  } catch { return []; }
+}
+
+async function toggleMyTrigger(id) {
+  const cur = await getMyTriggers();
+  const next = cur.includes(id) ? cur.filter((x) => x !== id) : cur.concat([id]);
+  await db.setSetting(MY_TRIGGERS_KEY, next);
+  return next;
+}
+
+/* Food verdicts have their own ordering: the two that genuinely matter first,
+   then the weakly-evidenced ones, then the reassuring ones. */
+const FOOD_ORDER = { avoid: 0, steady: 1, flush: 2, watch: 3, helps: 4, unknown: 5 };
+
+/**
+ * How directly this entry answers what she typed. Without this, searching
+ * "chocolate" ranks Caffeine first (because "hot chocolate" is one of its
+ * aliases) and buries the actual chocolate entry. Closeness of match wins;
+ * verdict severity only breaks ties.
+ */
+function foodRelevance(item, q) {
+  const names = [item.name].concat(Array.isArray(item.aliases) ? item.aliases : [])
+    .filter((n) => typeof n === 'string').map((n) => n.toLowerCase());
+  if (names.includes(q)) return 0;                       // exact name or alias
+  if (names.some((n) => n.startsWith(q))) return 1;      // "choc" → "chocolate"
+  if (names.some((n) => n.includes(q))) return 2;        // inside a longer name
+  return 3;                                              // matched only on a word
+}
+
+function foodCard(item, food, mine, onToggle) {
+  const verdicts = food.verdicts || {};
+  const key = item && verdicts[item.verdict] ? item.verdict : 'unknown';
+  const meta = verdicts[key] || {};
+  // Reuses the medicine card styling so both lookups look like one thing.
+  const card = el('div', { class: `verdict-card v-food v-food-${key}` });
+
+  if (meta.label) card.appendChild(el('span', { class: 'verdict-tag', text: meta.label }));
+  card.appendChild(el('p', { class: 'verdict-name', text: (item && item.name) || (meta.lead || '') }));
+  // The item's own explanation says everything the generic lead would, so only
+  // fall back to the lead when there isn't one. Less to read.
+  const why = (item && item.why) || food.unknownWhy || (item ? meta.lead : '');
+  if (why) card.appendChild(el('p', { class: 'verdict-why muted', text: why }));
+
+  // Her own marking. Only offered for real entries — there is nothing to
+  // remember about a food we have no entry for.
+  if (item && item.id) {
+    const isMine = mine.includes(item.id);
+    if (isMine) {
+      card.appendChild(el('p', { class: 'verdict-why mine-note', text: food.markedLabel || "You've marked this as one of yours." }));
+    }
+    const btn = el('button', {
+      type: 'button', class: 'link-btn',
+      text: isMine ? (food.markRemove || 'Remove my mark') : (food.markAdd || 'Mark as one of mine')
+    });
+    btn.addEventListener('click', () => onToggle(item.id));
+    card.appendChild(btn);
+  }
+  return card;
+}
+
+export async function renderFood(root, ctx) {
+  const food = (ctx.guidance && ctx.guidance.foodLookup) || {};
+  const legacy = (ctx.guidance && ctx.guidance.food) || {};
+  const items = Array.isArray(food.items) ? food.items : [];
+  let mine = await getMyTriggers();
+
+  root.textContent = '';
+  root.appendChild(el('h2', { text: 'Eating' }));
+  if (food.blurb) root.appendChild(el('p', { class: 'q-blurb', text: food.blurb }));
+
+  const label = el('label', {
+    class: 'field-label', for: 'food-search',
+    text: food.searchLabel || 'Type a food or drink'
+  });
+  const input = el('input', {
+    id: 'food-search', type: 'search', name: 'food',
+    placeholder: food.searchPlaceholder || '', autocomplete: 'off'
+  });
+  const results = el('div', { class: 'mt', 'aria-live': 'polite' });
+  const mineWrap = el('div');
+  root.appendChild(label);
+  root.appendChild(input);
+  root.appendChild(results);
+
+  const draw = () => {
+    results.textContent = '';
+    const q = input.value.trim();
+    if (!q) return;                        // nothing typed: say nothing
+    // Same matcher as the medicine lookup, so she can type what's on the packet.
+    const ql = q.toLowerCase();
+    const hits = findMedicines(items, q)
+      .sort((a, b) => (foodRelevance(a, ql) - foodRelevance(b, ql))
+        || ((FOOD_ORDER[a.verdict] ?? 9) - (FOOD_ORDER[b.verdict] ?? 9)))
+      .slice(0, 4);   // a wall of cards helps nobody
+    const onToggle = async (id) => {
+      mine = await toggleMyTrigger(id);
+      draw();
+      drawMine(mineWrap, items, mine);
+    };
+    if (!hits.length) {
+      if (q.length >= 3) results.appendChild(foodCard(null, food, mine, onToggle));
+      return;
+    }
+    for (const hit of hits) results.appendChild(foodCard(hit, food, mine, onToggle));
+  };
+  input.addEventListener('input', draw);
+
+  // The honest caveat sits under the search, so it lands after a result rather
+  // than lecturing before anything has been asked.
+  if (food.honesty) {
+    const note = el('div', { class: 'card' });
+    note.appendChild(el('h3', { text: 'Before you cut anything out' }));
+    note.appendChild(el('p', { text: food.honesty }));
+    root.appendChild(note);
+  }
+
+  // The steady-eating advice still matters more than any single food, so it
+  // stays on the page beneath the lookup.
+  for (const section of legacy.sections || []) {
     if (!section) continue;
     const card = el('div', { class: 'card' });
     if (section.title) card.appendChild(el('h3', { text: section.title }));
@@ -285,6 +408,29 @@ export async function renderFood(root, ctx) {
     card.appendChild(ul);
     root.appendChild(card);
   }
+
+  // Her own list, redrawn in place whenever she marks something — a full
+  // re-render would wipe whatever she had typed in the search box.
+  root.appendChild(mineWrap);
+  drawMine(mineWrap, items, mine);
+}
+
+function drawMine(wrap, items, mine) {
+  wrap.textContent = '';
+  if (!mine.length) return;
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h3', { text: 'Things you have marked as yours' }));
+  card.appendChild(el('p', {
+    class: 'muted small',
+    text: 'Your own observations are worth more than any published list.'
+  }));
+  const ul = el('ul');
+  for (const id of mine) {
+    const it = items.find((x) => x && x.id === id);
+    if (it) ul.appendChild(el('li', { text: it.name }));
+  }
+  card.appendChild(ul);
+  wrap.appendChild(card);
 }
 
 /* ---------- Urgent symptoms ---------- */

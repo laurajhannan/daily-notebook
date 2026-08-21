@@ -339,5 +339,319 @@
     "severe": "A reading this high needs prompt advice — see Urgent symptoms.",
     "severeSys": 180,
     "severeDia": 120
+  },
+  "foodLookup": {
+    "searchLabel": "Type a food or drink",
+    "searchPlaceholder": "e.g. cheese, coffee, wine",
+    "blurb": "Type anything you're about to eat or drink. Be warned: most food is fine, and the trigger lists you'll find online are far less reliable than they look.",
+    "honesty": "Apart from soy and alcohol, the evidence that any particular food triggers migraine is weak — studies keep coming out inconclusive. What matters far more for you is eating regularly. Don't cut things out on the strength of a list; cut things out only if you notice them yourself.",
+    "verdicts": {
+      "avoid": {
+        "label": "Best avoided",
+        "lead": "Worth keeping off the menu."
+      },
+      "watch": {
+        "label": "Often blamed — evidence is weak",
+        "lead": "Commonly reported, but the studies don't back it up."
+      },
+      "steady": {
+        "label": "Keep it steady",
+        "lead": "It's the change that causes trouble, not the thing itself."
+      },
+      "helps": {
+        "label": "Worth having",
+        "lead": "This one's on your side."
+      },
+      "flush": {
+        "label": "May set off a flush",
+        "lead": "Worth noticing rather than avoiding."
+      },
+      "unknown": {
+        "label": "Nothing known against it",
+        "lead": "Not on my list — and most food isn't. Eat it if you fancy it."
+      }
+    },
+    "unknownWhy": "This notebook only flags the few things that genuinely matter. Everything else is just food. If you notice something setting you off, mark it as yours and it'll remember.",
+    "markPrompt": "Does this one affect you?",
+    "markedLabel": "You've marked this as one of yours.",
+    "markAdd": "Mark as one of mine",
+    "markRemove": "Remove my mark",
+    "items": [
+      {
+        "id": "soy",
+        "name": "Soy and fermented soy",
+        "verdict": "avoid",
+        "aliases": [
+          "soy",
+          "soya",
+          "soy sauce",
+          "soya sauce",
+          "miso",
+          "tofu",
+          "edamame",
+          "tempeh",
+          "soya milk",
+          "teriyaki",
+          "red clover"
+        ],
+        "why": "Two separate reasons: soy has oestrogen-like activity, which is best kept low with breast cancer, and fermented soy is high in tyramine — one of the triggers you already know about."
+      },
+      {
+        "id": "alcohol",
+        "name": "Alcohol",
+        "verdict": "avoid",
+        "aliases": [
+          "alcohol",
+          "wine",
+          "red wine",
+          "white wine",
+          "prosecco",
+          "beer",
+          "lager",
+          "cider",
+          "gin",
+          "vodka",
+          "whisky",
+          "spirits",
+          "cocktail",
+          "champagne"
+        ],
+        "why": "Linked to breast-cancer recurrence, and one of the most reliably reported triggers for both migraine and hot flushes. Red wine and beer are the usual culprits."
+      },
+      {
+        "id": "caffeine",
+        "name": "Caffeine",
+        "verdict": "steady",
+        "aliases": [
+          "caffeine",
+          "coffee",
+          "tea",
+          "cola",
+          "coke",
+          "energy drink",
+          "red bull",
+          "espresso",
+          "latte",
+          "cappuccino"
+        ],
+        "why": "Not off-limits — but keep the amount the same each day. A sudden drop is a well-recognised migraine trigger, so a skipped morning coffee can cost you. If you want to cut down, drop by about a quarter a week rather than stopping."
+      },
+      {
+        "id": "cheese",
+        "name": "Aged cheese",
+        "verdict": "watch",
+        "aliases": [
+          "cheese",
+          "cheddar",
+          "stilton",
+          "blue cheese",
+          "camembert",
+          "brie",
+          "parmesan",
+          "gouda"
+        ],
+        "why": "One of the most commonly blamed foods, but the studies are inconclusive. Only worth avoiding if you've actually noticed it yourself."
+      },
+      {
+        "id": "curedmeat",
+        "name": "Cured and processed meat",
+        "verdict": "watch",
+        "aliases": [
+          "cured meat",
+          "salami",
+          "bacon",
+          "ham",
+          "chorizo",
+          "pepperoni",
+          "hot dog",
+          "sausage",
+          "prosciutto",
+          "processed meat"
+        ],
+        "why": "The nitrates get blamed. Evidence is thin for migraine — though processed meat is worth keeping modest for general health anyway."
+      },
+      {
+        "id": "yeast",
+        "name": "Yeast extract",
+        "verdict": "watch",
+        "aliases": [
+          "yeast extract",
+          "marmite",
+          "bovril",
+          "vegemite",
+          "stock cube",
+          "gravy granules"
+        ],
+        "why": "High in tyramine and often listed as a trigger, but the evidence is weak. Notice rather than assume."
+      },
+      {
+        "id": "smokedfish",
+        "name": "Smoked and pickled fish",
+        "verdict": "watch",
+        "aliases": [
+          "smoked fish",
+          "smoked salmon",
+          "pickled herring",
+          "kipper",
+          "mackerel"
+        ],
+        "why": "Another tyramine-rich one that appears on every list and holds up poorly in studies."
+      },
+      {
+        "id": "chocolate",
+        "name": "Chocolate",
+        "verdict": "watch",
+        "aliases": [
+          "chocolate",
+          "cocoa",
+          "chocolate bar"
+        ],
+        "why": "Very commonly blamed — but there's a catch. Craving chocolate is often an early sign an attack has already started, so it gets blamed for something it didn't cause."
+      },
+      {
+        "id": "msg",
+        "name": "MSG and flavour enhancers",
+        "verdict": "watch",
+        "aliases": [
+          "msg",
+          "monosodium glutamate",
+          "flavour enhancer",
+          "takeaway"
+        ],
+        "why": "Frequently reported, poorly supported by evidence."
+      },
+      {
+        "id": "sweetener",
+        "name": "Artificial sweeteners",
+        "verdict": "watch",
+        "aliases": [
+          "sweetener",
+          "aspartame",
+          "diet coke",
+          "sugar free",
+          "sugar-free",
+          "canderel"
+        ],
+        "why": "Aspartame in particular gets blamed. Evidence is mixed at best."
+      },
+      {
+        "id": "citrus",
+        "name": "Citrus fruit",
+        "verdict": "watch",
+        "aliases": [
+          "citrus",
+          "orange",
+          "lemon",
+          "lime",
+          "grapefruit",
+          "satsuma"
+        ],
+        "why": "On most trigger lists, with very little behind it."
+      },
+      {
+        "id": "protein",
+        "name": "Protein foods",
+        "verdict": "helps",
+        "aliases": [
+          "protein",
+          "egg",
+          "eggs",
+          "chicken",
+          "fish",
+          "beans",
+          "lentils",
+          "yoghurt",
+          "greek yoghurt",
+          "nuts",
+          "peanut butter",
+          "cheese on toast",
+          "meat"
+        ],
+        "why": "Protein at every meal steadies blood sugar, which is the single most useful thing you can do — given a day without food is what started this run."
+      },
+      {
+        "id": "slowcarb",
+        "name": "Slow-release carbohydrates",
+        "verdict": "helps",
+        "aliases": [
+          "wholegrain",
+          "wholemeal",
+          "oats",
+          "porridge",
+          "brown rice",
+          "wholemeal bread",
+          "granary",
+          "sweet potato",
+          "pasta"
+        ],
+        "why": "Releases energy slowly instead of spiking and crashing. Better than anything sugary."
+      },
+      {
+        "id": "water",
+        "name": "Water",
+        "verdict": "helps",
+        "aliases": [
+          "water",
+          "hydration",
+          "squash",
+          "fluids"
+        ],
+        "why": "Dehydration is a quiet headache trigger, and it creeps up on hospital days. Keep a bottle with you."
+      },
+      {
+        "id": "snack",
+        "name": "A bedtime snack",
+        "verdict": "helps",
+        "aliases": [
+          "bedtime snack",
+          "supper",
+          "late snack",
+          "toast before bed",
+          "banana"
+        ],
+        "why": "The overnight gap is the longest you go without food, which is why headaches so often arrive first thing. Something small before bed is the fix worth trying."
+      },
+      {
+        "id": "sugary",
+        "name": "Sugary food on an empty stomach",
+        "verdict": "watch",
+        "aliases": [
+          "sugar",
+          "sweets",
+          "cake",
+          "biscuits",
+          "chocolate bar",
+          "fizzy drink",
+          "pastry"
+        ],
+        "why": "Not banned — but a sugar spike on an empty stomach is followed by a crash, and the crash is the bit that triggers headaches. Better alongside some protein."
+      },
+      {
+        "id": "hotdrinks",
+        "name": "Hot drinks",
+        "verdict": "flush",
+        "aliases": [
+          "hot drink",
+          "hot tea",
+          "hot coffee",
+          "soup",
+          "hot chocolate"
+        ],
+        "why": "A common flush trigger. Not a reason to give up tea — just worth noticing whether it's yours."
+      },
+      {
+        "id": "spicy",
+        "name": "Spicy food",
+        "verdict": "flush",
+        "aliases": [
+          "spicy",
+          "chilli",
+          "curry",
+          "hot sauce",
+          "jalapeno"
+        ],
+        "why": "Another common flush trigger. Notice, don't assume."
+      }
+    ]
   }
 }
