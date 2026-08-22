@@ -214,6 +214,79 @@ export function painkillerState(entries, endISO, days = 28) {
   return { state, days: any, triptanDays: triptan, simpleDays: simple };
 }
 
+/* ---------- patterns ---------- */
+
+/**
+ * Compare bad-headache rates on days with and without a given flag.
+ *
+ * Deliberately modest. This is association, over a small number of days, with
+ * no control for anything — it can suggest where to look, and it cannot show
+ * cause. `MIN_PATTERN_DAYS` keeps it quiet until there is enough to be worth
+ * looking at; `MIN_GROUP` stops a single day driving a percentage.
+ */
+export const MIN_PATTERN_DAYS = 28;
+const MIN_GROUP = 4;
+
+/**
+ * How big a gap has to be before it's worth her attention, given how many days
+ * she has recorded.
+ *
+ * These numbers are not guesses. Simulating pure noise — random flags, random
+ * bad days, no relationship at all — a 20-point gap turns up by chance in 37%
+ * of three-week stretches, and in 30% of four-week ones. Reporting that as a
+ * finding would have her cutting out foods on the strength of a coin toss.
+ * Each threshold below is the point where noise clears it under about 5% of
+ * the time, so a flagged pattern is much more likely to be real than not.
+ * The more days she records, the smaller a difference we can honestly call.
+ */
+function noticeThreshold(daysRecorded) {
+  if (daysRecorded >= 84) return 20;
+  if (daysRecorded >= 42) return 30;
+  if (daysRecorded >= 28) return 40;
+  return 50;
+}
+
+export function flagPattern(entries, endISO, days, flagFn) {
+  const rows = entriesInWindow(entries, endISO, days);
+  const withFlag = rows.filter((e) => flagFn(e));
+  const without = rows.filter((e) => !flagFn(e));
+  if (withFlag.length < MIN_GROUP || without.length < MIN_GROUP) return null;
+  const bad = (list) => list.filter((e) => e.headache === 'bad' || e.headache === 'migraine').length;
+  const withRate = bad(withFlag) / withFlag.length;
+  const withoutRate = bad(without) / without.length;
+  const difference = Math.round((withRate - withoutRate) * 100);
+  const threshold = noticeThreshold(rows.length);
+  return {
+    withDays: withFlag.length,
+    withoutDays: without.length,
+    withPct: Math.round(withRate * 100),
+    withoutPct: Math.round(withoutRate * 100),
+    difference,
+    threshold,
+    // Only true when the gap is big enough that chance is an unlikely
+    // explanation at this amount of data.
+    notable: difference >= threshold
+  };
+}
+
+/** Short nights, using her own median as the cut so it adapts to her. */
+export function shortSleepFlag(entries, endISO, days) {
+  const rows = entriesInWindow(entries, endISO, days)
+    .map((e) => e.sleepHours).filter((h) => typeof h === 'number');
+  if (rows.length < MIN_GROUP * 2) return null;
+  const sorted = rows.slice().sort((a, b) => a - b);
+  const median = sorted[Math.floor(sorted.length / 2)];
+  return (e) => typeof e.sleepHours === 'number' && e.sleepHours < median;
+}
+
+/** Suspects she has typed on bad days, most recent first. */
+export function suspects(entries, endISO, days) {
+  return entriesInWindow(entries, endISO, days)
+    .filter((e) => e && typeof e.suspect === 'string' && e.suspect.trim())
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .map((e) => ({ date: e.date, text: e.suspect.trim(), headache: e.headache }));
+}
+
 /* ---------- milestones ---------- */
 
 /**

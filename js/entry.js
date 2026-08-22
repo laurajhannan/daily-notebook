@@ -49,6 +49,7 @@ export function blankEntry(date) {
     period: false,
     mood: null,
     note: '',
+    suspect: '',
     updatedAt: null
   };
 }
@@ -327,7 +328,29 @@ export async function renderToday(root, ctx) {
   const form = el('form', { class: 'entry-form', novalidate: true });
 
   form.appendChild(chipRow('How are you today?', HEADACHE_CHOICES, 'single',
-    () => model.headache, (v) => { model.headache = v; }));
+    () => model.headache, (v) => { model.headache = v; renderSuspect(); }));
+
+  // Only asked on a bad day, and never required. Catching her hunch at the
+  // moment it forms beats asking her to log every meal — and a food diary
+  // would take weeks she hasn't got, to chase associations the evidence says
+  // are mostly not there.
+  const suspectWrap = el('div');
+  root.appendChild(suspectWrap);
+  function renderSuspect() {
+    suspectWrap.textContent = '';
+    if (model.headache !== 'bad' && model.headache !== 'migraine') return;
+    const label = el('label', { class: 'field-label mt', for: 'suspect',
+      text: 'Anything you suspect set it off?' });
+    const input = el('input', { type: 'text', id: 'suspect', name: 'suspect', maxlength: '140',
+      placeholder: 'Optional — a food, a late night, stress…', autocomplete: 'off' });
+    input.value = model.suspect || '';
+    input.addEventListener('input', () => { model.suspect = input.value; });
+    suspectWrap.appendChild(label);
+    suspectWrap.appendChild(input);
+    suspectWrap.appendChild(el('p', { class: 'field-hint',
+      text: 'Only asked on bad days. Patterns build up over a few weeks.' }));
+  }
+  renderSuspect();
 
   form.appendChild(chipRow('Painkillers today?', MED_CHOICES, 'multi',
     () => model.meds, (v) => { model.meds = v; }, { noneLabel: 'None' }));

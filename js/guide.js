@@ -549,6 +549,80 @@ function drawMine(wrap, items, mine) {
   wrap.appendChild(card);
 }
 
+/* ---------- Patterns ---------- */
+
+export async function renderPatterns(root, ctx) {
+  const todayISO = S.toISODate();
+  const entries = await db.getAll('entries');
+  const days = 56;
+  const inWindow = S.entriesInWindow(entries, todayISO, days).length;
+  root.textContent = '';
+  root.appendChild(el('h2', { text: 'Patterns' }));
+
+  if (inWindow < S.MIN_PATTERN_DAYS) {
+    const card = el('div', { class: 'card' });
+    card.appendChild(el('h3', { text: 'Not enough yet' }));
+    card.appendChild(el('p', { text: `You have ${inWindow} day${inWindow === 1 ? '' : 's'} recorded. Patterns need at least ${S.MIN_PATTERN_DAYS} before anything here would mean much, and get more reliable the longer you keep going — until then it would be noise dressed up as an answer.` }));
+    card.appendChild(el('p', { class: 'muted small', text: 'Keep going. Nothing else to do.' }));
+    root.appendChild(card);
+    return;
+  }
+
+  root.appendChild(el('p', { class: 'q-blurb',
+    text: 'What went alongside your bad days. This can show where to look — it cannot show cause, and a few weeks of one person\u2019s days is a small amount of evidence.' }));
+
+  const checks = [
+    { label: 'Days you went more than 4 hours without eating', fn: (e) => e.longGap === true },
+    { label: 'Nights you were woken by sweats', fn: (e) => e.nightSweats === true },
+    { label: 'Days you had a hot flush', fn: (e) => e.flushes && e.flushes !== 'none' }
+  ];
+  const shortSleep = S.shortSleepFlag(entries, todayISO, days);
+  if (shortSleep) checks.push({ label: 'Nights shorter than your usual', fn: shortSleep });
+
+  let shown = 0;
+  for (const c of checks) {
+    const r = S.flagPattern(entries, todayISO, days, c.fn);
+    if (!r) continue;
+    shown++;
+    const card = el('div', { class: 'card' });
+    card.appendChild(el('h3', { text: c.label }));
+    card.appendChild(el('p', {
+      text: `Bad headache on ${r.withPct}% of those days (${r.withDays} days), against ${r.withoutPct}% of the rest (${r.withoutDays} days).`
+    }));
+    if (r.notable) {
+      card.appendChild(el('p', { class: 'verdict-why',
+        text: 'A big enough gap to be worth mentioning to your GP — and worth watching yourself.' }));
+    } else {
+      card.appendChild(el('p', { class: 'muted small',
+        text: 'Not a big enough difference to read anything into yet. With this many days recorded, a gap would need to be around '
+          + r.threshold + ' points before it meant more than chance.' }));
+    }
+    root.appendChild(card);
+  }
+  if (!shown) {
+    root.appendChild(el('p', { class: 'muted', text: 'Nothing has come up often enough to compare yet.' }));
+  }
+
+  // Her own hunches, which are worth more than any of the arithmetic above.
+  const sus = S.suspects(entries, todayISO, days);
+  if (sus.length) {
+    const card = el('div', { class: 'card' });
+    card.appendChild(el('h3', { text: 'What you suspected at the time' }));
+    card.appendChild(el('p', { class: 'muted small', text: 'Your own impression on the day is usually worth more than the numbers.' }));
+    const ul = el('ul');
+    for (const s of sus.slice(0, 12)) {
+      ul.appendChild(el('li', { text: `${S.formatShort(s.date)} — ${s.text}` }));
+    }
+    card.appendChild(ul);
+    root.appendChild(card);
+  }
+
+  const caveat = el('div', { class: 'card' });
+  caveat.appendChild(el('h3', { text: 'Before you cut anything out' }));
+  caveat.appendChild(el('p', { text: 'Things that turn up alongside a headache are not necessarily causing it — craving particular foods is often an early sign an attack has already started, so the food gets blamed for something it did not do. And eating less is the one change most likely to make your headaches worse.' }));
+  root.appendChild(caveat);
+}
+
 /* ---------- At an appointment ---------- */
 
 /**
