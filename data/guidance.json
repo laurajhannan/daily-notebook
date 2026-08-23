@@ -1090,6 +1090,18 @@
       ],
       "verdict": "check",
       "why": "Works differently from the antihistamines, but drying and drowsy-making. Check before using, especially alongside your other tablets."
+    },
+    {
+      "name": "Meclizine",
+      "aliases": [
+        "meclizine",
+        "meclozine",
+        "sea-legs",
+        "sea legs",
+        "bonine"
+      ],
+      "verdict": "check",
+      "why": "Another sedating antihistamine sold for travel sickness and vertigo — Sea-Legs is this. Same rule as the rest of that aisle: pharmacist's check before it goes anywhere near the tamoxifen."
     }
   ],
   "food": {
