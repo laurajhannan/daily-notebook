@@ -10,7 +10,7 @@ import * as S from './stats.js';
 import { el } from './dom.js';
 import { renderToday, renderBP } from './entry.js';
 import { renderHistory } from './summary.js';
-import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy, renderSuggestions, renderAppointment, renderPatterns } from './guide.js';
+import { renderQuestions, renderMedicine, renderFood, renderFlags, renderRadiotherapy, renderSuggestions, renderAppointment, renderPatterns, renderVertigo } from './guide.js';
 import { renderOnboard, seedMilestones, isStandalone } from './onboard.js';
 import { downloadBackup, readBackupFile, restoreBackup } from './backup.js';
 
@@ -36,6 +36,7 @@ const ROUTES = {
   food:      { view: 'view-guide',     title: 'Eating',              render: renderFood,      back: '#more' },
   flags:     { view: 'view-guide',     title: 'Urgent symptoms',     render: renderFlags,     back: '#more' },
   radiotherapy: { view: 'view-guide', title: 'Radiotherapy',     render: renderRadiotherapy, back: '#more' },
+  vertigo:   { view: 'view-guide',     title: 'Dizziness & vertigo', render: renderVertigo,   back: '#more' },
   suggestions: { view: 'view-guide', title: 'Things that might help', render: renderSuggestions, back: '#more' },
   history:   { view: 'view-history',   title: 'History',             render: renderHistory,   back: '#more' },
   patterns:  { view: 'view-guide',     title: 'Patterns',            render: renderPatterns,  back: '#more' },
@@ -121,6 +122,7 @@ const MORE_ITEMS = [
   { href: '#suggestions', label: 'Things that might help', sub: 'Ideas, and questions worth asking' },
   { href: '#medicine', label: 'Check a medicine' },
   { href: '#food', label: 'Eating' },
+  { href: '#vertigo', label: 'Dizziness & vertigo' },
   { href: '#flags', label: 'Urgent symptoms' },
   { href: '#radiotherapy', label: 'Radiotherapy' },
   { href: '#history', label: 'History & GP summary' },

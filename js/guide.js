@@ -569,13 +569,15 @@ export async function renderPatterns(root, ctx) {
   }
 
   root.appendChild(el('p', { class: 'q-blurb',
-    text: 'What went alongside your bad days. This can show where to look — it cannot show cause, and a few weeks of one person\u2019s days is a small amount of evidence.' }));
+    text: 'What went alongside your bad days — a bad headache, or a spinning day, or both. This can show where to look; it cannot show cause, and a few weeks of one person\u2019s days is a small amount of evidence.' }));
 
   const checks = [
     { label: 'Days you went more than 4 hours without eating', fn: (e) => e.longGap === true },
     { label: 'Nights you were woken by sweats', fn: (e) => e.nightSweats === true },
     { label: 'Days you had a hot flush', fn: (e) => e.flushes && e.flushes !== 'none' }
   ];
+  // Vertigo checked as a flag too — do spinning days cluster with anything?
+  checks.push({ label: 'Days you were dizzy or unsteady', fn: (e) => e.vertigo === 'mild' || e.vertigo === 'spinning' });
   const shortSleep = S.shortSleepFlag(entries, todayISO, days);
   if (shortSleep) checks.push({ label: 'Nights shorter than your usual', fn: shortSleep });
 
@@ -650,6 +652,7 @@ export async function renderAppointment(root, ctx) {
     const rows = [
       ['Painkillers taken on', `${stats.painkillerDays} days`],
       ['Headache on', `${stats.headache.total} days`],
+      ['Dizziness or vertigo on', `${stats.vertigo ? stats.vertigo.any : 0} days`],
       ['Days recorded', `${stats.entriesInWindow}`]
     ];
     if (stats.bp && stats.bp.sys !== null) {
@@ -741,6 +744,24 @@ export async function renderSuggestions(root, ctx) {
     if (group.key === 'try' && s.tryNote) {
       card.appendChild(el('p', { class: 'muted small', text: s.tryNote }));
     }
+    root.appendChild(card);
+  }
+}
+
+/* ---------- Dizziness & vertigo ---------- */
+
+export async function renderVertigo(root, ctx) {
+  const vg = (ctx.guidance && ctx.guidance.vertigo) || {};
+  root.textContent = '';
+  root.appendChild(el('h2', { text: 'Dizziness & vertigo' }));
+  if (vg.intro) root.appendChild(el('p', { class: 'q-blurb', text: vg.intro }));
+  for (const section of vg.sections || []) {
+    if (!section) continue;
+    const card = el('div', { class: 'card' });
+    if (section.title) card.appendChild(el('h3', { text: section.title }));
+    const ul = el('ul');
+    for (const line of section.lines || []) ul.appendChild(el('li', { text: line }));
+    card.appendChild(ul);
     root.appendChild(card);
   }
 }

@@ -65,7 +65,9 @@
         "nytol one-a-night",
         "one-a-night",
         "benadryl",
-        "sominex"
+        "sominex",
+        "dramamine",
+        "dimenhydrinate"
       ],
       "verdict": "avoid",
       "why": "Interferes with the enzyme tamoxifen depends on. It hides in several night-time remedies."
@@ -452,10 +454,14 @@
       "aliases": [
         "promethazine",
         "phenergan",
-        "sominex"
+        "sominex",
+        "avomine",
+        "sominex herbal",
+        "sea sickness",
+        "travel sickness"
       ],
       "verdict": "avoid",
-      "why": "A sedating antihistamine that affects the tamoxifen enzyme. Sold for both allergy and sleep."
+      "why": "A sedating antihistamine that affects the tamoxifen enzyme. Sold for allergy, sleep and travel sickness — Avomine is this."
     },
     {
       "name": "Cough medicines",
@@ -1050,6 +1056,40 @@
       ],
       "verdict": "current",
       "why": "The kind of plain, unperfumed moisturiser radiotherapy teams tend to recommend. Nothing to check — though do ask them which they prefer, and leave a gap around treatment times."
+    },
+    {
+      "name": "Cinnarizine",
+      "aliases": [
+        "cinnarizine",
+        "stugeron",
+        "stugeron 15",
+        "arlevert"
+      ],
+      "verdict": "check",
+      "why": "The usual over-the-counter tablet for vertigo and travel sickness, and a sedating antihistamine — so it needs the pharmacist's check alongside tamoxifen before it becomes a habit."
+    },
+    {
+      "name": "Betahistine",
+      "aliases": [
+        "betahistine",
+        "serc"
+      ],
+      "verdict": "check",
+      "why": "A prescription vertigo medicine. If it's ever offered, ask how it sits with everything else you take — and mention that your vertigo is thought to be migraine-related, since it works best for a different condition."
+    },
+    {
+      "name": "Hyoscine travel patches and tablets",
+      "aliases": [
+        "hyoscine",
+        "kwells",
+        "joy-rides",
+        "joyrides",
+        "scopoderm",
+        "scopolamine",
+        "travel sickness tablets"
+      ],
+      "verdict": "check",
+      "why": "Works differently from the antihistamines, but drying and drowsy-making. Check before using, especially alongside your other tablets."
     }
   ],
   "food": {
@@ -2140,6 +2180,14 @@
             "why": "Above 10 days a month for sumatriptan, or 15 for paracetamol and ibuprofen, painkillers can start causing headaches themselves. The app counts the days for you."
           },
           {
+            "text": "Could some of my vertigo be BPPV rather than migraine? Could you check with the head-position test?",
+            "why": "Sudden oestrogen loss raises the risk of BPPV — loose inner-ear crystals. If spinning is set off by rolling over or looking up and lasts under a minute, it may be fixable in minutes with the Epley manoeuvre, no drugs involved."
+          },
+          {
+            "text": "Would a referral for vestibular rehabilitation help? And what should I take during a vertigo attack, given the travel-sickness tablets need checking against tamoxifen?",
+            "why": "Balance-retraining physiotherapy has good evidence in vestibular migraine, and could dovetail with the physio work you already do. The second half matters because the usual over-the-counter vertigo remedies are the very antihistamines that clash."
+          },
+          {
             "text": "Is my blood pressure actually at target?",
             "why": "It decides whether sumatriptan is safe for you — triptans aren't used when blood pressure is uncontrolled. The home target is below 135/85."
           },
@@ -2149,7 +2197,7 @@
           },
           {
             "text": "Would escitalopram or venlafaxine suit me? I've read they can help migraine and hot flushes at the same time.",
-            "why": "From the Women's Health Concern factsheet on migraine and HRT, for women who can't take oestrogen. Both are compatible with tamoxifen. Escitalopram may suit you better because venlafaxine can raise blood pressure."
+            "why": "From the Women's Health Concern guidance for women who can't take oestrogen. Both are compatible with tamoxifen — and venlafaxine has trial evidence in vestibular migraine specifically, reducing the vertigo attacks themselves. It can raise blood pressure, which is why this is a question rather than a suggestion; escitalopram is gentler on that front."
           },
           {
             "text": "Should I be taking vitamin D, and do I need calcium?",
@@ -2227,5 +2275,45 @@
       "Nothing sends on its own. You tap the button, your own apps open, and you choose what to send and how."
     ],
     "footnote": "None of it replaces your GP or your hospital team. It's for the questions in between appointments, and for working out which ones are worth their time."
+  },
+  "vertigo": {
+    "intro": "Your migraines are the vestibular kind, and the vertigo has been worse since the HRT stopped. That fits — this type is strongly hormone-sensitive, and a sudden drop is exactly the sort of change it reacts to. Worth knowing properly, because some of it is fixable.",
+    "sections": [
+      {
+        "title": "When it hits",
+        "lines": [
+          "Sit or lie down, still, until it passes. Fix your eyes on one unmoving thing.",
+          "Don't drive during an attack, or until you're fully steady afterwards. If attacks arrive without warning, ask your GP where you stand on driving.",
+          "Stairs, baths and ladders are where vertigo does real harm — handrail, shower rather than bath on bad days, nothing off a step-stool.",
+          "Ginger helps the nausea and clashes with nothing — grated in hot water, or chews."
+        ]
+      },
+      {
+        "title": "The travel-sickness trap",
+        "lines": [
+          "The tablets sold for dizziness and travel sickness are mostly sedating antihistamines — Stugeron, Avomine, Sea-Legs, Dramamine.",
+          "Several interfere with the enzyme tamoxifen needs, and the rest still need a pharmacist's check.",
+          "So the aisle that looks made for you is the one to be careful in. Check anything here before taking it, and say the word tamoxifen at the counter."
+        ]
+      },
+      {
+        "title": "One genuinely hopeful thing to ask about",
+        "lines": [
+          "Not all vertigo after sudden oestrogen loss is migraine. Losing oestrogen abruptly also raises the risk of BPPV — loose crystals in the inner ear.",
+          "The tell: spinning set off by rolling over in bed, lying down or looking up, lasting seconds to a minute, then settling.",
+          "Why it matters: BPPV is fixed in minutes, in the GP surgery, with a head-repositioning manoeuvre (the Epley). No drugs at all.",
+          "If any of your vertigo fits that pattern, ask your GP to check for it. It would be the easiest win available."
+        ]
+      },
+      {
+        "title": "What helps long-term",
+        "lines": [
+          "The preventives for vestibular migraine are largely the ones you know — your candesartan is a reasonable choice, and propranolol and venlafaxine both have trial evidence for the vertigo itself.",
+          "Vestibular rehabilitation — balance retraining with a physiotherapist — has good evidence, and you already have a physio who works on your nervous system. Worth connecting those two things.",
+          "Sumatriptan treats the headache side better than the spinning side. If vertigo is now the bigger problem, that's worth saying to the GP in exactly those words.",
+          "The everyday rules count double here: steady meals, steady sleep, steady caffeine. This type reacts to change."
+        ]
+      }
+    ]
   }
 }

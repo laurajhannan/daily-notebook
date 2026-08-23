@@ -8,6 +8,12 @@ import * as db from './db.js';
 import * as S from './stats.js';
 import { el } from './dom.js';
 
+const VERTIGO_CHOICES = [
+  { value: 'none', label: 'None' },
+  { value: 'mild', label: 'A little unsteady' },
+  { value: 'spinning', label: 'Spinning' }
+];
+
 const HEADACHE_CHOICES = [
   { value: 'none', label: 'None' },
   { value: 'mild', label: 'Mild' },
@@ -39,6 +45,7 @@ export function blankEntry(date) {
   return {
     date,
     headache: 'none',
+    vertigo: 'none',
     meds: [],
     fatigue: null,
     sleepHours: null,
@@ -61,6 +68,7 @@ function normalise(stored, date) {
   const out = { ...base, ...stored, date };
   out.meds = Array.isArray(out.meds) ? out.meds.filter((m) => typeof m === 'string') : [];
   if (!HEADACHE_CHOICES.some((c) => c.value === out.headache)) out.headache = 'none';
+  if (!VERTIGO_CHOICES.some((c) => c.value === out.vertigo)) out.vertigo = 'none';
   if (!FLUSH_CHOICES.some((c) => c.value === out.flushes)) out.flushes = 'none';
   if (typeof out.fatigue !== 'number' || !Number.isFinite(out.fatigue)) out.fatigue = null;
   if (typeof out.sleepHours !== 'number' || !Number.isFinite(out.sleepHours)) out.sleepHours = null;
@@ -330,15 +338,23 @@ export async function renderToday(root, ctx) {
   form.appendChild(chipRow('How are you today?', HEADACHE_CHOICES, 'single',
     () => model.headache, (v) => { model.headache = v; renderSuspect(); }));
 
+  // Vestibular migraine can arrive as vertigo with no headache at all, so
+  // dizziness has to be a first-class question — a spinning day answered
+  // "None" to the headache chip would otherwise vanish from the record.
+  form.appendChild(chipRow('Dizziness or vertigo?', VERTIGO_CHOICES, 'single',
+    () => model.vertigo, (v) => { model.vertigo = v; renderSuspect(); }));
+
   // Only asked on a bad day, and never required. Catching her hunch at the
   // moment it forms beats asking her to log every meal — and a food diary
   // would take weeks she hasn't got, to chase associations the evidence says
   // are mostly not there.
   const suspectWrap = el('div');
-  root.appendChild(suspectWrap);
+  form.appendChild(suspectWrap);
   function renderSuspect() {
     suspectWrap.textContent = '';
-    if (model.headache !== 'bad' && model.headache !== 'migraine') return;
+    const badHead = model.headache === 'bad' || model.headache === 'migraine';
+    const badSpin = model.vertigo === 'spinning';
+    if (!badHead && !badSpin) return;
     const label = el('label', { class: 'field-label mt', for: 'suspect',
       text: 'Anything you suspect set it off?' });
     const input = el('input', { type: 'text', id: 'suspect', name: 'suspect', maxlength: '140',

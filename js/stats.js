@@ -124,6 +124,23 @@ export function medDayCounts(entries, endISO, days = 28) {
 }
 
 /** Days with any headache, plus a breakdown by severity. */
+/**
+ * A "bad day" for pattern purposes: a bad-or-migraine headache OR a spinning
+ * vertigo day. Vestibular migraine can be all vertigo and no headache, so
+ * counting headaches alone would miss her worst days entirely.
+ */
+export function isBadDay(e) {
+  return e.headache === 'bad' || e.headache === 'migraine' || e.vertigo === 'spinning';
+}
+
+export function vertigoDays(entries, endISO, days = 28) {
+  const rows = entriesInWindow(entries, endISO, days);
+  return {
+    any: rows.filter((e) => e.vertigo === 'mild' || e.vertigo === 'spinning').length,
+    spinning: rows.filter((e) => e.vertigo === 'spinning').length
+  };
+}
+
 export function headacheDays(entries, endISO, days = 28) {
   const byLevel = { mild: 0, bad: 0, migraine: 0 };
   let total = 0;
@@ -251,7 +268,7 @@ export function flagPattern(entries, endISO, days, flagFn) {
   const withFlag = rows.filter((e) => flagFn(e));
   const without = rows.filter((e) => !flagFn(e));
   if (withFlag.length < MIN_GROUP || without.length < MIN_GROUP) return null;
-  const bad = (list) => list.filter((e) => e.headache === 'bad' || e.headache === 'migraine').length;
+  const bad = (list) => list.filter(isBadDay).length;
   const withRate = bad(withFlag) / withFlag.length;
   const withoutRate = bad(without) / without.length;
   const difference = Math.round((withRate - withoutRate) * 100);

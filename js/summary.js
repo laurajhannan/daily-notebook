@@ -26,6 +26,7 @@ export function buildStats(entries, bp, milestones, endISO, days = 28) {
     days,
     entriesInWindow: S.entriesInWindow(entries, endISO, days).length,
     headache: head,
+    vertigo: S.vertigoDays(entries, endISO, days),
     painkillerDays: S.painkillerDays(entries, endISO, days),
     triptanDays: S.triptanDays(entries, endISO, days),
     simpleDays: S.simpleAnalgesicDays(entries, endISO, days),
@@ -57,6 +58,9 @@ export function summaryText(stats, guidance) {
   const medParts = Object.entries(stats.meds)
     .filter(([, n]) => n > 0)
     .map(([k, n]) => `${MED_LABELS[k] || k} ${n}`);
+  if (stats.vertigo && stats.vertigo.any) {
+    lines.push(`Dizziness or vertigo on ${stats.vertigo.any} day${stats.vertigo.any === 1 ? '' : 's'} (${stats.vertigo.spinning} with spinning).`);
+  }
   lines.push(`Painkillers on ${stats.painkillerDays} day${stats.painkillerDays === 1 ? '' : 's'}${medParts.length ? ` (${medParts.join(', ')})` : ''}.`);
 
   if (stats.fatigue.average !== null) {
@@ -168,6 +172,7 @@ export async function renderHistory(root, ctx) {
   const rows = [
     ['Days recorded', String(stats.entriesInWindow)],
     ['Headache days', String(stats.headache.total)],
+    ['Dizzy or vertigo days', stats.vertigo ? String(stats.vertigo.any) : '0'],
     ['Painkiller days', String(stats.painkillerDays)],
     ['— sumatriptan', String(stats.meds.sumatriptan || 0)],
     ['— paracetamol', String(stats.meds.paracetamol || 0)],
