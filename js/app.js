@@ -347,8 +347,15 @@ async function renderSettings(root, c) {
         fetch(`./data/guidance.json?v=${stamp}`, { cache: 'reload' }).then((r) => r.json()),
         fetch(`./data/safety.json?v=${stamp}`, { cache: 'reload' }).then((r) => r.json())
       ]);
-      const newDate = fresh[0] && fresh[0].updated;
-      if (newDate && newDate !== updated) {
+      // Compare the actual content, not a version field a human has to
+      // remember to bump — that discipline failed within a day of shipping.
+      const changed =
+        JSON.stringify(fresh[0]) !== JSON.stringify(c.guidance || {}) ||
+        JSON.stringify(fresh[1]) !== JSON.stringify(c.safety || {});
+      // A shell update may also have just installed; controllerchange handles
+      // that reload on its own. Give it a moment before concluding anything.
+      await new Promise((res) => setTimeout(res, 1500));
+      if (changed) {
         c.toast('Update found — reopening');
         setTimeout(() => window.location.reload(), 900);
       } else {
@@ -470,6 +477,24 @@ async function start() {
  */
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
+
+  // When a new service worker takes over (skipWaiting + clients.claim), the
+  // running page is still executing the OLD code — without this, updates only
+  // arrived on the second full relaunch, which in practice meant they didn't
+  // arrive. Guarded against loops, and against yanking the page out from
+  // under her mid-typing.
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloading) return;
+    const ae = document.activeElement;
+    if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA') &&
+        typeof ae.value === 'string' && ae.value.length) {
+      return; // she's mid-thought; the next open will pick it up instead
+    }
+    reloading = true;
+    window.location.reload();
+  });
+
   const register = () => navigator.serviceWorker
     .register('./sw.js')
     .catch((err) => console.error('SW registration failed', err));
