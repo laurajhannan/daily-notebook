@@ -578,6 +578,16 @@ export async function renderPatterns(root, ctx) {
   ];
   // Vertigo checked as a flag too — do spinning days cluster with anything?
   checks.push({ label: 'Days you were dizzy or unsteady', fn: (e) => e.vertigo === 'mild' || e.vertigo === 'spinning' });
+
+  // Stress twice over: the day itself, and the day after. Stress migraine
+  // famously lands when the pressure comes OFF (the let-down effect), so a
+  // same-day check alone would miss the classic weekend-migraine shape.
+  checks.push({ label: 'Stressful days', fn: (e) => e.stress === true });
+  const byDate = new Map(entries.filter((e) => e && e.date).map((e) => [e.date, e]));
+  checks.push({
+    label: 'The day after a stressful day (the “let-down” pattern)',
+    fn: (e) => { const prev = byDate.get(S.addDays(e.date, -1)); return !!(prev && prev.stress === true); }
+  });
   const shortSleep = S.shortSleepFlag(entries, todayISO, days);
   if (shortSleep) checks.push({ label: 'Nights shorter than your usual', fn: shortSleep });
 
@@ -621,7 +631,7 @@ export async function renderPatterns(root, ctx) {
 
   const caveat = el('div', { class: 'card' });
   caveat.appendChild(el('h3', { text: 'Before you cut anything out' }));
-  caveat.appendChild(el('p', { text: 'Things that turn up alongside a headache are not necessarily causing it — craving particular foods is often an early sign an attack has already started, so the food gets blamed for something it did not do. And eating less is the one change most likely to make your headaches worse.' }));
+  caveat.appendChild(el('p', { text: 'Things that turn up alongside a headache are not necessarily causing it — craving particular foods is often an early sign an attack has already started, so the food gets blamed for something it did not do. Stress is the exception worth knowing: it often strikes the day after it ends rather than during, which is why the day-after check is there. And eating less is the one change most likely to make your headaches worse.' }));
   root.appendChild(caveat);
 }
 
@@ -653,6 +663,7 @@ export async function renderAppointment(root, ctx) {
       ['Painkillers taken on', `${stats.painkillerDays} days`],
       ['Headache on', `${stats.headache.total} days`],
       ['Dizziness or vertigo on', `${stats.vertigo ? stats.vertigo.any : 0} days`],
+      ['Nausea on', `${stats.nauseaDays || 0} days`],
       ['Days recorded', `${stats.entriesInWindow}`]
     ];
     if (stats.bp && stats.bp.sys !== null) {

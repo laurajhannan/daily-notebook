@@ -165,6 +165,10 @@ export function fatigueAverage(entries, endISO, days = 28) {
 }
 
 /** Nights recorded as woken by night sweats. */
+export function toggleDays(entries, endISO, days, key) {
+  return entriesInWindow(entries, endISO, days).filter((e) => e[key] === true).length;
+}
+
 export function nightSweatWakings(entries, endISO, days = 28) {
   return entriesInWindow(entries, endISO, days).filter((e) => e && e.nightSweats === true).length;
 }

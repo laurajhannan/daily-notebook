@@ -54,6 +54,9 @@ export function blankEntry(date) {
     flushBother: null,
     longGap: false,
     period: false,
+    nausea: false,
+    lightSensitive: false,
+    stress: false,
     mood: null,
     note: '',
     suspect: '',
@@ -388,6 +391,12 @@ export async function renderToday(root, ctx) {
   extra.appendChild(toggleRow('Woken by night sweats?',
     () => model.nightSweats, (v) => { model.nightSweats = v; }));
 
+  extra.appendChild(toggleRow('Nausea today?',
+    () => model.nausea, (v) => { model.nausea = v; }));
+
+  extra.appendChild(toggleRow('Sensitive to light?',
+    () => model.lightSensitive, (v) => { model.lightSensitive = v; }));
+
   const botherWrap = el('div', { hidden: model.flushes === 'none' });
   extra.appendChild(chipRow('Hot flushes', FLUSH_CHOICES, 'single',
     () => model.flushes,
@@ -409,6 +418,9 @@ export async function renderToday(root, ctx) {
 
   extra.appendChild(toggleRow('Period today?',
     () => model.period, (v) => { model.period = v; }));
+
+  extra.appendChild(toggleRow('Stressful day?',
+    () => model.stress, (v) => { model.stress = v; }));
 
   extra.appendChild(chipRow('Mood', MOOD_CHOICES, 'single',
     () => model.mood, (v) => { model.mood = model.mood === v ? null : v; }));
