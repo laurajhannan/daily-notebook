@@ -235,6 +235,42 @@ export function painkillerState(entries, endISO, days = 28) {
   return { state, days: any, triptanDays: triptan, simpleDays: simple };
 }
 
+/**
+ * Where in the day her attacks start. A time beats a chip when both exist.
+ * Buckets: woke (chip only), morning 06–11, afternoon 12–17, evening 18–22,
+ * night 23–05.
+ */
+export function onsetBuckets(entries, endISO, days = 56) {
+  const out = { woke: 0, morning: 0, afternoon: 0, evening: 0, night: 0, total: 0 };
+  for (const e of entriesInWindow(entries, endISO, days)) {
+    if (!isBadDay(e)) continue;
+    let bucket = null;
+    if (typeof e.onsetTime === 'string' && /^\d{2}:\d{2}$/.test(e.onsetTime)) {
+      const h = parseInt(e.onsetTime.slice(0, 2), 10);
+      bucket = h >= 23 || h < 6 ? 'night' : h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
+    } else if (e.onsetPart && out[e.onsetPart] !== undefined) {
+      bucket = e.onsetPart;
+    }
+    if (bucket) { out[bucket]++; out.total++; }
+  }
+  return out;
+}
+
+const BUCKET_LABELS = {
+  woke: 'already there on waking', morning: 'in the morning',
+  afternoon: 'in the afternoon', evening: 'in the evening', night: 'at night'
+};
+
+/** One plain sentence about the attack clock, or null while data is thin. */
+export function onsetSentence(buckets) {
+  if (!buckets || buckets.total < 3) return null;
+  const ranked = ['woke', 'morning', 'afternoon', 'evening', 'night']
+    .map((k) => [k, buckets[k]]).sort((a, b) => b[1] - a[1]);
+  const [topKey, topN] = ranked[0];
+  if (!topN) return null;
+  return `Of ${buckets.total} attacks with a recorded start, ${topN} began ${BUCKET_LABELS[topKey]}.`;
+}
+
 /* ---------- patterns ---------- */
 
 /**

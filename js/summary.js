@@ -40,6 +40,7 @@ export function buildStats(entries, bp, milestones, endISO, days = 28) {
     longGaps7: S.longGapDays(entries, endISO, 7),
     periodDays: S.periodDays(entries, endISO, days),
     bp: S.bpAverage(bp, 7),
+    onset: S.onsetBuckets(entries, endISO, days),
     milestones: S.datedMilestones(milestones)
   };
 }
@@ -64,6 +65,8 @@ export function summaryText(stats, guidance) {
   if (stats.vertigo && stats.vertigo.any) {
     lines.push(`Dizziness or vertigo on ${stats.vertigo.any} day${stats.vertigo.any === 1 ? '' : 's'} (${stats.vertigo.spinning} with spinning).`);
   }
+  const onsetLine = S.onsetSentence(stats.onset);
+  if (onsetLine) lines.push(onsetLine);
   if (stats.nauseaDays) lines.push(`Nausea on ${stats.nauseaDays} day${stats.nauseaDays === 1 ? '' : 's'}.`);
   if (stats.lightDays) lines.push(`Sensitive to light on ${stats.lightDays} day${stats.lightDays === 1 ? '' : 's'}.`);
   lines.push(`Painkillers on ${stats.painkillerDays} day${stats.painkillerDays === 1 ? '' : 's'}${medParts.length ? ` (${medParts.join(', ')})` : ''}.`);

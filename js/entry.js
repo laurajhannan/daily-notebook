@@ -60,6 +60,8 @@ export function blankEntry(date) {
     mood: null,
     note: '',
     suspect: '',
+    onsetPart: null,
+    onsetTime: null,
     updatedAt: null
   };
 }
@@ -72,6 +74,8 @@ function normalise(stored, date) {
   out.meds = Array.isArray(out.meds) ? out.meds.filter((m) => typeof m === 'string') : [];
   if (!HEADACHE_CHOICES.some((c) => c.value === out.headache)) out.headache = 'none';
   if (!VERTIGO_CHOICES.some((c) => c.value === out.vertigo)) out.vertigo = 'none';
+  if (!['woke', 'morning', 'afternoon', 'evening', 'night'].includes(out.onsetPart)) out.onsetPart = null;
+  if (typeof out.onsetTime !== 'string' || !/^\d{2}:\d{2}$/.test(out.onsetTime)) out.onsetTime = null;
   if (!FLUSH_CHOICES.some((c) => c.value === out.flushes)) out.flushes = 'none';
   if (typeof out.fatigue !== 'number' || !Number.isFinite(out.fatigue)) out.fatigue = null;
   if (typeof out.sleepHours !== 'number' || !Number.isFinite(out.sleepHours)) out.sleepHours = null;
@@ -358,6 +362,40 @@ export async function renderToday(root, ctx) {
     const badHead = model.headache === 'bad' || model.headache === 'migraine';
     const badSpin = model.vertigo === 'spinning';
     if (!badHead && !badSpin) return;
+
+    // When it started. Attacks that keep a schedule are a diagnostic clue in
+    // their own right — "most of mine start between 6 and 8am" changes a GP
+    // conversation — and waking WITH it is a different animal from it arriving
+    // mid-morning, so that gets its own chip.
+    suspectWrap.appendChild(el('p', { class: 'field-label mt', text: 'When did it start?' }));
+    const parts = [
+      { value: 'woke', label: 'Woke with it' },
+      { value: 'morning', label: 'Morning' },
+      { value: 'afternoon', label: 'Afternoon' },
+      { value: 'evening', label: 'Evening' },
+      { value: 'night', label: 'Night' }
+    ];
+    const row = el('div', { class: 'chip-row' });
+    const partBtns = [];
+    for (const c of parts) {
+      const b = el('button', { type: 'button', class: 'chip',
+        'aria-pressed': model.onsetPart === c.value ? 'true' : 'false', text: c.label });
+      b.addEventListener('click', () => {
+        model.onsetPart = model.onsetPart === c.value ? null : c.value;
+        for (const o of partBtns) o.setAttribute('aria-pressed', 'false');
+        if (model.onsetPart) b.setAttribute('aria-pressed', 'true');
+      });
+      partBtns.push(b);
+      row.appendChild(b);
+    }
+    suspectWrap.appendChild(row);
+    const timeLabel = el('label', { class: 'field-hint', for: 'onset-time', text: 'Or the exact time, if you know it:' });
+    const timeInput = el('input', { type: 'time', id: 'onset-time', name: 'onsetTime' });
+    if (model.onsetTime) timeInput.value = model.onsetTime;
+    timeInput.addEventListener('input', () => { model.onsetTime = timeInput.value || null; });
+    suspectWrap.appendChild(timeLabel);
+    suspectWrap.appendChild(timeInput);
+
     const label = el('label', { class: 'field-label mt', for: 'suspect',
       text: 'Anything you suspect set it off?' });
     const input = el('input', { type: 'text', id: 'suspect', name: 'suspect', maxlength: '140',

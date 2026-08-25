@@ -615,6 +615,22 @@ export async function renderPatterns(root, ctx) {
     root.appendChild(el('p', { class: 'muted', text: 'Nothing has come up often enough to compare yet.' }));
   }
 
+  // The attack clock — the schedule she's noticed, made visible.
+  const buckets = S.onsetBuckets(entries, todayISO, days);
+  if (buckets.total >= 3) {
+    const card = el('div', { class: 'card' });
+    card.appendChild(el('h3', { text: 'When your attacks start' }));
+    const labels = [['woke', 'Woke with it'], ['morning', 'Morning'], ['afternoon', 'Afternoon'], ['evening', 'Evening'], ['night', 'Night']];
+    const ul = el('ul');
+    for (const [k, lab] of labels) {
+      if (buckets[k]) ul.appendChild(el('li', { text: `${lab}: ${buckets[k]} attack${buckets[k] === 1 ? '' : 's'}` }));
+    }
+    card.appendChild(ul);
+    const sentence = S.onsetSentence(buckets);
+    if (sentence) card.appendChild(el('p', { class: 'verdict-why', text: `${sentence} A start time that repeats is worth saying to your GP in exactly those words.` }));
+    root.appendChild(card);
+  }
+
   // Her own hunches, which are worth more than any of the arithmetic above.
   const sus = S.suspects(entries, todayISO, days);
   if (sus.length) {
