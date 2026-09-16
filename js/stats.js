@@ -5,7 +5,8 @@
  * records written by an older or newer version must never throw.
  */
 
-export const MED_KEYS = ['sumatriptan', 'paracetamol', 'ibuprofen', 'other'];
+export const MED_KEYS = ['zolmitriptan', 'sumatriptan', 'paracetamol', 'ibuprofen', 'other'];
+export const TRIPTANS = ['zolmitriptan', 'sumatriptan'];
 export const SIMPLE_ANALGESICS = ['paracetamol', 'ibuprofen', 'other'];
 export const HEADACHE_LEVELS = ['none', 'mild', 'bad', 'migraine'];
 
@@ -99,10 +100,11 @@ export function painkillerDays(entries, endISO, days = 28) {
   return entriesInWindow(entries, endISO, days).filter((e) => meds(e).length > 0).length;
 }
 
-/** Days on which sumatriptan (a triptan) was recorded. */
+/** Days on which any triptan was recorded — she switched from sumatriptan to
+ * zolmitriptan in Sept 2026, and both count toward the same 10-day threshold. */
 export function triptanDays(entries, endISO, days = 28) {
   return entriesInWindow(entries, endISO, days)
-    .filter((e) => meds(e).includes('sumatriptan')).length;
+    .filter((e) => meds(e).some((m) => TRIPTANS.includes(m))).length;
 }
 
 /** Days on which an ordinary painkiller was recorded. */

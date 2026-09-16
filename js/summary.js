@@ -7,6 +7,7 @@ import * as S from './stats.js';
 import { el } from './dom.js';
 
 const MED_LABELS = {
+  zolmitriptan: 'zolmitriptan',
   sumatriptan: 'sumatriptan',
   paracetamol: 'paracetamol',
   ibuprofen: 'ibuprofen',
@@ -66,7 +67,7 @@ export function summaryText(stats, guidance) {
     .filter(([, n]) => n > 0)
     .map(([k, n]) => `${MED_LABELS[k] || k} ${n}`);
   if (stats.vertigo && stats.vertigo.any) {
-    lines.push(`Dizziness or vertigo on ${stats.vertigo.any} day${stats.vertigo.any === 1 ? '' : 's'} (${stats.vertigo.spinning} with spinning).`);
+    lines.push(`Dizziness or vertigo on ${stats.vertigo.any} day${stats.vertigo.any === 1 ? '' : 's'} (${stats.vertigo.spinning} properly off-balance).`);
   }
   const onsetLine = S.onsetSentence(stats.onset);
   if (onsetLine) lines.push(onsetLine);
@@ -77,7 +78,7 @@ export function summaryText(stats, guidance) {
   if (stats.looDays) warns.push(`needing the loo more ${stats.looDays}`);
   if (warns.length) lines.push(`Warning signs logged (days): ${warns.join(', ')}.`);
   if (stats.lightDays) lines.push(`Sensitive to light on ${stats.lightDays} day${stats.lightDays === 1 ? '' : 's'}.`);
-  lines.push(`Painkillers on ${stats.painkillerDays} day${stats.painkillerDays === 1 ? '' : 's'}${medParts.length ? ` (${medParts.join(', ')})` : ''}.`);
+  lines.push(`Painkillers on at least ${stats.painkillerDays} day${stats.painkillerDays === 1 ? '' : 's'}${medParts.length ? ` (${medParts.join(', ')})` : ''}.`);
 
   if (stats.fatigue.average !== null) {
     lines.push(`Average fatigue ${stats.fatigue.average}/10 across ${stats.fatigue.recordedDays} recorded day${stats.fatigue.recordedDays === 1 ? '' : 's'}.`);

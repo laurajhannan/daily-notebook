@@ -8,10 +8,14 @@ import * as db from './db.js';
 import * as S from './stats.js';
 import { el } from './dom.js';
 
+// Her dizziness is rarely true spinning — it's a removed, foggy feeling,
+// sometimes properly off-balance. The labels use her words; the stored values
+// stay the same so a month of history keeps counting. 'spinning' now reads
+// "Off-balance" and still defines a bad day.
 const VERTIGO_CHOICES = [
   { value: 'none', label: 'None' },
-  { value: 'mild', label: 'A little unsteady' },
-  { value: 'spinning', label: 'Spinning' }
+  { value: 'mild', label: 'A bit removed' },
+  { value: 'spinning', label: 'Off-balance' }
 ];
 
 const HEADACHE_CHOICES = [
@@ -21,8 +25,10 @@ const HEADACHE_CHOICES = [
   { value: 'migraine', label: 'Migraine' }
 ];
 
+// Sumatriptan retired Sept 2026 (switched by her clinician); old records
+// still count it as triptan days, the chip just no longer offers it.
 const MED_CHOICES = [
-  { value: 'sumatriptan', label: 'Sumatriptan' },
+  { value: 'zolmitriptan', label: 'Zolmitriptan' },
   { value: 'paracetamol', label: 'Paracetamol' },
   { value: 'ibuprofen', label: 'Ibuprofen' },
   { value: 'other', label: 'Other' }
@@ -256,7 +262,7 @@ function painkillerCard(entries, todayISO, guidance) {
   const card = el('div', { class: `card ${stateClass}` });
   card.appendChild(el('p', {
     class: 'card-lede',
-    text: `Painkillers on ${info.days} of the last 28 days.`
+    text: `Painkillers on at least ${info.days} of the last 28 days.`
   }));
   if (sub) card.appendChild(el('p', { class: 'card-sub', text: sub }));
 
@@ -304,23 +310,37 @@ function pickNudge(state) {
 
 /* ---------- Today ---------- */
 
+// One render can be asked to show yesterday instead — for filling in a day
+// that was never saved (the main reason her painkiller count runs low).
+// Consumed on read, so navigating away and back always lands on today.
+let pendingBackfill = false;
+
 export async function renderToday(root, ctx) {
   const todayISO = S.toISODate();
+  const backfill = pendingBackfill;
+  pendingBackfill = false;
+  const entryDate = backfill ? S.addDays(todayISO, -1) : todayISO;
   const [stored, entries, milestones, dismissed, lastBackup] = await Promise.all([
-    db.get('entries', todayISO),
+    db.get('entries', entryDate),
     db.getAll('entries'),
     db.getAll('milestones'),
     db.getSetting('nudgeDismissed', null),
     db.getSetting('lastBackup', null)
   ]);
 
-  const model = normalise(stored, todayISO);
+  const model = normalise(stored, entryDate);
   root.textContent = '';
 
   // Date and, if there is one, the day count since the most recent milestone.
-  root.appendChild(el('p', { class: 'date-line', text: S.formatLong(todayISO) }));
-  const cur = S.currentMilestone(milestones, todayISO);
-  const next = S.nextMilestone(milestones, todayISO);
+  root.appendChild(el('p', { class: 'date-line',
+    text: backfill ? `Yesterday \u2014 ${S.formatLong(entryDate)}` : S.formatLong(todayISO) }));
+  if (backfill) {
+    const back = el('button', { type: 'button', class: 'link-btn', text: '\u2039 Back to today' });
+    back.addEventListener('click', () => ctx.refresh());
+    root.appendChild(back);
+  }
+  const cur = backfill ? null : S.currentMilestone(milestones, todayISO);
+  const next = backfill ? null : S.nextMilestone(milestones, todayISO);
   const parts = [];
   if (cur && cur.dayNumber !== null) {
     const name = String(cur.milestone.name || 'then').toLowerCase();
@@ -345,8 +365,8 @@ export async function renderToday(root, ctx) {
     root.appendChild(link);
   }
 
-  // At most one banner...
-  const nudge = pickNudge({ entries, todayISO, guidance: ctx.guidance, entryCount: entries.length, lastBackup });
+  // At most one banner... (never while filling in yesterday)
+  const nudge = backfill ? null : pickNudge({ entries, todayISO, guidance: ctx.guidance, entryCount: entries.length, lastBackup });
   if (nudge && !(dismissed && dismissed.date === todayISO && dismissed.id === nudge.id)) {
     const banner = el('div', { class: `banner ${nudge.tone}`.trim() });
     banner.appendChild(el('p', { text: nudge.text }));
@@ -361,7 +381,7 @@ export async function renderToday(root, ctx) {
 
   // ...and at most one card, only when it has something to say.
   const pk = S.painkillerState(entries, todayISO, 28);
-  if (entries.length >= 7 || pk.state !== 'green') {
+  if (!backfill && (entries.length >= 7 || pk.state !== 'green')) {
     root.appendChild(painkillerCard(entries, todayISO, ctx.guidance));
   }
 
@@ -387,7 +407,7 @@ export async function renderToday(root, ctx) {
     model.vertigo = v;
   }
 
-  let editingHalf = new Date().getHours() >= 14 ? 'pm' : 'am';
+  let editingHalf = backfill ? 'pm' : (new Date().getHours() >= 14 ? 'pm' : 'am');
   const halfWrap = el('div');
   form.appendChild(halfWrap);
 
@@ -414,7 +434,7 @@ export async function renderToday(root, ctx) {
     halfWrap.appendChild(chipRow('How are you?', HEADACHE_CHOICES, 'single',
       () => active.headache,
       (v) => { active.headache = v; deriveDay(); renderSuspect(); }));
-    halfWrap.appendChild(chipRow('Dizziness or vertigo?', VERTIGO_CHOICES, 'single',
+    halfWrap.appendChild(chipRow('Dizzy, removed or off-balance?', VERTIGO_CHOICES, 'single',
       () => active.vertigo,
       (v) => { active.vertigo = v; deriveDay(); renderSuspect(); }));
 
@@ -596,6 +616,17 @@ export async function renderToday(root, ctx) {
   });
 
   root.appendChild(form);
+
+  if (!backfill) {
+    const yISO = S.addDays(todayISO, -1);
+    const yMissing = entries.length > 0 && !entries.some((e) => e && e.date === yISO);
+    const row = el('p', { class: 'muted small backfill-row' });
+    const link = el('button', { type: 'button', class: 'link-btn',
+      text: yMissing ? 'Yesterday wasn\u2019t saved \u2014 add it' : 'Add or edit yesterday' });
+    link.addEventListener('click', () => { pendingBackfill = true; ctx.refresh(); });
+    row.appendChild(link);
+    root.appendChild(row);
+  }
 }
 
 /* ---------- Blood pressure (More → Blood pressure) ---------- */

@@ -569,7 +569,7 @@ export async function renderPatterns(root, ctx) {
   }
 
   root.appendChild(el('p', { class: 'q-blurb',
-    text: 'What went alongside your bad days — a bad headache, or a spinning day, or both. This can show where to look; it cannot show cause, and a few weeks of one person\u2019s days is a small amount of evidence.' }));
+    text: 'What went alongside your bad days — a bad headache, or an off-balance day, or both. This can show where to look; it cannot show cause, and a few weeks of one person\u2019s days is a small amount of evidence.' }));
 
   const checks = [
     { label: 'Days you went more than 4 hours without eating', fn: (e) => e.longGap === true },
@@ -735,7 +735,7 @@ export async function renderAppointment(root, ctx) {
     nums.appendChild(el('p', { class: 'muted', text: 'Nothing recorded yet.' }));
   } else {
     const rows = [
-      ['Painkillers taken on', `${stats.painkillerDays} days`],
+      ['Painkillers taken on', `at least ${stats.painkillerDays} days`],
       ['Headache on', `${stats.headache.total} days`],
       ['Dizziness or vertigo on', `${stats.vertigo ? stats.vertigo.any : 0} days`],
       ['Nausea on', `${stats.nauseaDays || 0} days`],

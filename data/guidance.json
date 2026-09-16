@@ -234,11 +234,10 @@
     {
       "name": "Sumatriptan",
       "aliases": [
-        "imigran",
-        "triptan"
+        "imigran"
       ],
-      "verdict": "current",
-      "why": "Your migraine rescue. The Today screen counts the days it's used."
+      "verdict": "check",
+      "why": "Your previous rescue — replaced by zolmitriptan in September 2026. If old tablets are still in the drawer, check with the GP or pharmacist before going back to them."
     },
     {
       "name": "Paracetamol",
@@ -358,15 +357,13 @@
       "aliases": [
         "rizatriptan",
         "maxalt",
-        "zolmitriptan",
-        "zomig",
         "naratriptan",
         "almotriptan",
         "eletriptan",
         "frovatriptan"
       ],
       "verdict": "check",
-      "why": "Same family as your sumatriptan. Rizatriptan in particular needs care alongside some blood-pressure medicines. Any triptan counts at 10 days a month for overuse headache."
+      "why": "Same family as your zolmitriptan. Rizatriptan in particular needs care alongside some blood-pressure medicines. Any triptan counts at 10 days a month for overuse headache."
     },
     {
       "name": "Caffeine tablets",
@@ -1102,6 +1099,18 @@
       ],
       "verdict": "check",
       "why": "Another sedating antihistamine sold for travel sickness and vertigo — Sea-Legs is this. Same rule as the rest of that aisle: pharmacist's check before it goes anywhere near the tamoxifen."
+    },
+    {
+      "name": "Zolmitriptan",
+      "aliases": [
+        "zolmitriptan",
+        "zomig",
+        "zomig nasal",
+        "zolmitriptan nasal spray",
+        "triptan"
+      ],
+      "verdict": "current",
+      "why": "Your migraine rescue since September 2026, replacing sumatriptan. Same family, same rules: the Today screen counts the days it's used, the 10-days-a-month overuse line applies, and blood pressure needs to be under control."
     }
   ],
   "food": {
@@ -1142,7 +1151,7 @@
   },
   "moh": {
     "title": "Why the number matters",
-    "text": "Taking painkillers on too many days in a month can, over time, start causing headaches of its own — the headache comes back as each dose wears off, so it looks like the pain is worsening when the pattern is really the treatment. The usual thresholds are 10 days a month or more for triptans like sumatriptan, and 15 days a month or more for ordinary painkillers such as paracetamol or ibuprofen. Counting the days is the whole point of this card: it turns a vague impression into a number your GP can act on."
+    "text": "Taking painkillers on too many days in a month can, over time, start causing headaches of its own — the headache comes back as each dose wears off, so it looks like the pain is worsening when the pattern is really the treatment. The usual thresholds are 10 days a month or more for triptans like yours, and 15 days a month or more for ordinary painkillers such as paracetamol or ibuprofen. Counting the days is the whole point of this card: it turns a vague impression into a number your GP can act on. One honesty note: the count only knows about days you logged — a tablet taken on an unrecorded day is missed, so treat the number as a minimum and say so to the GP. The evening check-in is the easiest moment to catch the day's tablets."
   },
   "nudgeThresholds": {
     "fastingFlags7d": 3,
@@ -1154,7 +1163,7 @@
     "backup": "Worth saving a backup — Settings → Save a backup."
   },
   "painkillerCard": {
-    "green": "Below the level linked to medication-overuse headache.",
+    "green": "Below the level linked to medication-overuse headache — counting logged days only.",
     "amber": "Getting close to the level that can cause extra headaches.",
     "red": "This level can itself cause headaches — worth telling your GP this number."
   },
@@ -2189,11 +2198,7 @@
         "items": [
           {
             "text": "How many days a month am I taking painkillers, and is it too many?",
-            "why": "Above 10 days a month for sumatriptan, or 15 for paracetamol and ibuprofen, painkillers can start causing headaches themselves. The app counts the days for you."
-          },
-          {
-            "text": "Could some of my vertigo be BPPV rather than migraine? Could you check with the head-position test?",
-            "why": "Sudden oestrogen loss raises the risk of BPPV — loose inner-ear crystals. If spinning is set off by rolling over or looking up and lasts under a minute, it may be fixable in minutes with the Epley manoeuvre, no drugs involved."
+            "why": "Above 10 days a month for a triptan, or 15 for paracetamol and ibuprofen, painkillers can start causing headaches themselves. The app counts the days for you."
           },
           {
             "text": "Would a referral for vestibular rehabilitation help? And what should I take during a vertigo attack, given the travel-sickness tablets need checking against tamoxifen?",
@@ -2201,7 +2206,7 @@
           },
           {
             "text": "Is my blood pressure actually at target?",
-            "why": "It decides whether sumatriptan is safe for you — triptans aren't used when blood pressure is uncontrolled. The home target is below 135/85."
+            "why": "It decides whether your triptan is safe for you — triptans aren't used when blood pressure is uncontrolled. The home target is below 135/85."
           },
           {
             "text": "Is there room to increase my candesartan?",
@@ -2293,7 +2298,7 @@
     "footnote": "None of it replaces your GP or your hospital team. It's for the questions in between appointments, and for working out which ones are worth their time."
   },
   "vertigo": {
-    "intro": "Your migraines are the vestibular kind, and the vertigo has been worse since the HRT stopped. That fits — this type is strongly hormone-sensitive, and a sudden drop is exactly the sort of change it reacts to. Worth knowing properly, because some of it is fixable.",
+    "intro": "Yours is rarely full spinning — more a removed, foggy feeling, sometimes properly off-balance. That still counts: non-spinning dizziness is one of the recognised forms of vestibular migraine, and it's been worse since the HRT stopped, which fits — this type is strongly hormone-sensitive. Worth describing it to clinicians in exactly those words: 'removed and off-balance rather than spinning' is still the vestibular picture, and saying it that way stops anyone chasing the wrong thing.",
     "sections": [
       {
         "title": "When it hits",
@@ -2308,10 +2313,10 @@
         "title": "The shape of an attack — before and after",
         "lines": [
           "Your attacks announce themselves, and that's useful. Floaters or visual changes, jaw pain, tingling that creeps into your face or hands over minutes, needing the loo more than usual — all recognised early warnings, and the app now tracks the lot. Patterns will show which ones reliably come first for you.",
-          "Treating at the first sign works better than waiting, and an aborted attack still counts as a sumatriptan day in your numbers — exactly what the GP conversation about prevention needs.",
+          "Treating at the first sign works better than waiting, and an aborted attack still counts as a triptan day in your numbers — exactly what the GP conversation about prevention needs.",
           "Two distinctions to hold on to. Your familiar tingling builds gradually and passes; SUDDEN numbness or weakness, especially one-sided or with speech trouble, is a 999 matter every time. And your usual visual signs are old friends; a sudden shower of new floaters, flashes, or a curtain across one eye needs same-day eye attention.",
           "There's an after as well as a before. The flat, exhausted, low-mood day after an attack is the postdrome — a real phase of the migraine, not a failing. Where you can, keep the day after light, and don't read anything into your mood on it.",
-          "Worth telling the GP which warnings come first for you — it helps classify the migraine, and it strengthens the case for having enough sumatriptan to use early."
+          "Worth telling the GP which warnings come first for you — it helps classify the migraine, and it strengthens the case for having enough of your triptan to use early."
         ]
       },
       {
@@ -2323,12 +2328,10 @@
         ]
       },
       {
-        "title": "One genuinely hopeful thing to ask about",
+        "title": "BPPV — checked, and ruled out",
         "lines": [
-          "Not all vertigo after sudden oestrogen loss is migraine. Losing oestrogen abruptly also raises the risk of BPPV — loose crystals in the inner ear.",
-          "The tell: spinning set off by rolling over in bed, lying down or looking up, lasting seconds to a minute, then settling.",
-          "Why it matters: BPPV is fixed in minutes, in the GP surgery, with a head-repositioning manoeuvre (the Epley). No drugs at all.",
-          "If any of your vertigo fits that pattern, ask your GP to check for it. It would be the easiest win available."
+          "Sudden oestrogen loss raises the risk of BPPV (loose inner-ear crystals), so it was worth checking — and it has been: you were examined and it isn't that (September 2026).",
+          "One thing to keep in the back pocket rather than worry about: BPPV can start at any time, and it has one tell — spinning set off by rolling over in bed or looking up, lasting under a minute. If that specific pattern ever appears NEW, it's worth a recheck, because it's fixable in one appointment."
         ]
       },
       {
@@ -2336,7 +2339,7 @@
         "lines": [
           "The preventives for vestibular migraine are largely the ones you know — your candesartan is a reasonable choice, and propranolol and venlafaxine both have trial evidence for the vertigo itself.",
           "Vestibular rehabilitation — balance retraining with a physiotherapist — has good evidence, and you already have a physio who works on your nervous system. Worth connecting those two things.",
-          "Sumatriptan treats the headache side better than the spinning side. If vertigo is now the bigger problem, that's worth saying to the GP in exactly those words.",
+          "Your triptan treats the headache side better than the spinning side. If vertigo is now the bigger problem, that's worth saying to the GP in exactly those words.",
           "The everyday rules count double here: steady meals, steady sleep, steady caffeine. This type reacts to change."
         ]
       }
