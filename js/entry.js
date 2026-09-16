@@ -44,8 +44,14 @@ const MOOD_CHOICES = [
 export function blankEntry(date) {
   return {
     date,
+    // headache/vertigo hold the WORST of the day, derived on save — every
+    // count and pattern reads these, so the day's numbers keep their meaning.
+    // am/pm hold the halves: morning state and evening state, never
+    // overwriting each other. null = that half not checked in yet.
     headache: 'none',
     vertigo: 'none',
+    am: null,
+    pm: null,
     meds: [],
     fatigue: null,
     sleepHours: null,
@@ -57,6 +63,9 @@ export function blankEntry(date) {
     nausea: false,
     lightSensitive: false,
     stress: false,
+    jawPain: false,
+    tingling: false,
+    frequentLoo: false,
     mood: null,
     note: '',
     suspect: '',
@@ -74,6 +83,23 @@ function normalise(stored, date) {
   out.meds = Array.isArray(out.meds) ? out.meds.filter((m) => typeof m === 'string') : [];
   if (!HEADACHE_CHOICES.some((c) => c.value === out.headache)) out.headache = 'none';
   if (!VERTIGO_CHOICES.some((c) => c.value === out.vertigo)) out.vertigo = 'none';
+  const half = (h) => {
+    if (!h || typeof h !== 'object') return null;
+    const ok = { headache: h.headache, vertigo: h.vertigo };
+    if (!HEADACHE_CHOICES.some((c) => c.value === ok.headache)) ok.headache = 'none';
+    if (!VERTIGO_CHOICES.some((c) => c.value === ok.vertigo)) ok.vertigo = 'none';
+    return ok;
+  };
+  out.am = half(out.am);
+  out.pm = half(out.pm);
+  // A record saved before the split has one day-level state. Treat it as the
+  // morning half, so an evening check-in adds to it instead of overwriting.
+  if (!out.am && !out.pm && (out.headache !== 'none' || out.vertigo !== 'none')) {
+    out.am = { headache: out.headache, vertigo: out.vertigo };
+  }
+  out.jawPain = out.jawPain === true;
+  out.tingling = out.tingling === true;
+  out.frequentLoo = out.frequentLoo === true;
   if (!['woke', 'morning', 'afternoon', 'evening', 'night'].includes(out.onsetPart)) out.onsetPart = null;
   if (typeof out.onsetTime !== 'string' || !/^\d{2}:\d{2}$/.test(out.onsetTime)) out.onsetTime = null;
   if (!FLUSH_CHOICES.some((c) => c.value === out.flushes)) out.flushes = 'none';
@@ -342,14 +368,66 @@ export async function renderToday(root, ctx) {
   /* ----- the form ----- */
   const form = el('form', { class: 'entry-form', novalidate: true });
 
-  form.appendChild(chipRow('How are you today?', HEADACHE_CHOICES, 'single',
-    () => model.headache, (v) => { model.headache = v; renderSuspect(); }));
+  // Two check-ins a day, morning and evening, stored side by side — how she
+  // felt at 8am and how the day ended are different facts, and editing one
+  // must never overwrite the other. The screen shows whichever half fits the
+  // clock; the other is a tap away.
+  const SEVERITY = { none: 0, mild: 1, bad: 2, migraine: 3 };
+  const VSEV = { none: 0, mild: 1, spinning: 2 };
+  const worst = (a, b) => (SEVERITY[b] ?? 0) > (SEVERITY[a] ?? 0) ? b : a;
+  const vworst = (a, b) => (VSEV[b] ?? 0) > (VSEV[a] ?? 0) ? b : a;
+  function deriveDay() {
+    let h = 'none', v = 'none';
+    for (const half of [model.am, model.pm]) {
+      if (!half) continue;
+      h = worst(h, half.headache);
+      v = vworst(v, half.vertigo);
+    }
+    model.headache = h;
+    model.vertigo = v;
+  }
 
-  // Vestibular migraine can arrive as vertigo with no headache at all, so
-  // dizziness has to be a first-class question — a spinning day answered
-  // "None" to the headache chip would otherwise vanish from the record.
-  form.appendChild(chipRow('Dizziness or vertigo?', VERTIGO_CHOICES, 'single',
-    () => model.vertigo, (v) => { model.vertigo = v; renderSuspect(); }));
+  let editingHalf = new Date().getHours() >= 14 ? 'pm' : 'am';
+  const halfWrap = el('div');
+  form.appendChild(halfWrap);
+
+  function halfSummary(half, label) {
+    if (!half) return `${label}: not checked in`;
+    const bits = [];
+    bits.push(half.headache === 'none' ? 'head clear' :
+      (HEADACHE_CHOICES.find((c) => c.value === half.headache) || {}).label || half.headache);
+    if (half.vertigo !== 'none') {
+      bits.push((VERTIGO_CHOICES.find((c) => c.value === half.vertigo) || {}).label.toLowerCase());
+    }
+    return `${label}: ${bits.join(', ').toLowerCase()}`;
+  }
+
+  function renderHalves() {
+    halfWrap.textContent = '';
+    const isAM = editingHalf === 'am';
+    if (!model[editingHalf]) model[editingHalf] = { headache: 'none', vertigo: 'none' };
+    const active = model[editingHalf];
+
+    halfWrap.appendChild(el('p', { class: 'field-label half-title',
+      text: isAM ? 'This morning' : 'This evening' }));
+
+    halfWrap.appendChild(chipRow('How are you?', HEADACHE_CHOICES, 'single',
+      () => active.headache,
+      (v) => { active.headache = v; deriveDay(); renderSuspect(); }));
+    halfWrap.appendChild(chipRow('Dizziness or vertigo?', VERTIGO_CHOICES, 'single',
+      () => active.vertigo,
+      (v) => { active.vertigo = v; deriveDay(); renderSuspect(); }));
+
+    // The other half: its state in one line, and the way across to it.
+    const other = isAM ? 'pm' : 'am';
+    const row = el('p', { class: 'half-other muted small' });
+    row.appendChild(el('span', { text: halfSummary(model[other], isAM ? 'This evening' : 'This morning') + ' \u00b7 ' }));
+    const link = el('button', { type: 'button', class: 'link-btn',
+      text: isAM ? 'check in for the evening' : 'edit this morning' });
+    link.addEventListener('click', () => { editingHalf = other; renderHalves(); });
+    row.appendChild(link);
+    halfWrap.appendChild(row);
+  }
 
   // Only asked on a bad day, and never required. Catching her hunch at the
   // moment it forms beats asking her to log every meal — and a food diary
@@ -407,6 +485,7 @@ export async function renderToday(root, ctx) {
     suspectWrap.appendChild(el('p', { class: 'field-hint',
       text: 'Only asked on bad days. Patterns build up over a few weeks.' }));
   }
+  renderHalves();
   renderSuspect();
 
   form.appendChild(chipRow('Painkillers today?', MED_CHOICES, 'multi',
@@ -434,6 +513,17 @@ export async function renderToday(root, ctx) {
 
   extra.appendChild(toggleRow('Sensitive to light?',
     () => model.lightSensitive, (v) => { model.lightSensitive = v; }));
+
+  // Her early-warning trio. Each may or may not herald an attack — Patterns
+  // works out which ones actually do, for her specifically.
+  extra.appendChild(toggleRow('Jaw pain today?',
+    () => model.jawPain, (v) => { model.jawPain = v; }));
+
+  extra.appendChild(toggleRow('Tingling in face or hands?',
+    () => model.tingling, (v) => { model.tingling = v; }));
+
+  extra.appendChild(toggleRow('Needing the loo more than usual?',
+    () => model.frequentLoo, (v) => { model.frequentLoo = v; }));
 
   const botherWrap = el('div', { hidden: model.flushes === 'none' });
   extra.appendChild(chipRow('Hot flushes', FLUSH_CHOICES, 'single',
@@ -486,6 +576,7 @@ export async function renderToday(root, ctx) {
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
+    deriveDay();
     model.updatedAt = new Date().toISOString();
     await db.put('entries', model);
 

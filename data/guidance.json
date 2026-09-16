@@ -2222,6 +2222,10 @@
           {
             "text": "Should I have a bone density (DEXA) scan?",
             "why": "Routinely offered for a different breast-cancer medicine, not usually for tamoxifen — but tamoxifen can thin the bones in women who haven't been through the menopause, and you came off HRT suddenly as well."
+          },
+          {
+            "text": "I get jaw pain, often before attacks and on stressful days — could this be teeth-grinding, and would a dentist's night guard help?",
+            "why": "Jaw pain plus stress plus waking with headaches is the classic grinding (bruxism) cluster, and a night guard from a dentist is one of the cheapest fixes available. If the jaw pain turns out to herald attacks instead, that's worth knowing too — the Patterns page keeps score."
           }
         ]
       },
@@ -2301,12 +2305,13 @@
         ]
       },
       {
-        "title": "Your early-warning window",
+        "title": "The shape of an attack — before and after",
         "lines": [
-          "If floaters or other visual changes are your first sign an attack is coming, that warning is valuable — treating at the first sign works better than waiting, and stopping an attack before it lands is the best outcome there is.",
-          "Taking your tablet at that point is the right use of it, not a waste of one. An aborted attack still counts as a sumatriptan day in your numbers, which is exactly what the GP conversation about prevention needs.",
-          "One distinction to hold on to: your usual warning signs are familiar friends. What needs same-day eye attention is CHANGE — a sudden shower of new floaters, flashes, or a curtain across part of one eye. Different thing entirely.",
-          "Worth telling the GP your visual warning usually comes first — it helps them classify the migraine properly, and it strengthens the case for having enough sumatriptan to use early."
+          "Your attacks announce themselves, and that's useful. Floaters or visual changes, jaw pain, tingling that creeps into your face or hands over minutes, needing the loo more than usual — all recognised early warnings, and the app now tracks the lot. Patterns will show which ones reliably come first for you.",
+          "Treating at the first sign works better than waiting, and an aborted attack still counts as a sumatriptan day in your numbers — exactly what the GP conversation about prevention needs.",
+          "Two distinctions to hold on to. Your familiar tingling builds gradually and passes; SUDDEN numbness or weakness, especially one-sided or with speech trouble, is a 999 matter every time. And your usual visual signs are old friends; a sudden shower of new floaters, flashes, or a curtain across one eye needs same-day eye attention.",
+          "There's an after as well as a before. The flat, exhausted, low-mood day after an attack is the postdrome — a real phase of the migraine, not a failing. Where you can, keep the day after light, and don't read anything into your mood on it.",
+          "Worth telling the GP which warnings come first for you — it helps classify the migraine, and it strengthens the case for having enough sumatriptan to use early."
         ]
       },
       {

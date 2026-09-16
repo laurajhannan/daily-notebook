@@ -576,9 +576,6 @@ export async function renderPatterns(root, ctx) {
     { label: 'Nights you were woken by sweats', fn: (e) => e.nightSweats === true },
     { label: 'Days you had a hot flush', fn: (e) => e.flushes && e.flushes !== 'none' }
   ];
-  // Vertigo checked as a flag too — do spinning days cluster with anything?
-  checks.push({ label: 'Days you were dizzy or unsteady', fn: (e) => e.vertigo === 'mild' || e.vertigo === 'spinning' });
-
   // Stress twice over: the day itself, and the day after. Stress migraine
   // famously lands when the pressure comes OFF (the let-down effect), so a
   // same-day check alone would miss the classic weekend-migraine shape.
@@ -613,6 +610,68 @@ export async function renderPatterns(root, ctx) {
   }
   if (!shown) {
     root.appendChild(el('p', { class: 'muted', text: 'Nothing has come up often enough to compare yet.' }));
+  }
+
+  // Her warning signs, judged directionally: when the sign shows up, does an
+  // attack actually follow — same day or next — against her background rate?
+  // This is what settles whether jaw pain (say) is a herald or a red herring.
+  const heraldDefs = [
+    ['jawPain', 'Jaw pain'],
+    ['tingling', 'Tingling in face or hands'],
+    ['frequentLoo', 'Needing the loo more than usual']
+  ];
+  const heraldCards = [];
+  for (const [key, label] of heraldDefs) {
+    const h = S.heraldStat(entries, todayISO, days, key);
+    if (h) heraldCards.push([label, h]);
+  }
+  if (heraldCards.length) {
+    const wrap = el('div', { class: 'card' });
+    wrap.appendChild(el('h3', { text: 'Your warning signs' }));
+    wrap.appendChild(el('p', { class: 'muted small',
+      text: 'When each sign appeared, how often an attack followed — the same day or the next.' }));
+    for (const [label, h] of heraldCards) {
+      wrap.appendChild(el('p', { class: 'sug-text mt', text: label }));
+      wrap.appendChild(el('p', {
+        text: `Logged on ${h.signDays} days; an attack followed on ${h.hits} of them (${h.signPct}%). Across all your days the background chance was ${h.basePct}%.`
+      }));
+      if (h.notable) {
+        wrap.appendChild(el('p', { class: 'verdict-why',
+          text: 'That gap is big enough to look real. Worth telling your GP — including asking whether this sign should change when you take your tablet.' }));
+      } else {
+        wrap.appendChild(el('p', { class: 'muted small',
+          text: `Too close to the background rate to call it a reliable warning yet (a gap of about ${h.threshold} points would).` }));
+      }
+    }
+    root.appendChild(wrap);
+  }
+
+  // The postdrome, made visible from data she already keeps: how the day
+  // after an attack compares. The point is permission — the wipe-out after
+  // is part of the attack, not a failing.
+  {
+    const dayAfter = [];
+    const otherDays = [];
+    for (const e of S.entriesInWindow(entries, todayISO, days)) {
+      const prev = byDate.get(S.addDays(e.date, -1));
+      const after = !!(prev && S.isBadDay(prev)) && !S.isBadDay(e);
+      if (after) dayAfter.push(e); else if (!S.isBadDay(e)) otherDays.push(e);
+    }
+    const avg = (list) => {
+      const v = list.map((e) => e.fatigue).filter((n) => typeof n === 'number');
+      return v.length >= 3 ? Math.round((v.reduce((a, b) => a + b, 0) / v.length) * 10) / 10 : null;
+    };
+    const aF = avg(dayAfter), oF = avg(otherDays);
+    if (dayAfter.length >= 4 && aF !== null && oF !== null) {
+      const card = el('div', { class: 'card' });
+      card.appendChild(el('h3', { text: 'The day after an attack' }));
+      card.appendChild(el('p', {
+        text: `On clear days straight after an attack, your tiredness averaged ${aF}/10, against ${oF}/10 on other clear days.`
+      }));
+      card.appendChild(el('p', { class: 'muted small',
+        text: 'The flat, foggy, low day after is the postdrome — part of the attack, not a failing. Where you can, keep the day after light.' }));
+      root.appendChild(card);
+    }
   }
 
   // The attack clock — the schedule she's noticed, made visible.

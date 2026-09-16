@@ -344,6 +344,38 @@ export function suspects(entries, endISO, days) {
     .map((e) => ({ date: e.date, text: e.suspect.trim(), headache: e.headache }));
 }
 
+/**
+ * Does a logged sign actually herald an attack, for her specifically?
+ *
+ * Directional, unlike flagPattern: of the days she logged the sign, how often
+ * did a bad day follow — the same day or the next — against the background
+ * chance across all recorded days. Same noise guards as everything else:
+ * MIN_GROUP sign-days before we compute, and the adaptive threshold before we
+ * call it real.
+ */
+export function heraldStat(entries, endISO, days, key) {
+  const rows = entriesInWindow(entries, endISO, days);
+  if (rows.length < MIN_PATTERN_DAYS) return null;
+  const byDate = new Map(rows.map((e) => [e.date, e]));
+  const attackOn = (d) => {
+    const e = byDate.get(d);
+    return !!(e && isBadDay(e));
+  };
+  const followed = (d) => attackOn(d) || attackOn(addDays(d, 1));
+  const signDays = rows.filter((e) => e[key] === true);
+  if (signDays.length < MIN_GROUP) return null;
+  const hits = signDays.filter((e) => followed(e.date)).length;
+  const baseHits = rows.filter((e) => followed(e.date)).length;
+  const signPct = Math.round((hits / signDays.length) * 100);
+  const basePct = Math.round((baseHits / rows.length) * 100);
+  const threshold = noticeThreshold(rows.length);
+  return {
+    signDays: signDays.length, hits, signPct, basePct,
+    difference: signPct - basePct, threshold,
+    notable: signPct - basePct >= threshold
+  };
+}
+
 /* ---------- milestones ---------- */
 
 /**

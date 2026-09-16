@@ -35,6 +35,9 @@ export function buildStats(entries, bp, milestones, endISO, days = 28) {
     sleep,
     nightSweats: S.nightSweatWakings(entries, endISO, days),
     nauseaDays: S.toggleDays(entries, endISO, days, 'nausea'),
+    jawDays: S.toggleDays(entries, endISO, days, 'jawPain'),
+    tinglingDays: S.toggleDays(entries, endISO, days, 'tingling'),
+    looDays: S.toggleDays(entries, endISO, days, 'frequentLoo'),
     lightDays: S.toggleDays(entries, endISO, days, 'lightSensitive'),
     stressDays: S.toggleDays(entries, endISO, days, 'stress'),
     longGaps7: S.longGapDays(entries, endISO, 7),
@@ -68,6 +71,11 @@ export function summaryText(stats, guidance) {
   const onsetLine = S.onsetSentence(stats.onset);
   if (onsetLine) lines.push(onsetLine);
   if (stats.nauseaDays) lines.push(`Nausea on ${stats.nauseaDays} day${stats.nauseaDays === 1 ? '' : 's'}.`);
+  const warns = [];
+  if (stats.jawDays) warns.push(`jaw pain ${stats.jawDays}`);
+  if (stats.tinglingDays) warns.push(`tingling ${stats.tinglingDays}`);
+  if (stats.looDays) warns.push(`needing the loo more ${stats.looDays}`);
+  if (warns.length) lines.push(`Warning signs logged (days): ${warns.join(', ')}.`);
   if (stats.lightDays) lines.push(`Sensitive to light on ${stats.lightDays} day${stats.lightDays === 1 ? '' : 's'}.`);
   lines.push(`Painkillers on ${stats.painkillerDays} day${stats.painkillerDays === 1 ? '' : 's'}${medParts.length ? ` (${medParts.join(', ')})` : ''}.`);
 
