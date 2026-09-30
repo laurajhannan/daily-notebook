@@ -4,7 +4,7 @@
   "tamoxifenActive": false,
   "pharmacistLine": {
     "active": "Whatever it is, tell the pharmacist about your breast-cancer medicine every time — even for things off the supermarket shelf.",
-    "pending": "Whatever it is, tell the pharmacist you've been treated for breast cancer and may be starting endocrine treatment — every time, even for things off the supermarket shelf."
+    "pending": "Whatever it is, tell the pharmacist you've been treated for breast cancer and will be starting tamoxifen after radiotherapy — every time, even for things off the supermarket shelf."
   },
   "verdicts": {
     "avoid": {
@@ -2283,9 +2283,9 @@
   },
   "noclashNote": "This means it isn't known to interfere with your treatment — not that it's proven to work. Most natural products have never had a large trial, because nobody funds one for something that grows on a log. Absence of evidence isn't evidence of absence, but it isn't proof either. Still worth telling your team you take it.",
   "timingNote": {
-    "title": "Tamoxifen hasn't been started — or confirmed",
-    "text": "Endocrine treatment is expected but not settled, and tamoxifen is the likeliest option rather than a decision already taken. Worth knowing which flags apply when. Things that clash with tamoxifen are marked now so nothing catches you out if it's prescribed. Others apply already, whatever you end up on, because your cancer is oestrogen-driven: soy, sage, red clover, HRT and anything sold as a natural hormone. If you're unsure which is which, the pharmacist can tell you in a sentence.",
-    "startedPrompt": "Once you know what you're being prescribed, tell Laura and she'll have this updated."
+    "title": "Tamoxifen starts after radiotherapy",
+    "text": "Confirmed: tamoxifen begins once the radiotherapy course finishes — it hasn't started yet. So the flags here split two ways. Things that clash with tamoxifen are marked now so nothing catches you out when it begins — and so anything new prescribed in the meantime can be chosen tamoxifen-compatible from the start. Things that apply already, whatever you take, because your cancer is oestrogen-driven: soy, sage, red clover, HRT and anything sold as a natural hormone. If you're unsure which is which, the pharmacist can tell you in a sentence.",
+    "startedPrompt": "Once tamoxifen actually starts, tell Laura and she'll switch this over."
   },
   "whyLaura": {
     "title": "Why some questions go to Laura",
